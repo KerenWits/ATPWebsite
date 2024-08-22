@@ -1,0 +1,104 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1C1B1B;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #111;
+    padding: 15px;
+    text-align: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#contact-us {
+    padding: 50px;
+    text-align: center;
+    background-color: #2E2E2E;
+}
+
+#contact-info p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#contact-info i {
+    color: #FF0000;
+    margin-right: 10px;
+}
+
+#contact-form form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #FFF;
+}
+
+#contact-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF0000;
+    color: #FFF;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background-color: #D90000;
+}
+
+#map iframe {
+    border: none;
+}
+
+footer {
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    color: #888;
+}
+
+#social-media a {
+    color: #888;
+    margin: 0 10px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+#social-media a:hover {
+    color: #FFF;
+}
