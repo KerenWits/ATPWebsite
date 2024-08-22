@@ -1,0 +1,190 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1C1B1B;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    /* Add header styling here */
+}
+
+#faqs {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.faq-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.faq-header input[type="search"] {
+    padding: 10px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.faq-content {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    text-align: center;
+}
+
+.faq-item i {
+    font-size: 50px;
+    color: #FF0000;
+    margin-bottom: 10px;
+}
+
+.faq-item h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.faq-item button {
+    background-color: #FF0000;
+    color: #FFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.concern-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.concern-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.concern-form {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.checkbox-group p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.checkbox-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Styling for Image Section */
+.faq-image-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.faq-image-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.ask-question {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.ask-question h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.ask-question form {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.ask-question form input,
+.ask-question form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: #FFF;
+}
+
+.ask-question form button {
+    background-color: #FF0000;
+    color: #FFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #1C1B1B;
+    padding: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-left a {
+    color: #FFFFFF;
+    font-size: 24px;
+    margin-right: 20px;
+}
+
+.footer-right form {
+    display: flex;
+}
+
+.footer-right input[type="email"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.footer-right button {
+    padding: 10px;
+    border: none;
+    background-color: #FF0000;
+    color: #FFF;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
