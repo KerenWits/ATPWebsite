@@ -5,7 +5,7 @@
   /*Navbar code*/
   .Navbar ul{
     list-style-type: none;
-    background-color: #1b1a1a;
+    background-color: rgb(26, 24, 24);
     padding: 0px;
     margin: 0px;
     overflow: hidden;
@@ -36,7 +36,7 @@
   }
  /*AboutUs css*/
  .AboutUs {
-    background-color: #090707;
+    background-color: #1C1B1B;
 }
 
 .AboutUs{
