@@ -5,6 +5,38 @@ body {
     margin: 0;
     padding: 0;
 }
+/*Navbar code*/
+.Navbar ul{
+    list-style-type: none;
+    background-color: rgb(26, 24, 24);
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    height: 50px; /* Set the height of the navbar */
+  }
+  .Navbar .logo {
+    margin-right: auto; /* Pushes other items to the right */
+  }
+  .Navbar img{
+    height: 100%; /* Makes the image take the full height of the navbar */
+    width: 50px; 
+  }
+  .Navbar a{
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+    
+  }
+  .Navbar a:hover{
+    color: red;  
+  }
+  .Navbar li{
+    float: left;
+  }
 
 #faqs {
     max-width: 1200px;
