@@ -1,0 +1,68 @@
+<!--StartSignUpPage-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Sign Up</title>
+    <link rel="stylesheet" href="SignUp.css">
+</head>
+<body class="SignUp">
+        <div class="signup-container">
+        <div class="signup-box">
+            <h2>Account Sign Up</h2>
+            <p>Become a member and enjoy the services we offer.</p>
+            <form action="#">
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" name="firstname" value="" required>
+
+                <label for="lastname">Last Name</label>
+                <input type="text" id="lastname" name="lastname" value="" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" value="" required>
+
+                <label for="cellphone">Cellphone Number</label>
+                <input type="tel" id="cellphone" name="cellphone" placeholder="xxx-xxx-xxxx" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" class="signup-btn">Sign Up</button>
+
+                <div class="signin-link">
+                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Prevent spaces in email and password inputs    
+        const emailInput = document.getElementById('email');
+        emailInput.addEventListener('input', function() {
+            emailInput.value = emailInput.value.replace(/\s/g, '');
+        });
+        const passwordInput = document.getElementById('password');
+        passwordInput.addEventListener('input', function() {
+            passwordInput.value = passwordInput.value.replace(/\s/g, '');
+        });
+
+        // Prevent spaces in name inputs
+        const nameInputs = ['firstname', 'lastname'];
+        nameInputs.forEach(function(inputId) {
+            const inputElement = document.getElementById(inputId);
+            inputElement.addEventListener('input', function() {
+                inputElement.value = inputElement.value.replace(/\s/g, '');
+            });
+        });
+
+        // Format phone number
+        const phoneInput = document.getElementById('cellphone');
+        phoneInput.addEventListener('input', function() {
+            phoneInput.value = phoneInput.value
+                .replace(/\D/g, '') // Remove all non-digits
+                .replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3') // Format as XXX-XXX-XXXX
+                .slice(0, 12); // Limit to 12 characters
+        });
+    </script>
+</body>
+</html>
+<!--EndSignUpPage-->
