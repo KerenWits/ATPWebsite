@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddServicePage</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="AddService.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="Navbar">
+            <ul>
+                <li class="logo"><img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="AboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+                <li><a href="QuotesAdmin.html">Quotes</a></li>
+                <li><a href="ServicesAdmin.html">Services</a></li>
+                <li><a href="Reports.html">Generate report</a></li>
+                <li><a href="">My Profile</a></li>
+                <li><a href="Login.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content-container">
+        <h1>Add a <span class="Red">New Service</span></h1>
+
+        <div class="service-container">
+            <div class="service-box">
+                <p>Provide the details of the new service you want to add.</p>
+                <form action="#">
+                    <label for="service-name">Service Name</label>
+                    <input type="text" id="service-name" name="service-name" placeholder="Enter service name" required>
+
+                    <label for="service-description">Service Description</label>
+                    <textarea id="service-description" name="service-description" placeholder="Enter service description" rows="5" required></textarea>
+
+                    <button type="submit" class="add-service-btn">Add Service</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Prevent spaces at the start of the service name
+        const serviceNameInput = document.getElementById('service-name');
+        serviceNameInput.addEventListener('input', function() {
+            serviceNameInput.value = serviceNameInput.value.replace(/^\s+/g, '');
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+        <div id="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
