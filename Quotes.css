@@ -6,38 +6,60 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}.Navbar ul{
-    list-style-type: none;
-    background-color: rgb(26, 24, 24);
-    padding: 0px;
-    margin: 0px;
-    overflow: hidden;
-    display: flex;
-    justify-content: flex-end;
-    height: 50px; /* Set the height of the navbar */
-  }
-  .Navbar .logo {
-    margin-right: auto; /* Pushes other items to the right */
-  }
-  .Navbar img{
-    height: 100%; /* Makes the image take the full height of the navbar */
-    width: 50px; 
-  }
-  .Navbar a{
-    color: white;
-    text-decoration: none;
-    padding: 15px;
-    display: block;
-    text-align: center;
+    .Navbar ul{
+        list-style-type: none;
+        background-color: rgb(26, 24, 24);
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+        display: flex;
+        justify-content: flex-end;
+        height: 50px; /* Set the height of the navbar */
+      }
+      .Navbar .logo {
+        margin-right: auto; /* Pushes other items to the right */
+      }
+      .Navbar img{
+        height: 100%; /* Makes the image take the full height of the navbar */
+        width: 50px; 
+      }
+      .Navbar a{
+        color: white;
+        text-decoration: none;
+        padding: 15px;
+        display: block;
+        text-align: center;
+        
+      }
+      .Navbar a:hover{
+        color: red;  
+      }
+      .Navbar li{
+        float: left;
+      }
+    header {
+        background-color: #111;
+        padding: 15px;
+        text-align: center;
+    }
     
-  }
-  .Navbar a:hover{
-    color: red;  
-  }
-  .Navbar li{
-    float: left;
-  }
-
+    header nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+    
+    header nav ul li a {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
 
 .header h1 {
     font-family: 'Roboto', sans-serif;
@@ -93,7 +115,7 @@ h2 {
     font-family: Arial, sans-serif;
 }
 .form-group select:focus {
-    border-color: #e74c3c;
+    border-color: #D90000;
     outline: none;
 }
 .description-box {
@@ -104,7 +126,7 @@ h2 {
     margin-top: 20px;
     text-align: center;
 }.button {
-    background-color: #e74c3c;
+    background-color: #D90000;
     border: none;
     color: #fff;
     padding: 10px 20px;
@@ -119,7 +141,7 @@ h2 {
 }
 
 .button:hover {
-    background-color: #c0392b;
+    background-color: #D90000;
 }
 
 /* Accept and Reject buttons */
@@ -131,7 +153,7 @@ h2 {
 }
 
 .reject-button {
-    background-color: #dc3545; /* Red */
+    background-color: #c82333; /* Red */
 }
 .reject-button:hover {
     background-color: #c82333;
@@ -183,4 +205,5 @@ footer p {
 
 #social-media a:hover {
     color: #FFF;
+}
 }
