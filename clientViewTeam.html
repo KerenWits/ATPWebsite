@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Team</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="clientViewTeam.css"> <!-- Link to the external CSS file -->
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="Navbar">
+            <ul>
+                <li class="logo"><img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="OurServices.html">Our Services</a></li>
+                <li><a href="AboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+                <li><a href="FAQs.html">FAQs</a></li>
+                <li><a href="Quotes.html">Quotes</a></li>
+                <li><a href="">My Profile</a></li>
+                <li><a href="Login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>View Assigned Team</h2>
+
+        <!-- Dropdown to select quote -->
+        <div class="form-group">
+            <label for="quote-select">Select Quote:</label>
+            <select id="quote-select" onchange="showTeam()">
+                <option value="quote1">Quote #005 - Incident Response for JKL Enterprises</option>
+                <option value="quote2">Quote #006 - Vulnerability Assessment for MNO Corp.</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+
+        <!-- Table to display team members -->
+        <table id="team-table">
+            <thead>
+                <tr>
+                    <th>Member Name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Placeholder rows -->
+                <tr data-quote="quote1">
+                    <td>John Doe</td>
+                    <td>Lead Auditor</td>
+                    <td>john.doe@example.com</td>
+                </tr>
+                <tr data-quote="quote1">
+                    <td>Jane Smith</td>
+                    <td>Security Analyst</td>
+                    <td>jane.smith@example.com</td>
+                </tr>
+                <tr data-quote="quote2">
+                    <td>Robert Brown</td>
+                    <td>Penetration Tester</td>
+                    <td>robert.brown@example.com</td>
+                </tr>
+                <tr data-quote="quote2">
+                    <td>Lisa White</td>
+                    <td>Network Specialist</td>
+                    <td>lisa.white@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+        <div id="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <!-- JavaScript to handle dropdown change -->
+    <script>
+        function showTeam() {
+            const selectedQuote = document.getElementById('quote-select').value;
+            const rows = document.querySelectorAll('#team-table tbody tr');
+
+            rows.forEach(row => {
+                if (row.getAttribute('data-quote') === selectedQuote) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Initially display the first quote's team
+        window.onload = showTeam;
+    </script>
+</body>
+</html>

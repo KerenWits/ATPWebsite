@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiskAnalysisClientInputPage</title>
+     <!-- Font Awesome CDN -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="RiskAnalysisClientInput.css">
+    
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="Navbar">
+
+            <ul>
+                <li class="logo"><img src = "https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="OurServices.html">Our Services</a></li>
+                <li><a href="AboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+                <li><a href="FAQs.html">FAQs</a></li>
+                <li><a href="Quotes.html">Quotes</a></li>
+                <li><a href="">My Profile</a></li>
+                <li><a href="Login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!--Heading-->
+<div class="Headings">
+   <h1>To continue with your quote request please answer these <span class="Red">risk analysis questions</span></h1>
+</div>
+   <!-- Risk Analysis Questions -->
+   <div class="questions-container">
+    <!-- Question 1 -->
+    <div class="question-block">
+        <p>Question 1: Question?</p>
+        <label>
+            <input type="radio" name="question1" value="yes"> Yes
+        </label>
+        <label>
+            <input type="radio" name="question1" value="no"> No
+        </label>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-block">
+        <p>Question 2: Question?</p>
+        <label>
+            <input type="radio" name="question2" value="yes"> Yes
+        </label>
+        <label>
+            <input type="radio" name="question2" value="no"> No
+        </label>
+    </div>
+
+   <!-- Question 3 -->
+    <div class="question-block">
+        <p>Question 3: Question?</p>
+        <label>
+            <input type="radio" name="question3" value="yes"> Yes
+        </label>
+        <label>
+            <input type="radio" name="question3" value="no"> No
+        </label>
+    </div>
+</div>
+
+<div class="Headings">
+    <h1>Please select a date and time that the service <span class="Red">will take place</span></h1>
+ </div>
+
+<!-- Date and Time Selection -->
+<div class="date-time-container">
+    <div class="date-time-block">
+        <label for="service-date">Select Service Date</label>
+        <input type="date" id="service-date" name="service-date" required>
+    </div>
+    <div class="date-time-block">
+        <label for="start-time">Select Start Time</label>
+        <input type="time" id="start-time" name="start-time" required>
+    </div>
+    <div class="date-time-block">
+        <label for="end-time">Select End Time</label>
+        <input type="time" id="end-time" name="end-time" required>
+    </div>
+</div>
+
+<div class="Headings">
+    <h1>Any additional<span class="Red"> comments</span></h1>
+ </div>
+
+ <!--Comment about service-->
+ <div class="comment-container">
+    <label for="service-comments">Additional Comments</label>
+    <textarea id="service-comments" name="service-comments" placeholder="Enter any additional comments or information here..."></textarea>
+</div>
+
+<!--Submit quote request button-->
+<div>
+    <button class="button">Submit Request</button>
+</div>
+      <!-- Footer -->
+      <footer>
+        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+        <div id="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
