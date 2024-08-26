@@ -6,7 +6,7 @@ html, body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #111;
-    color: #f5f5f5;
+    color: white;
 }
 body {
     display: flex;
@@ -74,27 +74,58 @@ body {
     margin: 0;
 }
 
-.name-section{
-    display: table;   
-    left: 0;
-    margin-top:auto;   
-    width: 100%;
+.profile-container{
+    /* margin-top: 3%;
+    width:90%;
+    margin-inline: auto;
+    padding: 20px;
+    display: block; */
+    max-width: 800px;
+    width: 90%;
+    margin: 2% auto 2% auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.profile-contact h3{
+    color: red;
+    font-size: 25px;
+}
+.profile-header{
+    text-align: center;
+    margin-bottom: 2%;
+}
+.buttons{
+    display:flex;
+    flex-direction: row;
+    margin-inline: auto;
+    margin: 2% auto 5% auto;
+
+}
+#deactivate-button{
+    background-color: #D90000;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: 50px;
+}
+#update-button{
+    background-color: #fff;
+    border: none;
+    color:  #D90000;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 50px;
 }
 
-.name-block{
-    display: table-cell;
-    vertical-align: middle;
-}
-.name-block h1, .name-block h2{
-    margin-right: 5%;
-    margin-left: auto;
-    width: fit-content;
-    min-height: fit-content;
-    display: block;
-}
-#name{
-    color: red;
-}
 footer {
     background-color: #111;
     padding: 20px;
@@ -110,7 +141,7 @@ footer p {
 }
 
 #social-media a {
-    color: #888;
+    color: #FFFFFF;
     margin: 0 10px;
     font-size: 20px;
     text-decoration: none;
@@ -119,3 +150,5 @@ footer p {
 #social-media a:hover {
     color: #FFF;
 }
+
+/* popup */
