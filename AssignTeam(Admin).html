@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Team</title>
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="AssignTeam(Admin).css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="Navbar">
+            <ul>
+                <li class="logo"><img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
+                <li><a href="Home(Admin).html">Home</a></li>
+                <li><a href="AboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+                <li><a href="Quotes(Admin).html">Quotes</a></li>
+                <li><a href="ServicesAdmin.html">Services</a></li>
+                <li><a href="Reports.html">Generate report</a></li>
+                <li><a href="">My Profile</a></li>
+                <li><a href="Login.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+       <!-- main headings -->
+    <!-- Quote number and client -->
+    <section class="mainHeadings">    
+        <h1  id="quoteNum">Quote #: Client*</h1>
+        <h2>Available Members</h2>
+    </section>
+    <div class="container">
+        <!-- Table to display team members -->
+        <table id="team-table">
+            <thead>
+                <tr>
+                    <th>Member Name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th id="check">Select Member</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Placeholder rows -->
+                <tr data-quote="member1">
+                    <td>John Doe</td>
+                    <td>Security I</td>
+                    <td>john.doe@example.com</td>
+                    <td><input type="checkbox" class="checkboxes" ></td>
+                </tr>
+                <tr data-quote="member2">
+                    <td>Jane Smith</td>
+                    <td>Security II</td>
+                    <td>jane.smith@example.com</td>
+                    <td><input type="checkbox" class="checkboxes" ></td>
+                </tr>
+                <tr data-quote="member3">
+                    <td>Robert Brown</td>
+                    <td>Security I</td>
+                    <td>robert.brown@example.com</td>
+                    <td><input type="checkbox" class="checkboxes" ></td>
+                </tr>
+                <tr data-quote="member4">
+                    <td>Lisa White</td>
+                    <td>Security II</td>
+                    <td>lisa.white@example.com</td>
+                    <td><input type="checkbox" class="checkboxes" ></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <input type = button id="deselButton" value = "Deselect All" onclick = deselAll()> 
+        <input type="button" value="Save Team" id="saveTeamBtn" class="button" onclick=SaveTeam()>
+    </div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+    <div id="social-media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+</footer>
+</body>
+
+<script>
+    function SaveTeam(){
+        
+     // Select all checkboxes with a specific class or within a specific container
+     let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+     //check that atleast one member has been selected
+     if(checkboxes.length>=1){
+        console.log("save the rows");
+        //get the rows
+        let rows = getCheckedRowsData();
+        // get rows
+        console.log(rows);
+        alert("team saved successfully")
+        
+     }
+     else{
+        alert("Nothing selected");
+     }
+    }
+
+    function deselAll() {
+    const mytable = document.getElementById("team-table"); 
+    const ele = mytable.getElementsByTagName('input');  
+    for (var i = 0; i < ele.length; i++) { 
+        if (ele[i].type == 'checkbox') { 
+            ele[i].checked = false;  
+        }
+    }
+}
+
+function getCheckedRowsData() {
+    let checkedRowsData = [];
+    // Select all checked checkboxes within the table
+    let checkedCheckboxes = document.querySelectorAll('table#team-table input[type="checkbox"]:checked');
+    // Iterate over each checked checkbox
+    for(checkbox of checkedCheckboxes){
+
+        // Get the row (parent <tr>) of the checkbox
+        var row = checkbox.closest('tr');
+
+        // Get all the cells (td) in the row
+        var cells = row.querySelectorAll('td');
+       
+        // Extract data from each cell
+        var rowData = [];
+      
+        for(cell of cells){
+            rowData.push(cell.innerText);
+        }
+        // Store the data in the checkedRowsData array
+        checkedRowsData.push(rowData);
+    }
+
+
+    return checkedRowsData;
+}
+
+</script>
+</html>
