@@ -54,21 +54,47 @@ class AppAuthProvider extends MyAuthProvider {
     return AppAuthProvider._instance || new AppAuthProvider();
   }
 
+  // initAuthStateListener() {
+  //   auth.onAuthStateChanged(async (firebaseUser) => {
+  //     if (firebaseUser) {
+  //       window.loggedInUser = await UserDA.instance.getUser({
+  //         id: firebaseUser.uid,
+  //         getProfilePic: false,
+  //       });
+  //       console.log("User signed in:", window.loggedInUser);
+  //     } else {
+  //       window.loggedInUser = null;
+  //       console.log("No user signed in");
+  //     }
+  //   });
+  // }
+
   async getCurrentUser() {
-    if (state.loggedInUser) {
-      return loggedInUser;
-    }
+    let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
     const firebaseUser = auth.currentUser;
     if (!firebaseUser) {
-      state.loggedInUser = null;
+      console.log("current user: ", loggedInUser);
+      localStorage.removeItem("loggedInUser");
       return null;
+    } else if (loggedInUser && firebaseUser.uid === loggedInUser.id) {
+      console.log("current user: ", loggedInUser);
+      return loggedInUser;
     }
 
-    state.loggedInUser = await UserDA.instance.getUser({
+    loggedInUser = await UserDA.instance.getUser({
       id: firebaseUser.uid,
       getProfilePic: false,
     });
-    return state.loggedInUser;
+
+    if (!loggedInUser) {
+      localStorage.removeItem("loggedInUser");
+      throw new Error("User not logged In exception");
+    }
+
+    console.log("current user: ", loggedInUser);
+    localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+    return loggedInUser;
   }
 
   async initialize() {
@@ -95,12 +121,14 @@ class AppAuthProvider extends MyAuthProvider {
     }
     const params = authParams;
     await signInWithEmailAndPassword(auth, params.email, params.password);
-    state.loggedInUser = await this.getCurrentUser();
-    if (!state.loggedInUser) {
-      throw new Error("User not logged In exception");
-    }
-    console.log("logged in user with uid: ", state.loggedInUser.id);
-    return state.loggedInUser;
+    console.log("finish sign in with email ", auth.currentUser.uid);
+    return await this.getCurrentUser();
+    // window.loggedInUser = await this.getCurrentUser();
+    // if (!window.loggedInUser) {
+    //   throw new Error("User not logged In exception");
+    // }
+    // // console.log("logged in user with uid: ", window.loggedInUser.id);
+    // return window.loggedInUser;
   }
 
   async register(authParams) {
@@ -135,9 +163,9 @@ class AppAuthProvider extends MyAuthProvider {
         uploadImage: false,
         rethrowError: true,
       });
-      state.loggedInUser = await this.getCurrentUser();
-      console.log(state.loggedInUser.toString());
-      return state.loggedInUser;
+      return await this.getCurrentUser();
+      // console.log(state.loggedInUser.toString());
+      // return state.loggedInUser;
     } else {
       throw new Error("Failed to register user");
     }

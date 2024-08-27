@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: #f5f5f5;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+    .Navbar ul{
+        list-style-type: none;
+        background-color: #111;
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+        display: flex;
+        justify-content: flex-end;
+        height: 50px; /* Set the height of the navbar */
+      }
+      .Navbar .logo {
+        margin-right: auto; /* Pushes other items to the right */
+      }
+      .Navbar img{
+        height: 100%; /* Makes the image take the full height of the navbar */
+        width: 50px; 
+      }
+      .Navbar a{
+        color: white;
+        text-decoration: none;
+        padding: 15px;
+        display: block;
+        text-align: center;
+        
+      }
+      .Navbar a:hover{
+        color: red;  
+      }
+      .Navbar li{
+        float: left;
+      }
+    header {
+        background-color:  #111;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    header nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+    
+    header nav ul li a {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+
+.header h1 {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    font-size: 28px;
+    margin: 0;
+}
+
+.name-section{
+    display: table;   
+    left: 0;
+    margin-top:auto;   
+    width: 100%;
+}
+
+.name-block{
+    display: table-cell;
+    vertical-align: middle;
+}
+.name-block h1, .name-block h2{
+    margin-right: 5%;
+    margin-left: auto;
+    width: fit-content;
+    min-height: fit-content;
+    display: block;
+}
+#name{
+    color: red;
+}
+footer {
+    background-color: #111;
+    padding: 20px;
+    margin-top: auto;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+footer p {
+    margin: 0;
+    margin-bottom: 7px;
+
+}
+
+#social-media a {
+    color: #888;
+    margin: 0 10px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+#social-media a:hover {
+    color: #FFF;
+}

@@ -16,14 +16,14 @@
 
             <ul>
                 <li class="logo"><img src = "https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
-                <li><a href="index.html">Home</a></li>
+                <li><a id="homeLink" href="#">Home</a></li>
                 <li><a href="OurServices.html">Our Services</a></li>
                 <li><a href="AboutUs.html">About Us</a></li>
                 <li><a href="contactUs.html">Contact Us</a></li>
                 <li><a href="FAQs.html">FAQs</a></li>
                 <li><a href="Quotes.html">Quotes</a></li>
                 <li><a href="">My Profile</a></li>
-                <li><a href="Login.html">Login</a></li>
+                <li><a href="">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -36,21 +36,16 @@
             <div class="form-group">
                 <label for="service">Service:</label>
                 <select id="service" onchange="updateDescription()">
-                    <option value="security-audit">Security Audit</option>
-                    <option value="risk-analysis">Risk Analysis</option>
-                    <option value="penetration-testing">Penetration Testing</option>
-                    <option value="compliance-review">Compliance Review</option>
-                    <option value="incident-response">Incident Response</option>
-                    <option value="vulnerability-assessment">Vulnerability Assessment</option>
-                    <option value="data-privacy-audit">Data Privacy Audit</option>
-                    <option value="network-security-review">Network Security Review</option>
+                    <option value="Service 1">Service 1</option>
+                    <option value="Service 2">Service 2</option>
+                    <option value="Service 3">Service 3</option>
                 </select>
             </div>
             <div class="description-box" id="description-box">
                 <!-- This will be dynamically updated based on the selected service -->
                 <p>Select a service to see its description.</p>
             </div>
-            <button class="button">Submit Request</button>
+            <button id="request-btn" class="button">Submit Request</button>
         </div>
 
         <h2>Quotes Pending Generation</h2>
@@ -133,6 +128,8 @@
             </div>
         </div>
     </div>
+
+    <script type="module" src="Quotes.js"></script>
 
       <!-- Footer -->
       <footer>

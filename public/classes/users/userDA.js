@@ -7,6 +7,7 @@ import {
 import { UserType } from "/global/enums.js";
 import Client from "/classes/users/client.js";
 import Employee from "/classes/users/employee.js";
+import ServiceDA from "/classes/service/service_da.js";
 
 class UserDA {
   static _instance = null;
@@ -134,6 +135,15 @@ class UserDA {
     } catch (e) {
       if (rethrowError) throw e;
       console.log("Error getting user in UserDA:", e);
+    }
+  }
+
+  async getAllUserDataGlobally({ user }) {
+    if (user.userType === UserType.CLIENT) {
+      // console.log("in getAllUserData:", user.toString());
+      let allServices = await ServiceDA.instance.getAllServices({});
+      // console.log("in getAllUserData:", allServices.toString());
+      localStorage.setItem('allServices', JSON.stringify(allServices));
     }
   }
 }

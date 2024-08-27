@@ -8,7 +8,8 @@ class Quote extends MyClass {
     status = Quote.sStatusRequested,
     data = null,
     amount = null,
-    dateTime,
+    startDateTime,
+    endDateTime,
     comment = null,
     raAnswers,
   }) {
@@ -19,7 +20,8 @@ class Quote extends MyClass {
     this.status = status;
     this.data = data;
     this.amount = amount;
-    this.dateTime = dateTime;
+    this.startDateTime = startDateTime;
+    this.endDateTime = endDateTime;
     this.comment = comment;
     this.raAnswers = raAnswers;
   }
@@ -32,7 +34,8 @@ class Quote extends MyClass {
       status: json[Quote.sStatus],
       data: json[Quote.sData],
       amount: json[Quote.sAmount],
-      dateTime: json[Quote.sDateTime],
+      startDateTime: json[Quote.sStartDateTime],
+      endDateTime: json[Quote.sEndDateTime],
       comment: json[Quote.sComment],
       raAnswers: json[Quote.sRaAnswers],
     });
@@ -45,7 +48,8 @@ class Quote extends MyClass {
       [Quote.sStatus]: this.status,
       [Quote.sData]: this.data,
       [Quote.sAmount]: this.amount,
-      [Quote.sDateTime]: this.dateTime,
+      [Quote.sStartDateTime]: this.startDateTime,
+      [Quote.sEndDateTime]: this.endDateTime,
       [Quote.sComment]: this.comment,
       [Quote.sRaAnswers]: this.raAnswers,
     };
@@ -59,7 +63,8 @@ class Quote extends MyClass {
         ${Quote.sStatus}: ${this.status},
         ${Quote.sData}: ${this.data},
         ${Quote.sAmount}: ${this.amount},
-        ${Quote.sDateTime}: ${this.dateTime},
+        ${Quote.sStartDateTime}: ${this.startDateTime},
+        ${Quote.sEndDateTime}: ${this.endDateTime},
         ${Quote.sComment}: ${this.comment},
         ${Quote.sRaAnswers}: ${this.raAnswers},
         }`;
@@ -71,7 +76,8 @@ class Quote extends MyClass {
   static sStatus = "status";
   static sData = "data";
   static sAmount = "amount";
-  static sDateTime = "dateTime";
+  static sStartDateTime = "startDateTime";
+  static sEndDateTime = "endDateTime";
   static sComment = "comment";
   static sRaAnswers = "raAnswers";
 

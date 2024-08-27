@@ -57,6 +57,7 @@ class Service extends MyClass {
   static sRiskAnalysis = "riskAnalysis";
 
   static sStatusActive = "active";
+  static sStatusInComplete = "In-Complete";
   static sStatusInactive = "inactive";
 }
 
