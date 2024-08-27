@@ -12,6 +12,10 @@ import {
   deleteDoc,
 } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 import { db } from "./firebase.js";
+import {
+  isMapStringDynamic,
+  isString,
+} from "/utilities/type_checks/map_string_dynamic.js";
 
 class FirestoreService {
   constructor(collectionPath) {
@@ -19,7 +23,12 @@ class FirestoreService {
     this.collectionReference = collection(this.db, collectionPath);
   }
 
-  async createDocument({ docID = null, data, rethrowError = false }) {
+    async createDocument({ docID = null, data, rethrowError = false }) {
+    if (!isMapStringDynamic(data)) {
+      if (rethrowError) throw new Error("Invalid data");
+      console.log("Invalid data in FirestoreService createDocument");
+      return;
+    }
     try {
       if (docID === null) {
         await addDoc(this.collectionReference, data);

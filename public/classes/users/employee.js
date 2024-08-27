@@ -4,8 +4,6 @@ class Employee extends MyUser {
   constructor({
     id,
     FCMToken,
-    imageIDUrl,
-    imageID,
     firstName,
     middleName = null,
     lastName,
@@ -22,13 +20,10 @@ class Employee extends MyUser {
     profilePicUrl = null,
     profilePic = null,
     status = MyUser.sStatusActive,
-    empType = Employee.empTypeEmployee,
   }) {
     super({
       id,
       FCMToken,
-      imageIDUrl,
-      imageID,
       firstName,
       middleName,
       lastName,
@@ -46,14 +41,12 @@ class Employee extends MyUser {
       profilePic,
       status,
     });
-    this.empType = empType;
   }
 
   static fromJson({ docID, json }) {
-    return new Customer({
+    return new Employee({
       id: docID,
       FCMToken: json[MyUser.sFCMtoken],
-      imageIDUrl: json[MyUser.sImageIDUrl],
       firstName: json[MyUser.sFirstName],
       middleName: json[MyUser.sMiddleName],
       lastName: json[MyUser.sLastName],
@@ -69,7 +62,6 @@ class Employee extends MyUser {
       displayName: json[MyUser.sDisplayName],
       profilePicUrl: json[MyUser.sProfilePicUrl],
       status: json[MyUser.sStatus],
-      empType: json[Employee.employeeType],
     });
   }
 
@@ -77,7 +69,6 @@ class Employee extends MyUser {
     return {
       [MyUser.sId]: this.id,
       [MyUser.sFCMtoken]: this.FCMToken,
-      [MyUser.sImageIDUrl]: this.imageIDUrl,
       [MyUser.sFirstName]: this.firstName,
       [MyUser.sMiddleName]: this.middleName,
       [MyUser.sLastName]: this.lastName,
@@ -93,7 +84,6 @@ class Employee extends MyUser {
       [MyUser.sDisplayName]: this.displayName,
       [MyUser.sProfilePicUrl]: this.profilePicUrl,
       [MyUser.sStatus]: this.status,
-      [Employee.employeeType]: this.empType,
     };
   }
 
@@ -101,7 +91,6 @@ class Employee extends MyUser {
     return `Employee { 
       ${MyUser.sId}: ${this.id}, 
       ${MyUser.sFCMtoken}: ${this.FCMToken}, 
-      ${MyUser.sImageIDUrl}: ${this.imageIDUrl}, 
       ${MyUser.sFirstName}: ${this.firstName}, 
       ${MyUser.sMiddleName}: ${this.middleName ?? "N/A"}, 
       ${MyUser.sLastName}: ${this.lastName}, 
@@ -117,7 +106,6 @@ class Employee extends MyUser {
       ${MyUser.sDisplayName}: ${this.displayName ?? "N/A"}, 
       ${MyUser.sProfilePicUrl}: ${this.profilePicUrl ?? "N/A"}, 
       ${MyUser.sStatus}: ${this.status},
-        ${Employee.employeeType}: ${this.empType}
     }`;
   }
 
@@ -135,12 +123,6 @@ class Employee extends MyUser {
   get hashCode() {
     return this.id.hashCode(); // Assuming id has a hashCode method
   }
-
-  static employeeType = "employeeType";
-
-  static empTypeAdmin = "admin";
-  static empTypeManager = "manager";
-  static empTypeEmployee = "employee";
 }
 
 export default Employee;

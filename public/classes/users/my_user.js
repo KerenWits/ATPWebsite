@@ -5,8 +5,6 @@ class MyUser extends MyClass {
   constructor({
     id,
     FCMToken,
-    imageIDUrl,
-    imageID,
     firstName,
     lastName,
     dateCreated,
@@ -27,17 +25,10 @@ class MyUser extends MyClass {
     if (!email && !number) {
       throw new Error("Either email or number must be provided.");
     }
-    if (number && (!countryISOCode || !countryCode)) {
-      throw new Error(
-        "Country code and country ISO code must be provided when number is provided."
-      );
-    }
 
     super();
     this.id = id;
     this.FCMToken = FCMToken;
-    this.imageIDUrl = imageIDUrl;
-    this.imageID = imageID;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
@@ -60,7 +51,6 @@ class MyUser extends MyClass {
     return new MyUser({
       id: docID,
       FCMToken: json[MyUser.sFCMtoken],
-      imageIDUrl: json[MyUser.sImageIDUrl],
       firstName: json[MyUser.sFirstName],
       middleName: json[MyUser.sMiddleName],
       lastName: json[MyUser.sLastName],
@@ -83,7 +73,6 @@ class MyUser extends MyClass {
     return {
       [MyUser.sId]: this.id,
       [MyUser.sFCMtoken]: this.FCMToken,
-      [MyUser.sImageIDUrl]: this.imageIDUrl,
       [MyUser.sFirstName]: this.firstName,
       [MyUser.sMiddleName]: this.middleName,
       [MyUser.sLastName]: this.lastName,
@@ -132,7 +121,6 @@ class MyUser extends MyClass {
 
   static sId = "id";
   static sFCMtoken = "FCMtoken";
-  static sImageIDUrl = "imageIDUrl";
   static sFirstName = "firstName";
   static sMiddleName = "middleName";
   static sLastName = "lastName";

@@ -4,8 +4,6 @@ class Client extends MyUser {
   constructor({
     id,
     FCMToken,
-    imageIDUrl,
-    imageID,
     firstName,
     middleName = null,
     lastName,
@@ -26,8 +24,6 @@ class Client extends MyUser {
     super({
       id,
       FCMToken,
-      imageIDUrl,
-      imageID,
       firstName,
       middleName,
       lastName,
@@ -48,25 +44,24 @@ class Client extends MyUser {
   }
 
   static fromJson({ docID, json }) {
-    return new Customer({
+    return new Client({
       id: docID,
       FCMToken: json[MyUser.sFCMtoken],
-      imageIDUrl: json[MyUser.sImageIDUrl],
       firstName: json[MyUser.sFirstName],
-      middleName: json[MyUser.sMiddleName],
+      middleName: json[MyUser.sMiddleName] ?? null,
       lastName: json[MyUser.sLastName],
       dateCreated: new Date(json[MyUser.sDateCreated].seconds * 1000),
       userType: json[MyUser.sUserType],
       email: json[MyUser.sEmail],
       isVerified: json[MyUser.sIsVerified],
-      countryISOCode: json[MyUser.sCountryISOCode],
-      countryCode: json[MyUser.sCountryCode],
-      number: json[MyUser.sNumber],
-      sex: json[MyUser.sSex],
-      address: json[MyUser.sAddress],
-      displayName: json[MyUser.sDisplayName],
-      profilePicUrl: json[MyUser.sProfilePicUrl],
-      status: json[MyUser.sStatus],
+      countryISOCode: json[MyUser.sCountryISOCode] ?? null,
+      countryCode: json[MyUser.sCountryCode] ?? null,
+      number: json[MyUser.sNumber] ?? null,
+      sex: json[MyUser.sSex] ?? null,
+      address: json[MyUser.sAddress] ?? null,
+      displayName: json[MyUser.sDisplayName] ?? null,
+      profilePicUrl: json[MyUser.sProfilePicUrl] ?? null,
+      status: json[MyUser.sStatus] ?? MyUser.sStatusActive,
     });
   }
 
@@ -74,7 +69,6 @@ class Client extends MyUser {
     return {
       [MyUser.sId]: this.id,
       [MyUser.sFCMtoken]: this.FCMToken,
-      [MyUser.sImageIDUrl]: this.imageIDUrl,
       [MyUser.sFirstName]: this.firstName,
       [MyUser.sMiddleName]: this.middleName,
       [MyUser.sLastName]: this.lastName,
@@ -96,8 +90,7 @@ class Client extends MyUser {
   toString() {
     return `Client { 
       ${MyUser.sId}: ${this.id}, 
-      ${MyUser.sFCMtoken}: ${this.FCMToken}, 
-      ${MyUser.sImageIDUrl}: ${this.imageIDUrl}, 
+      ${MyUser.sFCMtoken}: ${this.FCMToken},  
       ${MyUser.sFirstName}: ${this.firstName}, 
       ${MyUser.sMiddleName}: ${this.middleName ?? "N/A"}, 
       ${MyUser.sLastName}: ${this.lastName}, 
@@ -114,10 +107,6 @@ class Client extends MyUser {
       ${MyUser.sProfilePicUrl}: ${this.profilePicUrl ?? "N/A"},
       ${MyUser.sStatus}: ${this.status}
     }`;
-  }
-
-  displayString() {
-    return this.fullName;
   }
 
   equals(other) {
