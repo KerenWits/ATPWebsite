@@ -8,6 +8,7 @@ import { UserType } from "/global/enums.js";
 import Client from "/classes/users/client.js";
 import Employee from "/classes/users/employee.js";
 import ServiceDA from "/classes/service/service_da.js";
+import QuoteDA from "/classes/quote/quote_da.js";
 
 class UserDA {
   static _instance = null;
@@ -139,11 +140,14 @@ class UserDA {
   }
 
   async getAllUserDataGlobally({ user }) {
-    if (user.userType === UserType.CLIENT) {
-      // console.log("in getAllUserData:", user.toString());
-      let allServices = await ServiceDA.instance.getAllServices({});
-      // console.log("in getAllUserData:", allServices.toString());
-      localStorage.setItem('allServices', JSON.stringify(allServices));
+    // console.log("in getAllUserData:", user.toString());
+    let allServices = await ServiceDA.instance.getAllServices({});
+    // console.log("in getAllUserData:", allServices.toString());
+    localStorage.setItem("allServices", JSON.stringify(allServices));
+    if (user.userType === UserType.ADMIN) {
+      let allQuotes = await QuoteDA.instance.getAllQuotesAdmin({});
+      localStorage.setItem("allQuotes", JSON.stringify(allQuotes));
+      console.log("allQuotes:", allQuotes);
     }
   }
 }

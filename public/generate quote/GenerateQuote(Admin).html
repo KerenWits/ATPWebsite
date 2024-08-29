@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Quote</title>
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="GenerateQuote(Admin).css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav class="Navbar">
+        <ul>
+          <li class="logo">
+            <img
+              src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+            />
+          </li>
+          <li><a href="Home(Admin).html">Home</a></li>
+          <li><a href="AboutUs.html">About Us</a></li>
+          <li><a href="contactUs.html">Contact Us</a></li>
+          <li><a href="Quotes(Admin).html">Quotes</a></li>
+          <li><a href="ServicesAdmin.html">Services</a></li>
+          <li><a href="Reports.html">Generate report</a></li>
+          <li><a href="">My Profile</a></li>
+          <li><a href="/index.html">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- main headings -->
+    <!-- Quote number and client -->
+    <section class="mainHeadings">
+      <h1 id="quoteNum">Quote #: Client*</h1>
+      <h2>Risk Analysis Results</h2>
+    </section>
+    <!-- Risk Analysis Questions -->
+    <div id="questions-container" class="questions-container">
+      <!-- Question 1 -->
+      <div class="question-block">
+        <p>Question 1: Question?</p>
+        <p>No</p>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="question-block">
+        <p>Question 2: Question?</p>
+        <p>Yes</p>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="question-block">
+        <p>Question 3: Question?</p>
+        <p>No</p>
+      </div>
+    </div>
+    <!-- date block -->
+    <div class="additional-container">
+      <div class="date-block">
+        <h2>
+          View selected date and time for <span class="Red">SERVICE</span>
+        </h2>
+        <div class="date-box">
+          <div class="display-datetime">
+            <span id="displayDate">August 20, 2024</span>
+            <span id="displayTime">2:00 PM - 4:00 PM</span>
+          </div>
+        </div>
+      </div>
+      <!-- comment block -->
+      <div class="comment-block">
+        <h2>View additional <span class="Red">COMMENTS</span></h2>
+        <div class="comment-box">
+          <p id="quote-comment" class="comment">Dummy comment</p>
+        </div>
+      </div>
+    </div>
+    <!-- qouteAmount block -->
+    <div class="input-amount-block Headings">
+      <label for="quoteAmount"
+        >Input Total <span class="Red">Quote Amount</span></label
+      >
+      <input type="number" step="any" id="quoteAmount" required />
+    </div>
+
+    <!--Generate quote button-->
+    <!-- initially hidden -->
+    <div class="generate-quote-button hidden">
+      <button id="generate-quote-button" class="button">Generate</button>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+      <div id="social-media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </footer>
+
+    <script type="module" src="generate_quote.js"></script>
+  </body>
+</html>

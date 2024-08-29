@@ -1,10 +1,13 @@
 import MyClass from "/classes/my_class.js";
+import { Timestamp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
 class Quote extends MyClass {
   constructor({
     id,
     clientId,
+    client = null,
     serviceId,
+    service = null,
     status = Quote.sStatusRequested,
     data = null,
     amount = null,
@@ -16,7 +19,9 @@ class Quote extends MyClass {
     super();
     this.id = id;
     this.clientId = clientId;
+    this.client = client;
     this.serviceId = serviceId;
+    this.service = service;
     this.status = status;
     this.data = data;
     this.amount = amount;
@@ -34,8 +39,14 @@ class Quote extends MyClass {
       status: json[Quote.sStatus],
       data: json[Quote.sData],
       amount: json[Quote.sAmount],
-      startDateTime: json[Quote.sStartDateTime],
-      endDateTime: json[Quote.sEndDateTime],
+      startDateTime:
+        json[Quote.sStartDateTime] instanceof Timestamp
+          ? json[Quote.sStartDateTime].toDate()
+          : null,
+      endDateTime:
+        json[Quote.sEndDateTime] instanceof Timestamp
+          ? json[Quote.sEndDateTime].toDate()
+          : null,
       comment: json[Quote.sComment],
       raAnswers: json[Quote.sRaAnswers],
     });
@@ -58,8 +69,12 @@ class Quote extends MyClass {
   toString() {
     return `Quote{
         ${Quote.sId}: ${this.id},
-        ${Quote.sClientId}: ${this.clientId},
-        ${Quote.sServiceId}: ${this.serviceId},
+        ${Quote.sClientId}: ${
+      this.client ? this.client.toString() : this.clientId
+    },
+        ${Quote.sServiceId}: ${
+      this.service ? this.service.toString() : this.serviceId
+    },
         ${Quote.sStatus}: ${this.status},
         ${Quote.sData}: ${this.data},
         ${Quote.sAmount}: ${this.amount},
@@ -82,10 +97,12 @@ class Quote extends MyClass {
   static sRaAnswers = "raAnswers";
 
   static sStatusRequested = "requested";
+  static sStatusQuoted = "quoted";
   static sStatusAccepted = "accepted";
   static sStatusRejected = "rejected";
-  static sStatusCompleted = "completed";
   static sStatusInProgress = "in_progress";
+  static sStatusCompleted = "completed";
+  static sStatusReviewed = "reviewed";
 }
 
 export default Quote;
