@@ -68,9 +68,14 @@ class QuoteDA {
     }
   }
 
-  async getAllQuotesAdmin({ rethrowError = false }) {
+  async getAllQuotesForUser({ user, rethrowError = false }) {
     try {
+      let where = [];
+      if (user.userType === UserType.CLIENT) {
+        where = [{ field: Quote.sClientId, operator: "==", value: user.id }];
+      }
       let querySnapshot = await this.quoteFs.getDocuments({
+        where: where,
         rethrowError: rethrowError,
       });
 

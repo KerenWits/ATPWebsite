@@ -23,7 +23,7 @@ class FirestoreService {
     this.collectionReference = collection(this.db, collectionPath);
   }
 
-    async createDocument({ docID = null, data, rethrowError = false }) {
+  async createDocument({ docID = null, data, rethrowError = false }) {
     if (!isMapStringDynamic(data)) {
       if (rethrowError) throw new Error("Invalid data");
       console.log("Invalid data in FirestoreService createDocument");
@@ -99,15 +99,18 @@ class FirestoreService {
   }) {
     try {
       let q = query(this.collectionReference);
+
       whereConditions.forEach((condition) => {
         q = query(
           q,
-          where(condition[0], condition[1], condition[2])
+          where(condition.field, condition.operator, condition.value)
         );
       });
+
       orderByFields.forEach((field) => {
         q = query(q, orderBy(field));
       });
+
       const querySnapshot = await getDocs(q);
       return querySnapshot;
     } catch (e) {
