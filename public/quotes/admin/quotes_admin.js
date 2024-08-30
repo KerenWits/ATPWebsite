@@ -1,40 +1,84 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const allQuotes = JSON.parse(localStorage.getItem("allQuotes"));
+import updateHomeLink from "/utilities/homeLink.js";
+import Quote from "/classes/quote/quote.js";
+import QuoteDA from "/classes/quote/quote_da.js";
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  updateHomeLink(document, loggedInUser);
+  let allQuotes = await QuoteDA.instance.getAllQuotesForUser({
+    user: loggedInUser,
+  });
   console.log(allQuotes);
 
-  const requestedQ = allQuotes[0];
-  const acceptedQ = allQuotes[2];
-  const reviewedQ = allQuotes[6];
+  const requestedQ = allQuotes.get(Quote.sStatusRequested);
+  const acceptedQ = allQuotes.get(Quote.sStatusAccepted);
+  const reviewedQ = allQuotes.get(Quote.sStatusReviewed);
 
-  const quoteSection = document.getElementById("requested-quotes");
-  quoteSection.innerHTML = ""; // Clear existing content
+  const requestedQuotesSection = document.getElementById("requested-quotes");
 
-  requestedQ.forEach((quote) => {
-    const quoteBox = document.createElement("div");
-    quoteBox.className = "quote-box";
+  const quoteButton = document.createElement("button");
+  quoteButton.className = "button";
+  quoteButton.textContent = "Generate Quote";
+  quoteButton.onclick = (quote) => generateQuote(quote);
 
-    const quoteHeader = document.createElement("h3");
-    quoteHeader.textContent = `Quote #${quote.id}`;
+  createQuoteBox({
+    topDiv: requestedQuotesSection,
+    quoteMap: requestedQ,
+    clearTopDiv: true,
+    buttonList: [quoteButton],
+  });
 
-    const quoteDescription = document.createElement("p");
-    quoteDescription.textContent = `Description: ${quote.comment}`;
+  const acceptedQuotesSection = document.getElementById("accepted-quotes");
 
-    const quoteButton = document.createElement("button");
-    quoteButton.className = "button";
-    quoteButton.textContent = "Generate Quote";
+  const assingTeam = document.createElement("button");
+  assingTeam.className = "button";
+  assingTeam.textContent = "Assign Team";
+  assingTeam.onclick = (quote) => assignTeam(quote);
 
-    quoteButton.onclick = () => generateQuote(quote);
-
-    quoteBox.appendChild(quoteHeader);
-    quoteBox.appendChild(quoteDescription);
-    quoteBox.appendChild(quoteButton);
-
-    quoteSection.appendChild(quoteBox);
+  createQuoteBox({
+    topDiv: acceptedQuotesSection,
+    quoteMap: acceptedQ,
+    clearTopDiv: true,
+    buttonList: [assingTeam],
   });
 });
+
+function createQuoteBox({
+  topDiv,
+  quoteMap,
+  clearTopDiv = false,
+  buttonList = [],
+}) {
+  if (clearTopDiv) {
+    topDiv.innerHTML = "";
+  }
+
+  quoteMap.forEach((quote, key) => {
+    const quoteBox = document.createElement("div");
+    quoteBox.className = "quote-box";
+    quoteBox.innerHTML = `
+    <h3>Quote #${key}</h3>
+    <p>Description: ${quote.comment}</p>
+  `;
+
+    buttonList.forEach((buttonTemplate) => {
+      const button = document.createElement("button");
+      button.className = buttonTemplate.className;
+      button.textContent = buttonTemplate.textContent;
+      button.onclick = () => buttonTemplate.onclick(quote);
+      quoteBox.appendChild(button);
+    });
+
+    topDiv.appendChild(quoteBox);
+  });
+}
 
 function generateQuote(quote) {
   localStorage.setItem("passedVar", JSON.stringify(quote));
   window.location.href = "/generate quote/GenerateQuote(Admin).html";
+}
+
+function assignTeam(quote) {
+  localStorage.setItem("passedVar", JSON.stringify(quote));
+  window.location.href = "/assign team/AssignTeam(Admin).html";
 }

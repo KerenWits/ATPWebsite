@@ -80,16 +80,15 @@ class QuoteDA {
       });
 
       let allServices = JSON.parse(localStorage.getItem("allServices"));
-      // console.log("All services fetched in QuoteDA", allServices);
 
-      let allQuotes = [];
-      let requestedQ = [];
-      let quotedQ = [];
-      let acceptedQ = [];
-      let rejectedQ = [];
-      let inProgressQ = [];
-      let completedQ = [];
-      let reviewedQ = [];
+      let allQuotes = new Map();
+      let requestedQ = new Map();
+      let quotedQ = new Map();
+      let acceptedQ = new Map();
+      let rejectedQ = new Map();
+      let inProgressQ = new Map();
+      let completedQ = new Map();
+      let reviewedQ = new Map();
 
       querySnapshot.forEach((doc) => {
         let quote = Quote.fromJson({ docID: doc.id, json: doc.data() });
@@ -97,7 +96,6 @@ class QuoteDA {
           for (let i = 0; i < allServices.length; i++) {
             const service = allServices[i];
             if (quote.serviceId === service.id) {
-              // console.log("Service found in QuoteDA", service);
               quote.service = service;
               break;
             }
@@ -105,41 +103,42 @@ class QuoteDA {
         }
         switch (quote.status) {
           case Quote.sStatusRequested:
-            requestedQ.push(quote);
+            requestedQ.set(quote.id, quote);
             break;
           case Quote.sStatusQuoted:
-            quotedQ.push(quote);
+            quotedQ.set(quote.id, quote);
             break;
           case Quote.sStatusAccepted:
-            acceptedQ.push(quote);
+            acceptedQ.set(quote.id, quote);
             break;
           case Quote.sStatusRejected:
-            rejectedQ.push(quote);
+            rejectedQ.set(quote.id, quote);
             break;
           case Quote.sStatusInProgress:
-            inProgressQ.push(quote);
+            inProgressQ.set(quote.id, quote);
             break;
           case Quote.sStatusCompleted:
-            completedQ.push(quote);
+            completedQ.set(quote.id, quote);
             break;
           case Quote.sStatusReviewed:
-            reviewedQ.push(quote);
+            reviewedQ.set(quote.id, quote);
             break;
         }
       });
-      allQuotes.push(requestedQ);
-      allQuotes.push(quotedQ);
-      allQuotes.push(acceptedQ);
-      allQuotes.push(rejectedQ);
-      allQuotes.push(inProgressQ);
-      allQuotes.push(completedQ);
-      allQuotes.push(reviewedQ);
-      // console.log("All quotes fetched in QuoteDA");
+
+      allQuotes.set(Quote.sStatusRequested, requestedQ);
+      allQuotes.set(Quote.sStatusQuoted, quotedQ);
+      allQuotes.set(Quote.sStatusAccepted, acceptedQ);
+      allQuotes.set(Quote.sStatusRejected, rejectedQ);
+      allQuotes.set(Quote.sStatusInProgress, inProgressQ);
+      allQuotes.set(Quote.sStatusCompleted, completedQ);
+      allQuotes.set(Quote.sStatusReviewed, reviewedQ);
+
       return allQuotes;
     } catch (e) {
       if (rethrowError) throw e;
       console.error("Error fetching quotes in QuoteDA:", e);
-      return [];
+      return new Map();
     }
   }
 }

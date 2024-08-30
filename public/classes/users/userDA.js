@@ -144,9 +144,9 @@ class UserDA {
     let allServices = await ServiceDA.instance.getAllServices({});
     // console.log("in getAllUserData:", allServices.toString());
     localStorage.setItem("allServices", JSON.stringify(allServices));
-    let allQuotes = await QuoteDA.instance.getAllQuotesForUser({user: user});
-    localStorage.setItem("allQuotes", JSON.stringify(allQuotes));
-    console.log("allQuotes:", allQuotes);
+    // let allQuotes = await QuoteDA.instance.getAllQuotesForUser({user: user});
+    // localStorage.setItem("allQuotes", JSON.stringify(allQuotes));
+    // console.log("allQuotes:", allQuotes);
     // if (user.userType === UserType.ADMIN) {
     // }
   }

@@ -31,6 +31,13 @@ class Quote extends MyClass {
     this.raAnswers = raAnswers;
   }
 
+  static unStringify(strQuote) {
+    let quote = new Quote(strQuote);
+    quote.startDateTime = new Date(quote.startDateTime);
+    quote.endDateTime = new Date(quote.endDateTime);
+    return quote;
+  }
+
   static fromJson({ docID, json }) {
     return new Quote({
       id: docID,
