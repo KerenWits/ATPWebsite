@@ -5,6 +5,7 @@ import QuoteDA from "/classes/quote/quote_da.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     updateHomeLink(document, loggedInUser);
 

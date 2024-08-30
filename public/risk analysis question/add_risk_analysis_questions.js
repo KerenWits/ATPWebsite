@@ -1,5 +1,6 @@
 import Question from "/classes/service/question.js";
 import ServiceDA from "/classes/service/service_da.js";
+import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 
 // Parse the query string
 const params = new URLSearchParams(window.location.search);
@@ -28,15 +29,25 @@ async function addRiskAnaylsisQuestion() {
     values: values,
   });
 
-//   console.log("ServiceID:", serviceId, "Question:", question.toString());
+  //   console.log("ServiceID:", serviceId, "Question:", question.toString());
   let updatedService = await ServiceDA.instance.addAQuestionWithID({
     serviceID: serviceId,
     question: question,
   });
   if (updatedService) {
     console.log("Question added successfully", updatedService.toString());
-    // Clear the input for the next question
-    questionInput.value = "";
+    const dialog = new ConfirmDialog({
+      document: document,
+      title: "Risk analysis question created successfully",
+      message: "Risk analysis question successfully recorded",
+      buttons: ["Ok"],
+      callBacks: [
+        () => {
+          // Clear the input for the next question
+          questionInput.value = "";
+        },
+      ],
+    });
   } else {
     console.log("Error adding question");
   }
