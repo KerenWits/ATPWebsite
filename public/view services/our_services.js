@@ -3,14 +3,17 @@ import AuthService from "/auth/auth_service.js";
 import ServiceDA from "/classes/service/service_da.js";
 import { UserType } from "/global/enums.js";
 import state from "/global/variables.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    let lc = new LoadingScreen(document);
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     console.log("User:", loggedInUser);
     updateHomeLink(loggedInUser);
-
+    lc.show();
     let allServices = await ServiceDA.instance.getAllServices({});
+    lc.updateText("Getting services...");
 
     // Get the Service-blocks container
     const serviceBlocksContainer = document.querySelector(".Service-blocks");
@@ -41,7 +44,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // Append the service block to the container
       serviceBlocksContainer.appendChild(serviceBlock);
+      lc.updateText("Services received...");
     });
+    lc.hide();
   } catch (error) {
     console.error("Error fetching services:", error);
   }

@@ -2,13 +2,16 @@ import ServiceDA from "/classes/service/service_da.js";
 import { UserType } from "/global/enums.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+    let lc = new LoadingScreen(document);
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     console.log("User:", loggedInUser);
     updateHomeLink(loggedInUser);
 
+    lc.show();
     const params = new URLSearchParams(window.location.search);
     const serviceId = params.get("serviceId");
     console.log(serviceId);
@@ -18,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     console.log("Service:", service.toString());
-
+    lc.updateText("Retreiving service info...");
     const questionsContainer = document.querySelector(".questions-container");
     questionsContainer.innerHTML = "";
 
@@ -88,6 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       console.log("Quote:", createdQuote);
     };
+    lc.hide();
   } catch (error) {
     console.error("Error in answering risk analysis:", error);
   }

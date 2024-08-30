@@ -4,10 +4,8 @@ const allServices = JSON.parse(localStorage.getItem("allServices"));
 
 document.addEventListener("DOMContentLoaded", () => {
   try {
-
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     updateHomeLink(loggedInUser);
-
     document.getElementById("request-btn").onclick = () => {
         const selectedServiceName = document.getElementById("service").value;
         const selectedService = allServices.find(
