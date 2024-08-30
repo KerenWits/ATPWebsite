@@ -109,6 +109,8 @@ class AppAuthProvider extends MyAuthProvider {
     const user = auth.currentUser;
     if (user) {
       await signOut(auth);
+      localStorage.removeItem("loggedInUser");
+      console.log("User logged out");
     } else {
       throw new Error("No user is logged in");
     }

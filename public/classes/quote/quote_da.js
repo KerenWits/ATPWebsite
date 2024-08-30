@@ -1,14 +1,6 @@
-import MyUser from "/classes/users/my_user.js";
 import FirestoreService from "/firebase/query.js";
 import Quote from "/classes/quote/quote.js";
-import {
-  isMapStringDynamic,
-  isString,
-} from "/utilities/type_checks/map_string_dynamic.js";
 import { UserType } from "/global/enums.js";
-import Client from "/classes/users/client.js";
-import Employee from "/classes/users/employee.js";
-import ServiceDA from "/classes/service/service_da.js";
 
 class QuoteDA {
   static _instance = null;
