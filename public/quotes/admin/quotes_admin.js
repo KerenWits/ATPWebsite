@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  updateHomeLink(document, loggedInUser);
   let allQuotes = await QuoteDA.instance.getAllQuotesForUser({
     user: loggedInUser,
   });

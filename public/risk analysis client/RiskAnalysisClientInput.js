@@ -25,22 +25,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const questionsContainer = document.querySelector(".questions-container");
     questionsContainer.innerHTML = "";
 
-    service.riskAnalysis.forEach((question, index) => {
+    service.riskAnalysis.forEach((question, qIndex) => {
       const questionBlock = document.createElement("div");
       questionBlock.className = "question-block";
 
       const questionText = document.createElement("p");
-      questionText.textContent = `Question ${index + 1}: ${
+      questionText.textContent = `Question ${qIndex + 1}: ${
         question.questionTxt
       }`;
       questionBlock.appendChild(questionText);
 
-      question.range.forEach((range, index) => {
+      question.range.forEach((range, rIndex) => {
         const label = document.createElement("label");
         const input = document.createElement("input");
         input.type = "radio";
-        input.name = `question${index + 1}`;
-        input.value = question.values[index];
+        input.name = `question${qIndex + 1}`;
+        input.value = question.values[rIndex];
         label.appendChild(input);
         label.appendChild(document.createTextNode(` ${range.toString()} `));
         questionBlock.appendChild(label);
@@ -57,10 +57,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       let comments = document.getElementById("service-comments").value;
 
       let answers = [];
-      service.riskAnalysis.forEach((question, index) => {
+      service.riskAnalysis.forEach((question, qIndex) => {
         const selectedOption = document.querySelector(
-          `input[name="question${index + 1}"]:checked`
+          `input[name="question${qIndex + 1}"]:checked`
         );
+        // console.log("Selected option:", selectedOption);
         if (selectedOption) {
           answers.push({
             question: question.questionTxt,
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
           answers.push({
             question: question.questionTxt,
-            answer: null, // or any default value indicating no selection
+            answer: null,
           });
         }
       });

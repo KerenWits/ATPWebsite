@@ -4,13 +4,17 @@ import QuoteDA from "/classes/quote/quote_da.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", function () {
-  let passedVar = JSON.parse(localStorage.getItem("passedVar"));
-  let quote = new Quote(passedVar);
+  let passedVar = localStorage.getItem("passedVar");
+  console.log(passedVar);
+  let quote = Quote.unStringify(passedVar);
   const startDateTime = new Date(quote.startDateTime);
   const endDateTime = new Date(quote.endDateTime);
   quote.startDateTime = startDateTime;
   quote.endDateTime = endDateTime;
   console.log(quote);
+
+  const quoteId = document.getElementById("quoteInfo");
+  quoteId.textContent = `Quote #${quote.id}`;
 
   let service = quote.service;
 

@@ -6,8 +6,6 @@ import state from "/global/variables.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import createNavBar from "/utilities/navbar.js";
 
-
-
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const titles = [
@@ -28,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "/quotes/Quotes.html",
       "/profile/Profile.html",
     ];
-  
+
     createNavBar({
       document: document,
       titles: titles,
@@ -38,6 +36,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let lc = new LoadingScreen(document);
     lc.show();
+    const loggedInUser = localStorage.getItem("loggedInUser");
+    console.log("Logged in user:", loggedInUser);
     let allServices = await ServiceDA.instance.getAllServices({});
     lc.updateText("Getting services...");
 
@@ -77,5 +77,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error fetching services:", error);
   }
 });
-
-

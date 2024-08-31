@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "/quotes/Quotes.html",
       "/profile/Profile.html",
     ];
-  
+
     createNavBar({
       document: document,
       titles: titles,
@@ -33,10 +33,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    updateHomeLink(document, loggedInUser);
 
     const allServices = JSON.parse(localStorage.getItem("allServices"));
-    let allQuotes = await QuoteDA.instance.getAllQuotesForUser({ user: loggedInUser });
+    let allQuotes = await QuoteDA.instance.getAllQuotesForUser({
+      user: loggedInUser,
+    });
     console.log(allQuotes);
 
     const requestedQ = allQuotes.get(Quote.sStatusRequested);
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const serviceDropDown = document.getElementById("service");
     serviceDropDown.innerHTML = "";
 
-    serviceDropDown.onchange = updateDescription;
+    serviceDropDown.onchange = () => updateDescription(allServices);
 
     allServices.forEach((service) => {
       const option = document.createElement("option");
@@ -72,35 +73,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     const quotedQuotes = document.getElementById("quoted-quotes");
-    const acceptBtn = document.createElement("button");
-    acceptBtn.textContent = "Accept Quote";
-    acceptBtn.className = "button accept-button";
-    acceptBtn.onclick = async () => {
-      let lc = new LoadingScreen(document);
-      lc.show("Accepting Quote...");
-      let unQuote = Quote.unStringify(quote);
-      unQuote.status = Quote.sStatusAccepted;
-      await QuoteDA.instance.updateQuote({ quote: unQuote });
-      quotedQ = quotedQ.filter((q) => q.id !== quote.id);
-      lc.hide();
-    };
-
-    const rejectBtn = document.createElement("button");
-    rejectBtn.textContent = "Reject Quote";
-    rejectBtn.className = "button reject-button";
-    rejectBtn.onclick = async () => {
-      let lc = new LoadingScreen(document);
-      lc.show("Rejecting Quote...");
-      let unQuote = Quote.unStringify(quote);
-      unQuote.status = Quote.sStatusRejected;
-      await QuoteDA.instance.updateQuote({ quote: unQuote });
-      lc.hide();
-    };
     createQuoteBox({
       topDiv: quotedQuotes,
       quoteMap: quotedQ,
       clearTopDiv: true,
-      buttonList: [acceptBtn, rejectBtn],
+      buttonCallbacks: [
+        {
+          text: "Accept Quote",
+          className: "button accept-button",
+          callback: async (quote) => {
+            let lc = new LoadingScreen(document);
+            lc.show("Accepting Quote...");
+            quote.status = Quote.sStatusAccepted;
+            await QuoteDA.instance.updateQuote({ quote: quote });
+            quotedQ.delete(quote.id);
+            lc.hide();
+          },
+        },
+        {
+          text: "Reject Quote",
+          className: "button reject-button",
+          callback: async (quote) => {
+            let lc = new LoadingScreen(document);
+            lc.show("Rejecting Quote...");
+            quote.status = Quote.sStatusRejected;
+            await QuoteDA.instance.updateQuote({ quote: quote });
+            quotedQ.delete(quote.id);
+            lc.hide();
+          },
+        },
+      ],
     });
 
     // const acceptedQuotes = document.getElementById("accepted-quotes");
@@ -118,7 +120,7 @@ function createQuoteBox({
   topDiv,
   quoteMap,
   clearTopDiv = false,
-  buttonList = [],
+  buttonCallbacks = [],
 }) {
   if (clearTopDiv) {
     topDiv.innerHTML = "";
@@ -132,15 +134,22 @@ function createQuoteBox({
     <p>${quote.service.name}</p>
   `;
 
-    buttonList.forEach((button) => {
+    buttonCallbacks.forEach(({ text, className, callback }) => {
+      const button = document.createElement("button");
+      button.textContent = text;
+      button.className = className;
+      button.onclick = () => callback(quote);
       quoteBox.appendChild(button);
     });
+
     topDiv.appendChild(quoteBox);
   });
 }
 
-function updateDescription() {
+function updateDescription(allServices) {
+  // console.log("updateDescription called", allServices);
   const selectedServiceName = document.getElementById("service").value;
+  // console.log("selectedServiceName", selectedServiceName);
   const selectedService = allServices.find(
     (service) => service.name === selectedServiceName
   );
