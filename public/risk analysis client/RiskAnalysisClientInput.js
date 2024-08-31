@@ -3,13 +3,39 @@ import { UserType } from "/global/enums.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
+import createNavBar from "/utilities/navbar.js";
+import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+    const titles = [
+      "Home",
+      "Our Services",
+      "About us",
+      "Contact us",
+      "FAQs",
+      "Quotes",
+      "My Profile",
+    ];
+    const links = [
+      "/client home/client_home.html",
+      "/view services/OurServices.html",
+      "/about us/AboutUs.html",
+      "/contact us/contactUs.html",
+      "/FAQ/FAQs.html",
+      "/quotes/Quotes.html",
+      "/profile/Profile.html",
+    ];
+
+    createNavBar({
+      document: document,
+      titles: titles,
+      links: links,
+      addLogout: true,
+    });
     let lc = new LoadingScreen(document);
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     console.log("User:", loggedInUser);
-    updateHomeLink(loggedInUser);
 
     lc.show();
     const params = new URLSearchParams(window.location.search);
@@ -51,46 +77,67 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const requestQuoteBtn = document.getElementById("request-quote");
     requestQuoteBtn.onclick = async () => {
-      let date = document.getElementById("service-date").value;
-      let startTime = document.getElementById("start-time").value;
-      let endTime = document.getElementById("end-time").value;
-      let comments = document.getElementById("service-comments").value;
+      const dialog = new ConfirmDialog({
+        document: document,
+        title: "Request quote?",
+        message: "Are you sure you want to request this quote?",
+        buttons: ["Request", "Cancel"],
+        callBacks: [
+          async () => {
+            let lc = new LoadingScreen(document);
+            lc.show("Submitting request...");
+            let date = document.getElementById("service-date").value;
+            let startTime = document.getElementById("start-time").value;
+            let endTime = document.getElementById("end-time").value;
+            let comments = document.getElementById("service-comments").value;
 
-      let answers = [];
-      service.riskAnalysis.forEach((question, qIndex) => {
-        const selectedOption = document.querySelector(
-          `input[name="question${qIndex + 1}"]:checked`
-        );
-        // console.log("Selected option:", selectedOption);
-        if (selectedOption) {
-          answers.push({
-            question: question.questionTxt,
-            answer: selectedOption.value,
-          });
-        } else {
-          answers.push({
-            question: question.questionTxt,
-            answer: null,
-          });
-        }
+            let answers = [];
+            service.riskAnalysis.forEach((question, qIndex) => {
+              const selectedOption = document.querySelector(
+                `input[name="question${qIndex + 1}"]:checked`
+              );
+              // console.log("Selected option:", selectedOption);
+              if (selectedOption) {
+                answers.push({
+                  question: question.questionTxt,
+                  answer: selectedOption.value,
+                });
+              } else {
+                answers.push({
+                  question: question.questionTxt,
+                  answer: null,
+                });
+              }
+            });
+
+            let startDateTime = new Date(`${date}T${startTime}`);
+            let endDateTime = new Date(`${date}T${endTime}`);
+
+            let quote = new Quote({
+              id: "",
+              clientId: loggedInUser.id,
+              serviceId: service.id,
+              startDateTime: startDateTime,
+              endDateTime: endDateTime,
+              comment: comments,
+              raAnswers: answers,
+            });
+
+            let createdQuote = await QuoteDA.instance.createQuote({ quote });
+
+            console.log("Quote:", createdQuote);
+            lc.hide();
+            const dialog = new ConfirmDialog({
+              document: document,
+              title: "Quote requested",
+              message: "Quote has been requested",
+              buttons: ["Ok"],
+              callBacks: [() => {}],
+            });
+          },
+          () => {},
+        ],
       });
-
-      let startDateTime = new Date(`${date}T${startTime}`);
-      let endDateTime = new Date(`${date}T${endTime}`);
-
-      let quote = new Quote({
-        id: "",
-        clientId: loggedInUser.id,
-        serviceId: service.id,
-        startDateTime: startDateTime,
-        endDateTime: endDateTime,
-        comment: comments,
-        raAnswers: answers,
-      });
-
-      let createdQuote = await QuoteDA.instance.createQuote({ quote });
-
-      console.log("Quote:", createdQuote);
     };
     lc.hide();
   } catch (error) {

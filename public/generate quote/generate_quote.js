@@ -2,8 +2,30 @@ import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
+import createNavBar from "/utilities/navbar.js";
 
 document.addEventListener("DOMContentLoaded", function () {
+  const titles = [
+    "Home",
+    "Services",
+    "Quotes",
+    "Generate report",
+    "My Profile",
+  ];
+  const links = [
+    "/admin home/Home(Admin).html",
+    "/services admin/ServicesAdmin.html",
+    "/quotes/admin/Quotes(Admin).html",
+    "/reports/Reports.html",
+    "/profile/Profile.html",
+  ];
+
+  createNavBar({
+    document: document,
+    titles: titles,
+    links: links,
+    addLogout: true,
+  });
   let passedVar = localStorage.getItem("passedVar");
   console.log(passedVar);
   let quote = Quote.unStringify(passedVar);
