@@ -18,11 +18,22 @@ class EmployeeDA {
     EmployeeDA._instance = this;
   }
 
-  async getAllEmployees() {
-    let where = [MyUser.sUserType, "==", UserType.EMPLOYEE];
-    let querySnapshot = await this.quoteFs.getDocuments({
-      where: where,
+  async getAllEmployees({ rethrowError = false }) {
+    let where = [
+      { field: MyUser.sUserType, operator: "==", value: UserType.EMPLOYEE },
+    ];
+    let querySnapshot = await this.employeeFs.getDocuments({
+        whereConditions: where,
       rethrowError: rethrowError,
     });
+
+    let employees = [];
+    querySnapshot.forEach((doc) => {
+      let employee = Employee.fromJson({ docID: doc.id, json: doc.data() });
+      employees.push(employee);
+    });
+    return employees;
   }
 }
+
+export default EmployeeDA;

@@ -29,6 +29,24 @@ class Service extends MyClass {
     });
   }
 
+  static unStringify(strService) {
+    const parsedService = JSON.parse(strService);
+    let service = new Service(parsedService);
+
+    if (
+      parsedService.riskAnalysis &&
+      Array.isArray(parsedService.riskAnalysis)
+    ) {
+      service.riskAnalysis = parsedService.riskAnalysis.map((q) =>
+        Question.unStringify(JSON.stringify(q))
+      );
+    } else {
+      service.riskAnalysis = [];
+    }
+
+    return service;
+  }
+
   toJson() {
     return {
       [Service.sName]: this.name,

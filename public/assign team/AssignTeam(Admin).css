@@ -72,7 +72,7 @@ header nav ul li a {
 .mainHeadings h2{
     margin-left:5%;
 }
-#quoteNum{
+.quoteNum{
     text-align: center;
     text-decoration: underline;
     font-size: 30px;

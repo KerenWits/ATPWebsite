@@ -1,16 +1,14 @@
 import MyClass from "/classes/my_class.js";
 
 class Job extends MyClass {
-  constructor({ id, location = null, status = Job.sStatusPending }) {
+  constructor({ location = null, status = Job.sStatusPending }) {
     super();
-    this.id = id;
     this.location = location;
     this.status = status;
   }
 
-  static fromJson({ docID, json }) {
+  static fromJson(json) {
     return new Job({
-      id: docID,
       location: json[Job.sLocation],
       status: json[Job.sStatus],
     });
@@ -25,13 +23,11 @@ class Job extends MyClass {
 
   toString() {
     return `Job{
-        ${Job.sId}: ${this.id},
         ${Job.sLocation}: ${this.location},
         ${Job.sStatus}: ${this.status},
         }`;
   }
 
-  static sId = "id";
   static sLocation = "location";
   static sStatus = "status";
 

@@ -1,6 +1,8 @@
 import FirestoreService from "/firebase/query.js";
 import Quote from "/classes/quote/quote.js";
 import { UserType } from "/global/enums.js";
+import ClientDA from "/classes/users/client_da.js";
+import EmployeeDA from "/classes/users/employee_da.js";
 
 class QuoteDA {
   static _instance = null;
@@ -67,7 +69,7 @@ class QuoteDA {
         where = [{ field: Quote.sClientId, operator: "==", value: user.id }];
       }
       let querySnapshot = await this.quoteFs.getDocuments({
-        where: where,
+        whereConditions: where,
         rethrowError: rethrowError,
       });
 
@@ -130,7 +132,71 @@ class QuoteDA {
     } catch (e) {
       if (rethrowError) throw e;
       console.error("Error fetching quotes in QuoteDA:", e);
-      return new Map();
+      return null;
+    }
+  }
+
+  async completeQuoteData({
+    quote,
+    getClient = false,
+    getAllEmployees = false,
+    getJob = false,
+    rethrowError,
+  }) {
+    console.log("Completing quote data in QuoteDA");
+    try {
+      if (!(quote instanceof Quote)) {
+        throw new Error("Invalid quote data");
+      }
+
+      if (!quote.service) {
+        console.log("Quote does not have service data");
+        let allServices = JSON.parse(localStorage.getItem("allServices"));
+        for (let i = 0; i < allServices.length; i++) {
+          const service = allServices[i];
+          if (quote.serviceId === service.id) {
+            quote.service = service;
+            break;
+          }
+        }
+      }
+
+      // Check if clientId exists and getClient is true
+      if (quote.clientId && getClient) {
+        console.log("Getting client for quote");
+        let client = await ClientDA.instance.getClientByID({
+          clientID: quote.clientId,
+          rethrowError: rethrowError,
+        });
+        quote.client = client;
+      }
+
+      // Uncomment and update the following blocks as needed
+      // if (quote.teamIds && getAllEmployees) {
+      //   let employees = await EmployeeDA.instance.getAllEmployees({
+      //     rethrowError: false,
+      //   });
+      //   let selectedEmployees = [];
+      //   quote.teamIds.forEach((teamId) => {
+      //     employees.forEach((employee) => {
+      //       if (employee.id === teamId) {
+      //         selectedEmployees.push(employee);
+      //       }
+      //     });
+      //   });
+      //   quote.team = selectedEmployees;
+      // }
+
+      // if (quote.job && getJob) {
+      //   let job = await JobDA.instance.getJobById({ jobId: quote.job.id });
+      //   quote.job = job;
+      // }
+
+      return quote;
+    } catch (e) {
+      console.error("Error completing quote data:", e);
+      if (rethrowError) throw e;
+      return null;
     }
   }
 }

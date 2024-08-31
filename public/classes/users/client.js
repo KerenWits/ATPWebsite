@@ -65,6 +65,12 @@ class Client extends MyUser {
     });
   }
 
+  static unStringify(strClient) {
+    const parsedClient = JSON.parse(strClient);
+    let client = new Client(parsedClient);
+    return client;
+  }
+
   toJson() {
     return {
       [MyUser.sId]: this.id,

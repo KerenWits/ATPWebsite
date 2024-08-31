@@ -1,5 +1,7 @@
 import MyClass from "/classes/my_class.js";
 import { Timestamp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+import Job from "/classes/job/job.js";
+import Service from "/classes/service/service.js";
 
 class Quote extends MyClass {
   constructor({
@@ -15,6 +17,9 @@ class Quote extends MyClass {
     endDateTime,
     comment = null,
     raAnswers,
+    job = null,
+    teamIds = [],
+    team = null,
   }) {
     super();
     this.id = id;
@@ -29,12 +34,47 @@ class Quote extends MyClass {
     this.endDateTime = endDateTime;
     this.comment = comment;
     this.raAnswers = raAnswers;
+    this.job = job;
+    this.teamIds = teamIds;
+    this.team = team;
   }
 
+  // static unStringify(strQuote) {
+  //   let quote = new Quote(strQuote);
+  //   console.log("Unstringifying quote before other classes", quote);
+  //   quote.startDateTime = new Date(strQuote.startDateTime);
+  //   quote.endDateTime = new Date(strQuote.endDateTime);
+  //   console.log("Unstringifying quote", strQuote.service);
+  //   quote.service = Service.unStringify(strQuote.service);
+  //   return quote;
+  // }
+
   static unStringify(strQuote) {
-    let quote = new Quote(strQuote);
-    quote.startDateTime = new Date(quote.startDateTime);
-    quote.endDateTime = new Date(quote.endDateTime);
+    // Parse the stringified JSON object back into a JavaScript object
+    const parsedQuote = JSON.parse(strQuote);
+
+    // Log the parsed object to verify the data
+    // console.log("Parsed data", parsedQuote);
+
+    // Create a new instance of Quote using the parsed object
+    let quote = new Quote(parsedQuote);
+
+    // console.log("new quote with parsed", parsedQuote);
+
+    // Convert the stringified date back into a Date object
+    quote.startDateTime = new Date(parsedQuote.startDateTime);
+    quote.endDateTime = new Date(parsedQuote.endDateTime);
+
+    // Handle the nested service object if it exists
+    if (parsedQuote.service) {
+      quote.service = Service.unStringify(JSON.stringify(parsedQuote.service));
+    }
+
+    // Handle the nested client object if it exists
+    if (parsedQuote.client) {
+      quote.client = Client.unStringify(JSON.stringify(parsedQuote.client));
+    }
+
     return quote;
   }
 
@@ -56,6 +96,8 @@ class Quote extends MyClass {
           : null,
       comment: json[Quote.sComment],
       raAnswers: json[Quote.sRaAnswers],
+      job: json[Quote.sJob] != null ? Job.fromJson(json[Quote.sJob]) : null,
+      teamIds: json[Quote.sTeamIds] ?? [],
     });
   }
 
@@ -70,6 +112,8 @@ class Quote extends MyClass {
       [Quote.sEndDateTime]: this.endDateTime,
       [Quote.sComment]: this.comment,
       [Quote.sRaAnswers]: this.raAnswers,
+      [Quote.sJob]: this.job ? this.job.toJson() : null,
+      [Quote.sTeamIds]: this.teamIds,
     };
   }
 
@@ -89,6 +133,8 @@ class Quote extends MyClass {
         ${Quote.sEndDateTime}: ${this.endDateTime},
         ${Quote.sComment}: ${this.comment},
         ${Quote.sRaAnswers}: ${this.raAnswers},
+        ${Quote.sJob}: ${this.job ? this.job.toString() : this.job},
+        ${Quote.sTeamIds}: ${this.teamIds},
         }`;
   }
 
@@ -102,6 +148,8 @@ class Quote extends MyClass {
   static sEndDateTime = "endDateTime";
   static sComment = "comment";
   static sRaAnswers = "raAnswers";
+  static sJob = "job";
+  static sTeamIds = "teamIds";
 
   static sStatusRequested = "requested";
   static sStatusQuoted = "quoted";

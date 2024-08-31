@@ -1,6 +1,21 @@
 import createNavBar from "/utilities/navbar.js";
+import EmployeeDA from "/classes/users/employee_da.js";
+import Quote from "/classes/quote/quote.js";
+import QuoteDA from "/classes/quote/quote_da.js";
+import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  let quote = localStorage.getItem("passedVar");
+  //   console.log("stringified quote: ",quote);
+  quote = Quote.unStringify(quote);
+  //   console.log("unstringified quote", quote);
+  quote = await QuoteDA.instance.completeQuoteData({
+    quote: quote,
+    getClient: true,
+    rethrowError: false,
+  });
+  console.log(quote);
+
   const titles = [
     "Home",
     "Services",
@@ -22,23 +37,75 @@ document.addEventListener("DOMContentLoaded", () => {
     links: links,
     addLogout: true,
   });
-});
 
-function SaveTeam() {
-  // Select all checkboxes with a specific class or within a specific container
-  let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-  //check that atleast one member has been selected
-  if (checkboxes.length >= 1) {
-    console.log("save the rows");
-    //get the rows
-    let rows = getCheckedRowsData();
-    // get rows
-    console.log(rows);
-    alert("team saved successfully");
-  } else {
-    alert("Nothing selected");
-  }
-}
+  const quoteInfo = document.getElementById("quote-info");
+  quoteInfo.textContent = `Quote #${quote.id} - ${quote.client.fullName}`;
+
+  let allEmployees = await EmployeeDA.instance.getAllEmployees({
+    rethrowError: false,
+  });
+  console.log(allEmployees);
+  const employeeRows = document.getElementById("employees");
+  employeeRows.innerHTML = "";
+  allEmployees.forEach((employee) => {
+    const employeeRow = document.createElement("tr");
+    const empName = document.createElement("td");
+    empName.innerText = employee.fullName;
+    const empEmail = document.createElement("td");
+    empEmail.innerText = employee.email;
+    const addToTeam = document.createElement("td");
+    const checkbox = document.createElement("input");
+    checkbox.className = "checkboxes";
+    checkbox.type = "checkbox";
+    addToTeam.appendChild(checkbox);
+    employeeRow.appendChild(empName);
+    employeeRow.appendChild(empEmail);
+    employeeRow.appendChild(addToTeam);
+    employeeRows.appendChild(employeeRow);
+  });
+
+  const saveTeamBtn = document.getElementById("save-team");
+  saveTeamBtn.addEventListener("click", async () => {
+    let checkboxes = document.querySelectorAll(
+      'input[type="checkbox"]:checked'
+    );
+    //check that atleast one member has been selected
+    if (checkboxes.length >= 1) {
+      console.log("save the rows");
+      //get the rows
+      let rows = getAllSelectedRowIndexes();
+      let team = [];
+      rows.forEach((row) => {
+        team.push(allEmployees[row]);
+      });
+      let allEmployeeIds = [];
+      team.forEach((employee) => {
+        allEmployeeIds.push(employee.id);
+      });
+      quote.teamIds = allEmployeeIds;
+      await QuoteDA.instance.updateQuote({
+        quote: quote,
+      });
+      new ConfirmDialog({
+        document: document,
+        title: "Successful",
+        message: "Team has been assigned successfully",
+        buttons: ["Ok"],
+        callBacks: [
+          () => {
+            window.location.href = `/admin home/Home(Admin).html`;
+          },
+        ],
+      });
+      console.log(allEmployeeIds);
+    } else {
+      alert("Please select atleast one member to assign to the team");
+    }
+  });
+
+  const deselectAllBtn = document.getElementById("deselect-all");
+  deselectAllBtn.addEventListener("click", deselAll);
+});
 
 function deselAll() {
   const mytable = document.getElementById("team-table");
@@ -50,29 +117,15 @@ function deselAll() {
   }
 }
 
-function getCheckedRowsData() {
-  let checkedRowsData = [];
-  // Select all checked checkboxes within the table
-  let checkedCheckboxes = document.querySelectorAll(
-    'table#team-table input[type="checkbox"]:checked'
-  );
-  // Iterate over each checked checkbox
-  for (checkbox of checkedCheckboxes) {
-    // Get the row (parent <tr>) of the checkbox
-    var row = checkbox.closest("tr");
+function getAllSelectedRowIndexes() {
+  const checkboxes = document.querySelectorAll(".checkboxes");
+  const selectedIndexes = [];
 
-    // Get all the cells (td) in the row
-    var cells = row.querySelectorAll("td");
-
-    // Extract data from each cell
-    var rowData = [];
-
-    for (cell of cells) {
-      rowData.push(cell.innerText);
+  checkboxes.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      selectedIndexes.push(index);
     }
-    // Store the data in the checkedRowsData array
-    checkedRowsData.push(rowData);
-  }
+  });
 
-  return checkedRowsData;
+  return selectedIndexes;
 }

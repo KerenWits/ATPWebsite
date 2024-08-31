@@ -17,6 +17,12 @@ class Question {
     });
   }
 
+  static unStringify(strQuestion) {
+    const parsedQuestion = JSON.parse(strQuestion);
+    let question = new Question(parsedQuestion);
+    return question;
+  }
+
   toJson() {
     return {
       [Question.sQuestionTxt]: this.questionTxt,

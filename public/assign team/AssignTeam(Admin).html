@@ -31,7 +31,7 @@
     <!-- main headings -->
     <!-- Quote number and client -->
     <section class="mainHeadings">
-      <h1 id="quoteNum">Quote #: Client*</h1>
+      <h1 id="quote-info" class="quoteNum">Quote #: Client*</h1>
       <h2>Available Members</h2>
     </section>
     <div class="container">
@@ -40,34 +40,29 @@
         <thead>
           <tr>
             <th>Member Name</th>
-            <th>Role</th>
             <th>Email</th>
             <th id="check">Select Member</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="employees">
           <!-- Placeholder rows -->
           <tr data-quote="member1">
             <td>John Doe</td>
-            <td>Security I</td>
             <td>john.doe@example.com</td>
             <td><input type="checkbox" class="checkboxes" /></td>
           </tr>
           <tr data-quote="member2">
             <td>Jane Smith</td>
-            <td>Security II</td>
             <td>jane.smith@example.com</td>
             <td><input type="checkbox" class="checkboxes" /></td>
           </tr>
           <tr data-quote="member3">
             <td>Robert Brown</td>
-            <td>Security I</td>
             <td>robert.brown@example.com</td>
             <td><input type="checkbox" class="checkboxes" /></td>
           </tr>
           <tr data-quote="member4">
             <td>Lisa White</td>
-            <td>Security II</td>
             <td>lisa.white@example.com</td>
             <td><input type="checkbox" class="checkboxes" /></td>
           </tr>
@@ -76,17 +71,11 @@
       <br />
       <input
         type="button"
-        id="deselButton"
-        value="Deselect All"
-        onclick="deselAll()"
-      />
-      <input
-        type="button"
-        value="Save Team"
-        id="saveTeamBtn"
         class="button"
-        onclick="SaveTeam()"
+        id="deselect-all"
+        value="Deselect All"
       />
+      <input type="button" value="Save Team" id="save-team" class="button" />
     </div>
 
     <!-- Footer -->
