@@ -1,6 +1,31 @@
 import Service from "/classes/service/service.js";
 import ServiceDA from "/classes/service/service_da.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
+import createNavBar from "/utilities/navbar.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const titles = [
+    "Home",
+    "Services",
+    "Quotes",
+    "Generate report",
+    "My Profile",
+  ];
+  const links = [
+    "/admin home/Home(Admin).html",
+    "/services admin/ServicesAdmin.html",
+    "/quotes/admin/Quotes(Admin).html",
+    "/reports/Reports.html",
+    "/profile/Profile.html",
+  ];
+
+  createNavBar({
+    document: document,
+    titles: titles,
+    links: links,
+    addLogout: true,
+  });
+});
 
 // Prevent spaces at the start of the service name
 const serviceNameInput = document.getElementById("service-name");

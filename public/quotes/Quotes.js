@@ -2,9 +2,35 @@ import updateHomeLink from "/utilities/homeLink.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
+import createNavBar from "/utilities/navbar.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
+    const titles = [
+      "Home",
+      "Our Services",
+      "About us",
+      "Contact us",
+      "FAQs",
+      "Quotes",
+      "My Profile",
+    ];
+    const links = [
+      "/client home/client_home.html",
+      "/view services/OurServices.html",
+      "/about us/AboutUs.html",
+      "/contact us/contactUs.html",
+      "/FAQ/FAQs.html",
+      "/quotes/Quotes.html",
+      "/profile/Profile.html",
+    ];
+  
+    createNavBar({
+      document: document,
+      titles: titles,
+      links: links,
+      addLogout: true,
+    });
 
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     updateHomeLink(document, loggedInUser);

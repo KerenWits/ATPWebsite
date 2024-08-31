@@ -1,4 +1,3 @@
-import AuthService from "/auth/auth_service.js";
 import createNavBar from "/utilities/navbar.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -27,11 +26,4 @@ document.addEventListener("DOMContentLoaded", () => {
     links: links,
     addLogout: true,
   });
-});
-
-document.addEventListener("DOMContentLoaded", async () => {
-  let user = await AuthService.firebase().getCurrentUser();
-  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  console.log("User:", user);
-  console.log("local:", loggedInUser);
 });

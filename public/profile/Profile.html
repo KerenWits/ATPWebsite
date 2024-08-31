@@ -8,7 +8,7 @@
 </head>
 <body>
         <!-- Header -->
-    <header>
+    <!-- <header>
         <nav class="Navbar">
 
             <ul>
@@ -23,7 +23,7 @@
                 <li><a href="Login.html">Logout</a></li>
             </ul>
         </nav>
-    </header>
+    </header> -->
     <div class="profile-container">
         <div class="profile-header">
             <img src="https://via.placeholder.com/100" alt="Placeholder Image" class="profile-photo">
@@ -67,49 +67,5 @@
         </div>
     </footer>
 
-    <script>
-        function updateDetails(){
-            //can only change name and contact info?
-            //change in db?
-        }
-
-        //popup logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const popup = document.getElementById('popup');
-            const deactivateBtn = document.getElementById('deactivate-button');
-            const closePopupBtn = document.getElementById('closePopupBtn');
-            const confirmDeactivation = document.getElementById('confirmDeactivation');
-            const logicResult = document.getElementById('logicResult');
-            //so you can change the message and reuse the popup for other things
-            const message = document.getElementById('message');
-
-            // Open the popup
-            deactivateBtn.addEventListener('click', () => {
-                popup.style.display = 'flex';
-            });
-
-            // Close the popup
-            closePopupBtn.addEventListener('click', () => {
-                popup.style.display = 'none';
-            });
-
-            // Logic for the button inside the popup
-            confirmDeactivation.addEventListener('click', () => {
-                //logicResult.textContent = "Account Deleted."
-                alert("Account Deleted.");
-                //take to login
-                //replace so they cant go back
-                window.location.replace("Login.html");
-
-            });
-            
-            // Close the popup when clicking outside of the content
-            window.addEventListener('click', (event) => {
-                if (event.target === popup) {
-                    popup.style.display = 'none';
-                }
-            });
-        });
-
-    </script>
+    <script type="module" src="profile.js"></script>
 </html>
