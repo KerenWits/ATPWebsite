@@ -1,100 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Client Risk Profile Report</title>
-    <link rel="stylesheet" href="ClientRiskProfileReport.css">
-</head>
-<body>
+    <link rel="stylesheet" href="ClientRiskProfileReport.css" />
+  </head>
+  <body>
     <!-- Header -->
-    <header>
-        <nav class="Navbar">
-            <ul>
-                <li class="logo"><img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="AboutUs.html">About Us</a></li>
-                <li><a href="contactUs.html">Contact Us</a></li>
-                <li><a href="QuotesAdmin.html">Quotes</a></li>
-                <li><a href="ServicesAdmin.html">Services</a></li>
-                <li><a href="Reports.html">Generate report</a></li>
-                <li><a href="">My Profile</a></li>
-                <li><a href="Login.html">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- <header>
+      <nav class="Navbar">
+        <ul>
+          <li class="logo">
+            <img
+              src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+            />
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="AboutUs.html">About Us</a></li>
+          <li><a href="contactUs.html">Contact Us</a></li>
+          <li><a href="QuotesAdmin.html">Quotes</a></li>
+          <li><a href="ServicesAdmin.html">Services</a></li>
+          <li><a href="Reports.html">Generate report</a></li>
+          <li><a href="">My Profile</a></li>
+          <li><a href="Login.html">Logout</a></li>
+        </ul>
+      </nav>
+    </header> -->
 
     <div class="content">
-        <h1>Client Risk Profile Report</h1>
-        <table class="risk-profile-table">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email Address</th>
-                    <th>Cellphone Number</th>
-                    <th>Risk Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Example rows for all risk levels -->
-                <tr>
-                    <td>Joe</td>
-                    <td>Smith</td>
-                    <td>jsmith@gmail.com</td>
-                    <td>645187918</td>
-                    <td class="high-risk">High</td>
-                </tr>
-                <tr>
-                    <td>Phil</td>
-                    <td>Foden</td>
-                    <td>philfods@gmail.com</td>
-                    <td>64518648</td>
-                    <td class="high-risk">High</td>
-                </tr>
-                <tr>
-                    <td>Anna</td>
-                    <td>Johnson</td>
-                    <td>ajohnson@example.com</td>
-                    <td>64512937</td>
-                    <td class="medium-risk">Medium</td>
-                </tr>
-                <tr>
-                    <td>David</td>
-                    <td>Wilson</td>
-                    <td>davidwilson@example.com</td>
-                    <td>64516782</td>
-                    <td class="medium-risk">Medium</td>
-                </tr>
-                <tr>
-                    <td>Emma</td>
-                    <td>Thompson</td>
-                    <td>ethompson@example.com</td>
-                    <td>64514567</td>
-                    <td class="low-risk">Low</td>
-                </tr>
-                <tr>
-                    <td>Lucas</td>
-                    <td>Miller</td>
-                    <td>lucasmiller@example.com</td>
-                    <td>64513659</td>
-                    <td class="low-risk">Low</td>
-                </tr>
-                <!-- More rows can be added dynamically as needed -->
-            </tbody>
-        </table>
-        <div class="print-button-container">
-            <button onclick="window.print()" class="print-btn">Print Report</button>
-        </div>
+      <h1>Client Risk Profile Report</h1>
+      <table class="risk-profile-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Cellphone Number</th>
+            <th>Risk Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example rows for all risk levels -->
+          <tr>
+            <td>Joe</td>
+            <td>Smith</td>
+            <td>jsmith@gmail.com</td>
+            <td>645187918</td>
+            <td class="high-risk">High</td>
+          </tr>
+          <tr>
+            <td>Phil</td>
+            <td>Foden</td>
+            <td>philfods@gmail.com</td>
+            <td>64518648</td>
+            <td class="high-risk">High</td>
+          </tr>
+          <tr>
+            <td>Anna</td>
+            <td>Johnson</td>
+            <td>ajohnson@example.com</td>
+            <td>64512937</td>
+            <td class="medium-risk">Medium</td>
+          </tr>
+          <tr>
+            <td>David</td>
+            <td>Wilson</td>
+            <td>davidwilson@example.com</td>
+            <td>64516782</td>
+            <td class="medium-risk">Medium</td>
+          </tr>
+          <tr>
+            <td>Emma</td>
+            <td>Thompson</td>
+            <td>ethompson@example.com</td>
+            <td>64514567</td>
+            <td class="low-risk">Low</td>
+          </tr>
+          <tr>
+            <td>Lucas</td>
+            <td>Miller</td>
+            <td>lucasmiller@example.com</td>
+            <td>64513659</td>
+            <td class="low-risk">Low</td>
+          </tr>
+          <!-- More rows can be added dynamically as needed -->
+        </tbody>
+      </table>
+      <div class="print-button-container">
+        <button onclick="window.print()" class="print-btn">Print Report</button>
+      </div>
     </div>
 
+    <script type="module" src="client_risk_profile_report.js"></script>
+
     <footer>
-        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
-        <div id="social-media">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
+      <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+      <div id="social-media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

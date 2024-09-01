@@ -4,7 +4,7 @@ import QuoteDA from "/classes/quote/quote_da.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import createNavBar from "/utilities/navbar.js";
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const titles = [
     "Home",
     "Services",
@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let passedVar = localStorage.getItem("passedVar");
   console.log(passedVar);
   let quote = Quote.unStringify(passedVar);
+  quote = await QuoteDA.instance.completeQuoteData({
+    quote: quote,
+    getClient: true,
+  });
   const startDateTime = new Date(quote.startDateTime);
   const endDateTime = new Date(quote.endDateTime);
   quote.startDateTime = startDateTime;

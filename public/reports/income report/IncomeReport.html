@@ -26,7 +26,7 @@
     </header> -->
     <div class="content">
         <h1>Income earned from the Top 10 Clients</h1>
-        <table class="clients-table">
+        <table id="clients-table" class="clients-table">
             <thead>
                 <tr>
                     <th>First Name</th>
@@ -35,7 +35,7 @@
                     <th>Total Income Earned</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="client-rows">
                 <!-- Example rows -->
                 <tr>
                     <td>John</td>
@@ -51,12 +51,12 @@
                 </tr>
                 <!-- More rows as needed -->
             </tbody>
-            <tfoot>
-                <tr>
+            <!-- <tfoot>
+                <tr id="grand-total">
                     <td colspan="3">Grand Total</td>
-                    <td>$18,500</td>
+                    <td id="grand-total-amt">$18,500</td>
                 </tr>
-            </tfoot>
+            </tfoot> -->
         </table>
         <div class="print-button-container">
             <button onclick="window.print()" class="print-btn">Print Report</button>
