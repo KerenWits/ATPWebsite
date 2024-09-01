@@ -1,4 +1,5 @@
 import createNavBar from "/utilities/navbar.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const titles = [
@@ -23,11 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
     addLogout: true,
   });
 
+  let lc = new LoadingScreen(document);
+  lc.show();
   const passedVar = JSON.parse(localStorage.getItem("passedVar"));
   console.log("Passed var", passedVar);
   const allServices = JSON.parse(localStorage.getItem("allServices"));
   console.log("All services", allServices);
-
+  lc.updateText("Preparing Services Rendered Report...");
   const table = document.querySelector("table tbody");
   while (table.rows.length > 0) {
     table.deleteRow(0);
@@ -69,4 +72,5 @@ document.addEventListener("DOMContentLoaded", function () {
     )}`;
     totalIncomeReceived.style.textAlign = "right";
   }
+  lc.hide();
 });

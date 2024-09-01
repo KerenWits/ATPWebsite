@@ -1,5 +1,6 @@
 import createNavBar from "/utilities/navbar.js";
 import ClientDA from "/classes/users/client_da.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   const titles = [
@@ -23,9 +24,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     links: links,
     addLogout: true,
   });
-
+  let lc = new LoadingScreen(document);
+  lc.show();
   const table = document.querySelector(".risk-profile-table tbody");
-
+  lc.updateText("Preparing client risk profile...");
   // Function to clear all rows in the tbody
   function clearTable() {
     while (table.rows.length > 0) {
@@ -70,4 +72,5 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Clear the table and add new data
   clearTable();
   addData(profileInfo);
+  lc.hide();
 });

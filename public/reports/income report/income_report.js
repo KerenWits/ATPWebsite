@@ -1,5 +1,6 @@
 import createNavBar from "/utilities/navbar.js";
 import ClientDA from "/classes/users/client_da.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const titles = [
@@ -23,10 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
     links: links,
     addLogout: true,
   });
-
+  let lc = new LoadingScreen(document);
+  lc.show();
   const passedVar = JSON.parse(localStorage.getItem("passedVar"));
   console.log("Passed var", passedVar);
-
+  lc.updateText("Preparing Income Report...");
   const clientInfo = [];
 
   (async () => {
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     footerCell1.colSpan = 3;
     footerCell1.innerHTML = "Grand Total";
     footerCell2.innerHTML = `R ${grandTotal}`;
+    lc.hide();
 
     // Update the grand total value
     // const grandTotalRow = document.querySelector("tfoot");

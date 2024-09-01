@@ -31,19 +31,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       links: links,
       addLogout: true,
     });
-
+    let lc = new LoadingScreen(document);
+    lc.show();
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
+    lc.updateText("Fetching all your quotes...");
     const allServices = JSON.parse(localStorage.getItem("allServices"));
     let allQuotes = await QuoteDA.instance.getAllQuotesForUser({
       user: loggedInUser,
     });
     console.log(allQuotes);
-
+    lc.updateText("Laying them out for you...");
     const requestedQ = allQuotes.get(Quote.sStatusRequested);
     const quotedQ = allQuotes.get(Quote.sStatusQuoted);
     const acceptedQ = allQuotes.get(Quote.sStatusAccepted);
     const reviewedQ = allQuotes.get(Quote.sStatusReviewed);
+    lc.hide();
 
     document.getElementById("request-btn").onclick = () => {
       const selectedServiceName = document.getElementById("service").value;

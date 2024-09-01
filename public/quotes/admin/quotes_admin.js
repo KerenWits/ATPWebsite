@@ -2,6 +2,7 @@ import updateHomeLink from "/utilities/homeLink.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import createNavBar from "/utilities/navbar.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const titles = [
@@ -28,11 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  let lc = new LoadingScreen(document);
+  lc.show();
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   let allQuotes = await QuoteDA.instance.getAllQuotesForUser({
     user: loggedInUser,
   });
   console.log(allQuotes);
+
+  lc.updateText("Organising your quotes...");
 
   const requestedQ = allQuotes.get(Quote.sStatusRequested);
   const acceptedQ = allQuotes.get(Quote.sStatusAccepted);
@@ -65,6 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     clearTopDiv: true,
     buttonList: [assingTeam],
   });
+  lc.hide();
 });
 
 function createQuoteBox({

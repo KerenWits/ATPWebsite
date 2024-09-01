@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     links: links,
     addLogout: true,
   });
+  let lc = new LoadingScreen(document);
+  lc.show();
   let passedVar = localStorage.getItem("passedVar");
   console.log(passedVar);
   let quote = Quote.unStringify(passedVar);
@@ -93,6 +95,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const comment = document.getElementById("quote-comment");
   comment.textContent = quote.comment;
+  lc.hide();
 
   const amount = document.getElementById("quoteAmount");
 
@@ -116,7 +119,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             title: "Quote Generated",
             message: "Quote has been generated successfully",
             buttons: ["Ok"],
-            callBacks: [() => {}],
+            callBacks: [() => {
+              window.location.href = `/admin home/Home(Admin).html`;
+            }],
           });
         },
         () => {},
