@@ -132,7 +132,9 @@ document.addEventListener("DOMContentLoaded", async () => {
               title: "Quote requested",
               message: "Quote has been requested",
               buttons: ["Ok"],
-              callBacks: [() => {}],
+              callBacks: [() => {
+                window.location.href = `/client home/client_home.html`;
+              }],
             });
           },
           () => {},
