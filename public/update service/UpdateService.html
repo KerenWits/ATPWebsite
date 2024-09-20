@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UpdateServicePage</title>
     <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="UpdateService.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="UpdateService.css" />
+  </head>
+  <body>
     <!-- Header -->
-    <header>
+    <!-- <header>
         <nav class="Navbar">
             <ul>
                 <li class="logo"><img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
@@ -24,48 +27,59 @@
                 <li><a href="Login.html">Logout</a></li>
             </ul>
         </nav>
-    </header>
+    </header> -->
 
     <div class="service-container">
-        <div class="service-box">
-            <h2>Update Service</h2>
-            <p>Select a service to update its description.</p>
-            <form action="#">
-                <label for="service-select">Select Service</label>
-                <select id="service-select" name="service-select" required>
-                    <option value="" disabled selected>Select service</option>
-                    <option value="service1">Service 1</option>
-                    <option value="service2">Service 2</option>
-                    <option value="service3">Service 3</option>
-                </select>
+      <div class="service-box">
+        <h2>Update Service</h2>
+        <p>Select a service to update its description.</p>
+        <form action="#">
+          <label for="service-select">Select Service</label>
+          <select id="service-select" name="service-select" required>
+            <option value="" disabled selected>Select service</option>
+            <option value="service1">Service 1</option>
+            <option value="service2">Service 2</option>
+            <option value="service3">Service 3</option>
+          </select>
 
-                <label for="service-description">Service Description</label>
-                <textarea id="service-description" name="service-description" placeholder="Update service description" rows="5" required></textarea>
+          <label for="service-description">Service Description</label>
+          <textarea
+            id="service-description"
+            name="service-description"
+            placeholder="Update service description"
+            rows="5"
+            required
+          ></textarea>
 
-                <button type="submit" class="update-service-btn">Update Service</button>
-            </form>
-        </div>
+          <button
+            id="update-service-btn"
+            type="submit"
+            class="update-service-btn"
+          >
+            Update Service
+          </button>
+        </form>
+      </div>
     </div>
     <div class="service-options">
-        <a href="UpdateRiskAnalysisQuestions.html" class="service-btn">Update risk analysis questions</a>
+      <a
+        href="/update r_a questions/UpdateRiskAnalysisQuestions.html"
+        class="service-btn"
+        id="question-btn"
+        >Update risk analysis questions</a
+      >
     </div>
 
-    <script>
-        // Prevent spaces at the start of the service description
-        const serviceDescriptionInput = document.getElementById('service-description');
-        serviceDescriptionInput.addEventListener('input', function() {
-            serviceDescriptionInput.value = serviceDescriptionInput.value.replace(/^\s+/g, '');
-        });
-    </script>
+    <script type="module" src="update_service.js"></script>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
-        <div id="social-media">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
+      <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+      <div id="social-media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

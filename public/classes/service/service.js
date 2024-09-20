@@ -47,6 +47,14 @@ class Service extends MyClass {
     return service;
   }
 
+  static fromJsonArray(jsonArray) {
+    let service = new Service(jsonArray);
+    service.riskAnalysis = jsonArray.riskAnalysis.map((q) =>
+      Question.fromJson({ json: q })
+    );
+    return service;
+  }
+
   toJson() {
     return {
       [Service.sName]: this.name,

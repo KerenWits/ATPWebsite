@@ -27,8 +27,8 @@
     <div class="profile-container">
         <div class="profile-header">
             <img src="https://via.placeholder.com/100" alt="Placeholder Image" class="profile-photo">
-            <h1 class="employee-name">John Doe</h1>
-            <h2 class="id">ID: ####</h2>
+            <h1 id="name" class="employee-name">John Doe</h1>
+            <h2 id="id" class="id">ID: ####</h2>
             <!-- omit if client -->
             <h3 id="type">Security I</h3>
             <h3 id="status">Active</h3>
@@ -36,26 +36,26 @@
 
         <div class="profile-contact">
             <h3>Contact Information</h3>
-            <h4 id="email">Email:</h4>
-            <p>johndoe@example.com</p>
-            <h4 id="phone">Phone:</h4>
-            <p>(123) 456-7890</p>
+            <h4>Email:</h4>
+            <p id="email">johndoe@example.com</p>
+            <h4>Phone:</h4>
+            <p id="phone">(123) 456-7890</p>
         </div>
         <div class="buttons">
-            <button id="update-button" onclick="updateDetails()">Update</button>
-            <button id="deactivate-button" onclick="deactivateAccount()">Deactivate</button>
+            <button id="update-button">Update</button>
+            <button id="deactivate-button">Deactivate</button>
         </div>
     </div>
     
     <!-- popup -->
-    <div id="popup" class="popup">
+    <!-- <div id="popup" class="popup">
         <div class="popup-content">
             <span id="closePopupBtn" class="close">&times;</span>
             <p id="message">Are you sure you want to deactivate your account?</p>
             <button id="confirmDeactivation">Confirm</button>
             <p id="logicResult"></p>
         </div>
-    </div>
+    </div> -->
 </body>
       <!-- Footer -->
       <footer>

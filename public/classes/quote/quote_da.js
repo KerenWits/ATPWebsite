@@ -2,6 +2,9 @@ import FirestoreService from "/firebase/query.js";
 import Quote from "/classes/quote/quote.js";
 import { UserType } from "/global/enums.js";
 import ClientDA from "/classes/users/client_da.js";
+import {
+  isMapStringDynamic
+} from "/utilities/type_checks/map_string_dynamic.js";
 import EmployeeDA from "/classes/users/employee_da.js";
 
 class QuoteDA {
@@ -35,22 +38,33 @@ class QuoteDA {
     }
   }
 
-  async updateQuote({ quote, returnNewQuote = false, rethrowError = false }) {
+    async updateQuote({ quote, returnNewQuote = false, rethrowError = false }) {
     try {
-      if (!quote instanceof Quote) {
+      let docID, data;
+  
+      if (quote instanceof Quote) {
+        docID = quote.id;
+        data = quote.toJson();
+      } else if (isMapStringDynamic(quote) && quote[Quote.sId] !== null) {
+        docID = quote[Quote.sId];
+        data = quote;
+        delete data[Quote.sId];
+      } else {
         throw new Error("Invalid quote data");
       }
+  
       if (returnNewQuote) {
         let updatedQuote = await this.quoteFs.getNewUpdatedDocument({
-          docID: quote.id,
-          data: quote.toJson(),
+          docID: docID,
+          data: data,
+          rethrowError: rethrowError,
         });
         console.log("Quote updated in QuoteDA");
         return updatedQuote;
       } else {
         await this.quoteFs.updateDocument({
-          docID: quote.id,
-          data: quote.toJson(),
+          docID: docID,
+          data: data,
           rethrowError: rethrowError,
         });
         console.log("Quote updated in QuoteDA");

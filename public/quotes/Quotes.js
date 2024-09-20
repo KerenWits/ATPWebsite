@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const requestedQ = allQuotes.get(Quote.sStatusRequested);
     const quotedQ = allQuotes.get(Quote.sStatusQuoted);
     const acceptedQ = allQuotes.get(Quote.sStatusAccepted);
-    const reviewedQ = allQuotes.get(Quote.sStatusReviewed);
+    const pendingReviewQ = allQuotes.get(Quote.sStatusCompleted);
 
     document.getElementById("request-btn").onclick = () => {
       const selectedServiceName = document.getElementById("service").value;
@@ -105,12 +105,33 @@ document.addEventListener("DOMContentLoaded", async () => {
       ],
     });
 
-    // const acceptedQuotes = document.getElementById("accepted-quotes");
-    // createQuoteBox({
-    //   topDiv: acceptedQuotes,
-    //   quoteMap: acceptedQ,
-    //   clearTopDiv: true,
-    // });
+    const filteredQuotes = new Map(
+      [...acceptedQ].filter(([key, quote]) => quote.team !== null)
+    );
+
+    const acceptedQuotes = document.getElementById("accepted-quotes");
+    createQuoteBox({
+      topDiv: acceptedQuotes,
+      quoteMap: filteredQuotes,
+      clearTopDiv: true,
+    });
+
+    const completedQuotes = document.getElementById("completed-quotes");
+    createQuoteBox({
+      topDiv: completedQuotes,
+      quoteMap: pendingReviewQ,
+      clearTopDiv: true,
+      buttonCallbacks: [
+        {
+          text: "Review Quote",
+          className: "button",
+          callback: async (quote) => {
+            localStorage.setItem("passedVar", JSON.stringify(quote));
+            window.location.href = `/review service/reviewService.html`;
+          },
+        },
+      ],
+    });
   } catch (error) {
     console.error("Error in make quote request:", error);
   }

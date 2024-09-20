@@ -20,6 +20,8 @@ class Quote extends MyClass {
     job = null,
     teamIds = [],
     team = null,
+    reviewRating = null,
+    reviewComments = null,
   }) {
     super();
     this.id = id;
@@ -37,6 +39,8 @@ class Quote extends MyClass {
     this.job = job;
     this.teamIds = teamIds;
     this.team = team;
+    this.reviewRating = reviewRating;
+    this.reviewComments = reviewComments;
   }
 
   // static unStringify(strQuote) {
@@ -98,6 +102,8 @@ class Quote extends MyClass {
       raAnswers: json[Quote.sRaAnswers],
       job: json[Quote.sJob] != null ? Job.fromJson(json[Quote.sJob]) : null,
       teamIds: json[Quote.sTeamIds] ?? [],
+      reviewRating: json[Quote.sReviewRating],
+      reviewComments: json[Quote.sReviewComments],
     });
   }
 
@@ -114,6 +120,8 @@ class Quote extends MyClass {
       [Quote.sRaAnswers]: this.raAnswers,
       [Quote.sJob]: this.job ? this.job.toJson() : null,
       [Quote.sTeamIds]: this.teamIds,
+      [Quote.sReviewRating]: this.reviewRating,
+      [Quote.sReviewComments]: this.reviewComments,
     };
   }
 
@@ -135,6 +143,8 @@ class Quote extends MyClass {
         ${Quote.sRaAnswers}: ${this.raAnswers},
         ${Quote.sJob}: ${this.job ? this.job.toString() : this.job},
         ${Quote.sTeamIds}: ${this.teamIds},
+        ${Quote.sReviewRating}: ${this.reviewRating},
+        ${Quote.sReviewComments}: ${this.reviewComments},
         }`;
   }
 
@@ -150,6 +160,8 @@ class Quote extends MyClass {
   static sRaAnswers = "raAnswers";
   static sJob = "job";
   static sTeamIds = "teamIds";
+  static sReviewRating = "reviewRating";
+  static sReviewComments = "reviewComments";
 
   static sStatusRequested = "requested";
   static sStatusQuoted = "quoted";

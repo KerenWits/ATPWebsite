@@ -112,7 +112,6 @@ h2 {
 
 .star-rating {
     display: flex;
-    direction: row-reverse;
     justify-content: flex-start;
     width: max-content;
     margin: 0 auto;

@@ -60,6 +60,26 @@ class UserDA {
     }
   }
 
+  async updateUser({ user, rethrowError = false }) {
+    try {
+      if (!user || !user.id) {
+        if (rethrowError) throw new Error("Invalid user data");
+        console.log("Invalid user data in UserDA updateUser");
+      }
+      const updateUser = await this.userFs.getNewUpdatedDocument({
+        docID: user.id,
+        data: user.toJson(),
+        rethrowError: rethrowError,
+      });
+      console.log("User updated in UserDA");
+      return updateUser;
+    } catch (e) {
+      if (rethrowError) throw e;
+      console.log("Error updating user in UserDA:", e);
+      return false;
+    }
+  }
+
   async createUserAndGet({
     id,
     userData,
@@ -136,6 +156,22 @@ class UserDA {
     } catch (e) {
       if (rethrowError) throw e;
       console.log("Error getting user in UserDA:", e);
+    }
+  }
+
+  unstringifyUser(user) {
+    if (!user.userType || !Object.values(UserType).includes(user.userType)) {
+      return null;
+    }
+
+    switch (user.userType) {
+      case UserType.CLIENT:
+        return Client.fromJson({ docID: user.id, json: user });
+      case UserType.GUEST:
+        console.log("Guest user type is not implemented yet.");
+        return null;
+      default:
+        return Employee.fromJson({ docID: user.id, json: user });
     }
   }
 

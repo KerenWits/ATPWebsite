@@ -10,7 +10,7 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <!-- <header>
         <nav class="Navbar">
             <ul>
                 <li class="logo"><img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
@@ -24,7 +24,7 @@
                 <li><a href="Login.html">Login</a></li>
             </ul>
         </nav>
-    </header>
+    </header> -->
 
     <div class="content-container">
         <h1>Update Risk Analysis Questions</h1>
@@ -38,18 +38,20 @@
             </select>
 
             <label for="update-question">Update Question:</label>
-            <input type="text" id="update-question" name="update-question" placeholder="Update the selected question">
+            <input type="text" id="question-txt" name="update-question" placeholder="Update the selected question">
 
-            <button class="update-btn">Update Question</button>
-            <button class="deactivate-btn">Deactivate Question</button>
+            <button id="update-question-btn" class="update-btn">Update Question</button>
+            <button id="delete-question-btn" class="deactivate-btn">Delete Question</button>
         </div>
 
         <div class="add-new-container">
             <h2>Add a New Question</h2>
-            <input type="text" id="new-question" name="new-question" placeholder="Enter a new question">
-            <button class="add-new-btn">Add New Question</button>
+            <input type="text" id="new-question-txt" name="new-question" placeholder="Enter a new question">
+            <button id="add-question-btn" class="add-new-btn">Add New Question</button>
         </div>
     </div>
+
+    <script type="module" src="/update r_a questions/update_ra_questions.js"></script>
 
     <!-- Footer -->
     <footer>

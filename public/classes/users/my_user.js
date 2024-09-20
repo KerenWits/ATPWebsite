@@ -95,7 +95,7 @@ class MyUser extends MyClass {
     if (!this.number || !this.countryCode || !this.countryISOCode) {
       return null;
     }
-    return `${this.countryCode}${this.number}`;
+    return `${this.countryCode} ${this.number}`;
   }
 
   get fullName() {
