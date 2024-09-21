@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.Navbar ul {
+    list-style-type: none;
+    background-color: #111;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+}
+
+.Navbar .logo {
+    margin-right: auto;
+}
+
+.Navbar img {
+    height: 100%;
+    width: 50px;
+}
+
+.Navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    text-align: center;
+}
+
+.Navbar a:hover {
+    color: red;
+}
+
+.profile-container {
+    max-width: 800px;
+    width: 90%;
+    margin: 2% auto;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header,
+.profile-contact {
+    margin-bottom: 2%;
+}
+
+.profile-contact h3 {
+    color: red;
+    font-size: 25px;
+}
+
+.editable-input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#deactivate-button,
+#update-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+#deactivate-button {
+    background-color: #D90000;
+    color: #fff;
+    border: none;
+}
+
+#update-button {
+    background-color: #fff;
+    color: #D90000;
+    border: none;
+}
+
+footer {
+    background-color: #111;
+    padding: 20px;
+    margin-top: auto;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#social-media a {
+    color: #FFFFFF;
+    margin: 0 10px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+#social-media a:hover {
+    color: #FFF;
+}

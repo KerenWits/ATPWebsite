@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="update_profile.css">
+</head>
+<body>
+    <!-- Header -->
+    <!-- Uncomment header section when needed
+    <header>
+        <nav class="Navbar">
+            <ul>
+                <li class="logo"><img src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="></li>
+                <li><a href="Home(Admin).html">Home</a></li>
+                <li><a href="AboutUs.html">About Us</a></li>
+                <li><a href="contactUs.html">Contact Us</a></li>
+                <li><a href="Quotes(Admin).html">Quotes</a></li>
+                <li><a href="ServicesAdmin.html">Services</a></li>
+                <li><a href="Reports.html">Generate report</a></li>
+                <li><a href="Profile.html">My Profile</a></li>
+                <li><a href="Login.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    -->
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <label for="first_name">First name:</label>
+            <input type="text" id="firts_name" value="John" class="editable-input"><br>
+            
+            <label for="last_name">Last name:</label>
+            <input type="text" id="last_name" value="Doe" class="editable-input">
+        </div>
+
+        <div class="profile-contact">
+            <h3>Contact Information and Password</h3>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="johndoe@example.com" class="editable-input"><br>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" value="(123) 456-7890" class="editable-input"><br>
+
+            <label for="phone">Password:</label>
+            <input type="password" id="password" value="*****" class="editable-input">
+        </div>
+
+        <div class="buttons">
+            <button id="update-button">Update</button>
+            <button id="deactivate-button">Deactivate</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+        <div id="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <script type="module" src="update_profile.js"></script>
+</body>
+</html>
