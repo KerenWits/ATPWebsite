@@ -48,6 +48,9 @@ async function login() {
   } else if (user.userType === UserType.CLIENT) {
     // console.log("cleint state: ", user.toString());
     window.location.href = "/client home/client_home.html";
+  } else if (user.userType === UserType.EMPLOYEE) {
+    //console.log("employee state: ",user.toString());
+    window.location.href = "/employee home/Home(Employee).html";
   }
 }
 
