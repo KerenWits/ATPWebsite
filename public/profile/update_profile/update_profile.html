@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
-    <link rel="stylesheet" href="update_profile.css">
-</head>
-<body>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="update_profile.css" />
+  </head>
+  <body>
     <!-- Header -->
     <!-- Uncomment header section when needed
     <header>
@@ -27,43 +31,64 @@
     -->
 
     <div class="profile-container">
-        <div class="profile-header">
-            <label for="first_name">First name:</label>
-            <input type="text" id="firts_name" value="John" class="editable-input"><br>
-            
-            <label for="last_name">Last name:</label>
-            <input type="text" id="last_name" value="Doe" class="editable-input">
-        </div>
+      <div class="profile-header">
+        <label for="first_name">First name:</label>
+        <input
+          type="text"
+          id="first_name"
+          value="John"
+          class="editable-input"
+        /><br />
 
-        <div class="profile-contact">
-            <h3>Contact Information and Password</h3>
+        <label for="last_name">Last name:</label>
+        <input type="text" id="last_name" value="Doe" class="editable-input" />
+      </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" value="johndoe@example.com" class="editable-input"><br>
+      <div class="profile-contact">
+        <h3>Contact Information and Password</h3>
 
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" value="(123) 456-7890" class="editable-input"><br>
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          value="johndoe@example.com"
+          class="editable-input"
+        /><br />
 
-            <label for="phone">Password:</label>
-            <input type="password" id="password" value="*****" class="editable-input">
-        </div>
+        <label for="phone">Phone:</label>
+        <input
+          type="tel"
+          id="phone"
+          value="(123) 456-7890"
+          class="editable-input"
+        /><br />
 
-        <div class="buttons">
-            <button id="update-button">Update</button>
-            <button id="deactivate-button">Deactivate</button>
-        </div>
+        <label for="phone">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value="*****"
+          class="editable-input"
+          title="Password"
+        />
+      </div>
+
+      <div class="buttons">
+        <button id="update-button">Update</button>
+        <button id="deactivate-button">Deactivate</button>
+      </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
-        <div id="social-media">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
+      <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+      <div id="social-media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </footer>
 
     <script type="module" src="update_profile.js"></script>
-</body>
+  </body>
 </html>

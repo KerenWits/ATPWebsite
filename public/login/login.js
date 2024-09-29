@@ -3,6 +3,7 @@ import { AppAuthPramsLogin } from "/auth/provider/firebase_auth_provider.js";
 import { UserType } from "/global/enums.js";
 import UserDA from "/classes/users/userDA.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
+import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 
 // Prevent spaces in email input
 const emailInput = document.querySelector("#email");
@@ -30,27 +31,44 @@ async function login() {
   let email = emailInput.value;
   let password = passwordInput.value;
 
-  let loginParams = new AppAuthPramsLogin(email, password);
-  let authService = AuthService.firebase();
+  try {
+    let loginParams = new AppAuthPramsLogin(email, password);
+    let authService = AuthService.firebase();
 
-  let user = await authService.logIn(loginParams);
-  lc.updateText("Logging in...");
-  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  console.log("local user login:", loggedInUser);
-  lc.updateText("Getting user data...");
-  await UserDA.instance.getAllUserDataGlobally({ user: user });
+    let user = await authService.logIn(loginParams);
+    lc.updateText("Logging in...");
 
-  lc.hide();
+    if (!user) {
+      throw new Error("Invalid login credentials");
+    }
 
-  if (user.userType === UserType.ADMIN) {
-    // // console.log("admin state: ",user.toString());
-    window.location.href = "/admin home/Home(Admin).html";
-  } else if (user.userType === UserType.CLIENT) {
-    // console.log("cleint state: ", user.toString());
-    window.location.href = "/client home/client_home.html";
-  } else if (user.userType === UserType.EMPLOYEE) {
-    //console.log("employee state: ",user.toString());
-    window.location.href = "/employee home/Home(Employee).html";
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    console.log("local user login:", loggedInUser);
+    lc.updateText("Getting user data...");
+    await UserDA.instance.getAllUserDataGlobally({ user: user });
+
+    lc.hide();
+
+    if (user.userType === UserType.ADMIN) {
+      // // console.log("admin state: ",user.toString());
+      window.location.href = "/admin home/Home(Admin).html";
+    } else if (user.userType === UserType.CLIENT) {
+      // console.log("cleint state: ", user.toString());
+      window.location.href = "/client home/client_home.html";
+    } else if (user.userType === UserType.EMPLOYEE) {
+      //console.log("employee state: ",user.toString());
+      window.location.href = "/employee home/Home(Employee).html";
+    }
+  } catch (error) {
+    lc.hide();
+
+    new ConfirmDialog({
+      document: document,
+      title: "Login Error",
+      message: "Invalid email or password. Please try again.",
+      buttons: ["OK"],
+      callBacks: [() => {}], 
+    });
   }
 }
 

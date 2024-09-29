@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   type.textContent = loggedInUser.userType.toUpperCase();
   status.textContent = loggedInUser.status.toUpperCase();
   email.textContent = loggedInUser.email;
-  phone.textContent = loggedInUser.phoneNumber ?? "N/A";
+  phone.textContent = loggedInUser.number; 
 
   const deactivateBtn = document.getElementById("deactivate-button");
   deactivateBtn.addEventListener("click", () => {
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const updateBtn = document.getElementById("update-button");
   updateBtn.addEventListener("click", () => {
-    window.location.href("/update profile/UpdateProfile.html");
+    window.location.href = "/profile/update_profile/update_profile.html";
   });
 });
 
