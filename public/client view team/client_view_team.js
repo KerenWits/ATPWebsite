@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let titles = [];
   let links = [];
   let addlogout = false;
-  if (user && user.userType === UserType.CLIENT) {
+  if (user.userType === UserType.CLIENT) {
     titles = [
       "Home",
       "Our Services",
@@ -28,24 +28,17 @@ document.addEventListener("DOMContentLoaded", () => {
       "/profile/Profile.html",
     ];
       addlogout = true;
-  } else {
-    titles = [
-      "Home",
-      "Our Services",
-      "About Us",
-      "Contact Us",
-      "FAQs",
-      "Login",
-    ];
+  } else if (user.userType === UserType.EMPLOYEE) {
+    titles = ["Home", "About us", "Contact us", "View teams", "My Profile"];
     links = [
-      "/index.html",
-      "/view services/OurServices.html",
+      "/employee home/Home(Employee).html",
       "/about us/AboutUs.html",
       "/contact us/contactUs.html",
-      "/FAQ/FAQs.html",
-      "/login/Login.html",
+      "/client view team/clientViewTeam.html",
+      "/profile/Profile.html",
     ];
-  }
+    addlogout = true;
+  } 
   createNavBar({
     document: document,
     titles: titles,

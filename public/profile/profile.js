@@ -38,8 +38,14 @@ document.addEventListener("DOMContentLoaded", () => {
       "/profile/Profile.html",
     ];
   } else if (user.userType === UserType.EMPLOYEE) {
-    titles = ["Home", "My Profile"];
-    links = ["/client home/client_home.html", "/profile/Profile.html"];
+    titles = ["Home", "About us", "Contact us", "View teams", "My Profile"];
+    links = [
+      "/employee home/Home(Employee).html",
+      "/about us/AboutUs.html",
+      "/contact us/contactUs.html",
+      "/client view team/clientViewTeam.html",
+      "/profile/Profile.html",
+    ];
   }
 
   createNavBar({

@@ -8,7 +8,12 @@ import createNavBar from "/utilities/navbar.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const titles = [
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  let titles = [];
+  let links = [];
+  let addlogout = false;
+  if (user && user.userType === UserType.CLIENT) {
+    titles = [
       "Home",
       "Our Services",
       "About us",
@@ -17,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "Quotes",
       "My Profile",
     ];
-    const links = [
+    links = [
       "/client home/client_home.html",
       "/view services/OurServices.html",
       "/about us/AboutUs.html",
@@ -26,13 +31,31 @@ document.addEventListener("DOMContentLoaded", async () => {
       "/quotes/Quotes.html",
       "/profile/Profile.html",
     ];
-
-    createNavBar({
-      document: document,
-      titles: titles,
-      links: links,
-      addLogout: true,
-    });
+      addlogout = true;
+  } else {
+    titles = [
+      "Home",
+      "Our Services",
+      "About Us",
+      "Contact Us",
+      "FAQs",
+      "Login",
+    ];
+    links = [
+      "/index.html",
+      "/view services/OurServices.html",
+      "/about us/AboutUs.html",
+      "/contact us/contactUs.html",
+      "/FAQ/FAQs.html",
+      "/login/Login.html",
+    ];
+  }
+  createNavBar({
+    document: document,
+    titles: titles,
+    links: links,
+    addLogout: addlogout,
+  });
 
     let lc = new LoadingScreen(document);
     lc.show();

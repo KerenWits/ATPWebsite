@@ -172,6 +172,7 @@ header nav ul li a {
   display: block; /* Makes the button a block element, allowing the margin to work */
 }
 /* Style for the date-box */
+.comment-box,
 .date-box {
   background-color: #2b2b2b;
   padding: 20px;

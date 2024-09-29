@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             await QuoteDA.instance.updateQuote({ quote: quote });
             quotedQ.delete(quote.id);
             lc.hide();
+            location.reload();
           },
         },
         {
@@ -102,6 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             await QuoteDA.instance.updateQuote({ quote: quote });
             quotedQ.delete(quote.id);
             lc.hide();
+            location.reload();
           },
         },
       ],
