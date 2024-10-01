@@ -119,52 +119,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-//   const updateBtn = document.getElementById("update-button");
-//   updateBtn.addEventListener("click", async () => {
-//     let loggedInUser = UserDA.instance.unstringifyUser(
-//       JSON.parse(localStorage.getItem("loggedInUser"))
-//     );
-//     const firstName = document.getElementById("first_name").value;
-//     const lastName = document.getElementById("last_name").value;
-//     const email = document.getElementById("email").value;
-//     const phone = document.getElementById("phone").value;
-//     const password = document.getElementById("password").value;
+  // const updateBtn = document.getElementById("update-button");
+  // updateBtn.addEventListener("click", async () => {
+  //   let loggedInUser = UserDA.instance.unstringifyUser(
+  //     JSON.parse(localStorage.getItem("loggedInUser"))
+  //   );
+  //   const firstName = document.getElementById("first_name").value;
+  //   const lastName = document.getElementById("last_name").value;
+  //   const email = document.getElementById("email").value;
+  //   const phone = document.getElementById("phone").value;
+  //   const password = document.getElementById("password").value;
 
-//     loggedInUser.firstName = firstName;
-//     loggedInUser.lastName = lastName;
-//     loggedInUser.email = email;
-//     loggedInUser.number = phone;
+  //   loggedInUser.firstName = firstName;
+  //   loggedInUser.lastName = lastName;
+  //   loggedInUser.email = email;
+  //   loggedInUser.number = phone;
 
-//     if (password) {
-//       loggedInUser.password = password;
-//     }
-//     try {
-//       let lc = new LoadingScreen(document);
-//       lc.show("Updating user...");
+  //   if (password) {
+  //     loggedInUser.password = password;
+  //   }
+  //   let lc;
+  //   try {
+  //     lc = new LoadingScreen(document);
+  //     lc.show("Updating user...");
+      
+  //     await UserDA.instance.updateUser({ user: loggedInUser });
 
-//       await UserDA.instance.updateUser({ user: loggedInUser });
+  //     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
 
-//       localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-
-//       lc.hide();
-//       new ConfirmDialog({
-//         document: document,
-//         title: "Update Successful",
-//         message: "Your profile has been updated successfully.",
-//         buttons: ["OK"],
-//         callBacks: [() => {window.location.href= "/profile/Profile.html"}],
-//       });
-//     } catch (error) {
-//       lc.hide();
-//       new ConfirmDialog({
-//         document: document,
-//         title: "Update Failed",
-//         message: "Failed to update profile: " + error.message,
-//         buttons: ["OK"],
-//         callBacks: [() => {}],
-//       });
-//     }
-//   });
+  //     lc.hide();
+  //     new ConfirmDialog({
+  //       document: document,
+  //       title: "Update Successful",
+  //       message: "Your profile has been updated successfully.",
+  //       buttons: ["OK"],
+  //       callBacks: [
+  //         () => {
+  //           window.location.href = "/profile/Profile.html";
+  //         },
+  //       ],
+  //     });
+  //   } catch (error) {
+  //     lc.hide();
+  //     new ConfirmDialog({
+  //       document: document,
+  //       title: "Update Failed",
+  //       message: "Failed to update profile: " + error.message,
+  //       buttons: ["OK"],
+  //       callBacks: [() => {}],
+  //     });
+  //   }
+  // });
 });
 
 // Format phone number

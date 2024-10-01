@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       serviceDescription.textContent = service.description;
       serviceBlock.appendChild(serviceDescription);
 
-      if (loggedInUser) {
+      if (user && user.userType === UserType.CLIENT) {
         const requestQuoteBtn = document.createElement("a");
         requestQuoteBtn.href = "/quotes/Quotes.html";
         requestQuoteBtn.classList.add("RequestQuoteBtn");
