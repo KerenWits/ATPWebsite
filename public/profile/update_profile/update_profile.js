@@ -7,6 +7,7 @@ import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  // console.log(user);
   let titles = [];
   let links = [];
   if (user.userType === UserType.ADMIN) {
@@ -119,57 +120,62 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // const updateBtn = document.getElementById("update-button");
-  // updateBtn.addEventListener("click", async () => {
-  //   let loggedInUser = UserDA.instance.unstringifyUser(
-  //     JSON.parse(localStorage.getItem("loggedInUser"))
-  //   );
-  //   const firstName = document.getElementById("first_name").value;
-  //   const lastName = document.getElementById("last_name").value;
-  //   const email = document.getElementById("email").value;
-  //   const phone = document.getElementById("phone").value;
-  //   const password = document.getElementById("password").value;
+  const updateBtn = document.getElementById("update-button");
+  updateBtn.addEventListener("click", async () => {
+    // let loggedInUser = UserDA.instance.unstringifyUser(
+    //   JSON.parse(localStorage.getItem("loggedInUser"))
+    // );
+    // console.log(loggedInUser);
+    console.log("Updating user...", loggedInUser);
+    const firstName = document.getElementById("first_name").value;
+    const lastName = document.getElementById("last_name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("password").value;
 
-  //   loggedInUser.firstName = firstName;
-  //   loggedInUser.lastName = lastName;
-  //   loggedInUser.email = email;
-  //   loggedInUser.number = phone;
+    loggedInUser.firstName = firstName;
+    loggedInUser.lastName = lastName;
+    loggedInUser.email = email;
+    loggedInUser.number = phone;
 
-  //   if (password) {
-  //     loggedInUser.password = password;
-  //   }
-  //   let lc;
-  //   try {
-  //     lc = new LoadingScreen(document);
-  //     lc.show("Updating user...");
-      
-  //     await UserDA.instance.updateUser({ user: loggedInUser });
+    console.log("Before DA request:", loggedInUser);
 
-  //     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+    if (password) {
+      loggedInUser.password = password;
+    }
+    let lc;
+    try {
+      lc = new LoadingScreen(document);
+      lc.show("Updating user...");
 
-  //     lc.hide();
-  //     new ConfirmDialog({
-  //       document: document,
-  //       title: "Update Successful",
-  //       message: "Your profile has been updated successfully.",
-  //       buttons: ["OK"],
-  //       callBacks: [
-  //         () => {
-  //           window.location.href = "/profile/Profile.html";
-  //         },
-  //       ],
-  //     });
-  //   } catch (error) {
-  //     lc.hide();
-  //     new ConfirmDialog({
-  //       document: document,
-  //       title: "Update Failed",
-  //       message: "Failed to update profile: " + error.message,
-  //       buttons: ["OK"],
-  //       callBacks: [() => {}],
-  //     });
-  //   }
-  // });
+      let updatedUser = await UserDA.instance.updateUser({ user: loggedInUser });
+      console.log("Updated user:", updatedUser);
+
+      localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+
+      lc.hide();
+      new ConfirmDialog({
+        document: document,
+        title: "Update Successful",
+        message: "Your profile has been updated successfully.",
+        buttons: ["OK"],
+        callBacks: [
+          () => {
+            window.location.href = "/profile/Profile.html";
+          },
+        ],
+      });
+    } catch (error) {
+      lc.hide();
+      new ConfirmDialog({
+        document: document,
+        title: "Update Failed",
+        message: "Failed to update profile: " + error.message,
+        buttons: ["OK"],
+        callBacks: [() => {}],
+      });
+    }
+  });
 });
 
 // Format phone number

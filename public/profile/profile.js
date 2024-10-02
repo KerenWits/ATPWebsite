@@ -7,6 +7,7 @@ import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  console.log(user);
   let titles = [];
   let links = [];
   if (user.userType === UserType.ADMIN) {
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
   type.textContent = loggedInUser.userType.toUpperCase();
   status.textContent = loggedInUser.status.toUpperCase();
   email.textContent = loggedInUser.email;
-  phone.textContent = loggedInUser.number; 
+  phone.textContent = loggedInUser.number;
 
   const deactivateBtn = document.getElementById("deactivate-button");
   deactivateBtn.addEventListener("click", () => {

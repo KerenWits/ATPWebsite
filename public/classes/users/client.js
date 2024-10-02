@@ -1,4 +1,5 @@
-import MyUser from "/classes/users/my_user.js"; // Adjust the path if necessary
+import MyUser from "/classes/users/my_user.js"; 
+// import { db } from "/firebase/firebase.js";
 
 class Client extends MyUser {
   constructor({
@@ -44,6 +45,7 @@ class Client extends MyUser {
   }
 
   static fromJson({ docID, json }) {
+    // console.log("Creating a client from JSON:", docID, json);
     return new Client({
       id: docID,
       FCMToken: json[MyUser.sFCMtoken],
@@ -65,8 +67,8 @@ class Client extends MyUser {
     });
   }
 
-  static unStringify(strClient) {
-    const parsedClient = JSON.parse(strClient);
+  static unStringify(parsedClient) {
+    parsedClient[MyUser.sDateCreated] = new Date(parsedClient.dateCreated);
     let client = new Client(parsedClient);
     return client;
   }
@@ -78,7 +80,7 @@ class Client extends MyUser {
       [MyUser.sFirstName]: this.firstName,
       [MyUser.sMiddleName]: this.middleName,
       [MyUser.sLastName]: this.lastName,
-      [MyUser.sDateCreated]: this.dateCreated.toISOString(),
+      [MyUser.sDateCreated]: this.dateCreated,
       [MyUser.sUserType]: this.userType,
       [MyUser.sEmail]: this.email,
       [MyUser.sIsVerified]: this.isVerified,

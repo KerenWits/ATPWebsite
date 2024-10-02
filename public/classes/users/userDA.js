@@ -66,12 +66,22 @@ class UserDA {
         if (rethrowError) throw new Error("Invalid user data");
         console.log("Invalid user data in UserDA updateUser");
       }
-      const updateUser = await this.userFs.getNewUpdatedDocument({
+      console.log("Before User update in UserDA", user);
+      const docSnap = await this.userFs.getNewUpdatedDocument({
         docID: user.id,
         data: user.toJson(),
         rethrowError: rethrowError,
       });
-      console.log("User updated in UserDA");
+      let updateUser;
+      const userType = user.userType;
+      const docID = docSnap.id;
+      const userData = docSnap.data();
+      if (UserType.CLIENT === userType) {
+        updateUser = Client.fromJson({ docID: docID, json: userData });
+      } else {
+        updateUser = Employee.fromJson({ docID: docID, json: userData });
+      }
+      console.log("After User update in UserDA", updateUser);
       return updateUser;
     } catch (e) {
       if (rethrowError) throw e;
@@ -164,14 +174,17 @@ class UserDA {
       return null;
     }
 
+    // user[MyUser.sDateCreated] = new Date(user[MyUser.sDateCreated]);
+    // console.log("in unstringifyUser:", user);
+
     switch (user.userType) {
       case UserType.CLIENT:
-        return Client.fromJson({ docID: user.id, json: user });
+        return Client.unStringify(user);
       case UserType.GUEST:
         console.log("Guest user type is not implemented yet.");
         return null;
       default:
-        return Employee.fromJson({ docID: user.id, json: user });
+        return Employee.unStringify(user);
     }
   }
 

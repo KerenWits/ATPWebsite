@@ -5,6 +5,10 @@ import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import createNavBar from "/utilities/navbar.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
+  const user = localStorage.getItem("loggedInUser");
+  if (!user) {
+    throw new Error("User not logged in");
+  }
   const titles = [
     "Home",
     "Services",

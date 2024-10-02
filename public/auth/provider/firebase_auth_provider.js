@@ -59,6 +59,7 @@ class AppAuthProvider extends MyAuthProvider {
           id: firebaseUser.uid,
           getProfilePic: false,
         });
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
         console.log("User signed in:", user);
       } else {
         console.log("No user signed in");

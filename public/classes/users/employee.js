@@ -65,6 +65,12 @@ class Employee extends MyUser {
     });
   }
 
+  static unStringify(parsedEmployee) {
+    parsedEmployee[MyUser.sDateCreated] = new Date(parsedEmployee.dateCreated);
+    let employee = new Employee(parsedEmployee);
+    return employee;
+  }
+
   toJson() {
     return {
       [MyUser.sId]: this.id,
@@ -72,7 +78,7 @@ class Employee extends MyUser {
       [MyUser.sFirstName]: this.firstName,
       [MyUser.sMiddleName]: this.middleName,
       [MyUser.sLastName]: this.lastName,
-      [MyUser.sDateCreated]: this.dateCreated.toISOString(),
+      [MyUser.sDateCreated]: this.dateCreated,
       [MyUser.sUserType]: this.userType,
       [MyUser.sEmail]: this.email,
       [MyUser.sIsVerified]: this.isVerified,

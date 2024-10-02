@@ -1,5 +1,5 @@
 import MyClass from "/classes/my_class.js";
-import { Timestamp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+// import { Timestamp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 import Job from "/classes/job/job.js";
 import Service from "/classes/service/service.js";
 
@@ -90,14 +90,16 @@ class Quote extends MyClass {
       status: json[Quote.sStatus],
       data: json[Quote.sData],
       amount: json[Quote.sAmount],
-      startDateTime:
-        json[Quote.sStartDateTime] instanceof Timestamp
-          ? json[Quote.sStartDateTime].toDate()
-          : null,
-      endDateTime:
-        json[Quote.sEndDateTime] instanceof Timestamp
-          ? json[Quote.sEndDateTime].toDate()
-          : null,
+      // startDateTime:
+      //   json[Quote.sStartDateTime] instanceof Timestamp
+      //     ? json[Quote.sStartDateTime].toDate()
+      //     : null,
+      // endDateTime:
+      //   json[Quote.sEndDateTime] instanceof Timestamp
+      //     ? json[Quote.sEndDateTime].toDate()
+      //     : null,
+      startDateTime: new Date(json[Quote.sStartDateTime].seconds * 1000),
+      endDateTime: new Date(json[Quote.sEndDateTime].seconds * 1000),
       comment: json[Quote.sComment],
       raAnswers: json[Quote.sRaAnswers],
       job: json[Quote.sJob] != null ? Job.fromJson(json[Quote.sJob]) : null,
