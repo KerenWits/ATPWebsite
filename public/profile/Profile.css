@@ -154,7 +154,7 @@ footer p {
 }
 
 #social-media a {
-    color: #FFFFFF;
+    color: #888;
     margin: 0 10px;
     font-size: 20px;
     text-decoration: none;
@@ -189,4 +189,25 @@ footer p {
     float: right;
     font-size: 24px;
     cursor: pointer;
+}
+
+
+/* Hide scrollbar by default */
+::-webkit-scrollbar {
+    width: 10px; /* or you can set a smaller width, like 4px */
+    height: 0px; /* for horizontal scrollbar */
+}
+
+/* Show scrollbar on hover */
+.scrollable:hover::-webkit-scrollbar {
+    width: 8px; /* Adjust width as per your design */
+    height: 8px; /* Adjust height for horizontal scrollbar */
+    /* background-color: #1a1a1a; */
+}
+
+/* Customize the scrollbar thumb (the part you can drag) */
+::-webkit-scrollbar-thumb {
+    background-color: #2c2c2c; /* Darker color on hover */
+    border-radius: 10px;
+    width: 5%;
 }
