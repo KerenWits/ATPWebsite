@@ -94,13 +94,19 @@ header nav ul li a {
     text-decoration: underline;
 }
 
-.quote-info p{
+.quote-info p, .quote-info ol{
     padding-left: 10%;
+}
+.quote-info ol li{
+    margin-bottom: 1.5%;
+    
 }
 .quote-header{
     text-align: center;
     margin-bottom: 2%;
 }
+
+
 
 
 
