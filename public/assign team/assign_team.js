@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const titles = [
     "Home",
+    "Employees",
     "Services",
     "Quotes",
     "Generate report",
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   ];
   const links = [
     "/admin home/Home(Admin).html",
+    "/current employees/current_employees.html",
     "/services admin/ServicesAdmin.html",
     "/quotes/admin/Quotes(Admin).html",
     "/reports/Reports.html",
