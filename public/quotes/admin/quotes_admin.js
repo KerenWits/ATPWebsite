@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   let allClients = await UserDA.instance.getAllClients({ rethrowError: true });
-  // console.log("Clients:", allClients); 
+  // console.log("Clients:", allClients);
 
   const clientSelect = document.getElementById("filter-client");
   clientSelect.innerHTML = "";
@@ -163,7 +163,7 @@ function createQuoteBox({
     quoteBox.className = "quote-box";
     quoteBox.innerHTML = `
     <h3>Quote #${key}</h3>
-    <p>Description: ${quote.comment}</p>
+    <p>Comment: ${quote.comment}</p>
   `;
 
     buttonList.forEach((buttonTemplate) => {
@@ -196,10 +196,16 @@ function viewQuote(quote) {
 function applyFilter() {
   const serviceSelect = document.getElementById("filter-service");
   const clientSelect = document.getElementById("filter-client");
+  const fromDateInput = document.getElementById("filter-from-date");
+  const toDateInput = document.getElementById("filter-to-date");
 
   const service = Service.unStringify(serviceSelect.value);
   const client = Client.unStringify(clientSelect.value);
+  const fromDate = fromDateInput.value ? fromDateInput.value : null;
+  const toDate = toDateInput.value ? toDateInput.value : null;
 
   console.log("service:", service);
   console.log("client:", client);
+  console.log("fromDate:", fromDate);
+  console.log("toDate:", toDate);
 }

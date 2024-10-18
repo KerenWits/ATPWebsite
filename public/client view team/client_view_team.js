@@ -91,11 +91,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       // console.log(member);
       const row = tbody.insertRow();
       const nameCell = row.insertCell(0);
-      const roleCell = row.insertCell(1);
+      const phoneCell = row.insertCell(1);
       const emailCell = row.insertCell(2);
 
       nameCell.textContent = member.fullName;
-      roleCell.textContent = "Security expert";
+      phoneCell.textContent = member.number;
       emailCell.textContent = member.email;
     });
   };
