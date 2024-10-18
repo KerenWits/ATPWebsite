@@ -1,51 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
-html, body {
-    height: 100%;
+/* General body layout */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1C1B1B;
+    color: #FFFFFF;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #111;
-    color: #f5f5f5;
-}
-body {
     display: flex;
     flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
 }
 
-.Navbar ul{
+/* Main content wrapper to push footer to the bottom */
+main {
+    flex: 1; /* Ensures content takes up remaining space, pushing the footer down */
+}
+
+/* Navbar styling */
+.Navbar ul {
     list-style-type: none;
-    background-color: #111;
+    background-color: rgb(26, 24, 24);
     padding: 0px;
     margin: 0px;
     overflow: hidden;
     display: flex;
     justify-content: flex-end;
-    height: 50px; /* Set the height of the navbar */
-  }
-  .Navbar .logo {
-    margin-right: auto; /* Pushes other items to the right */
-  }
-  .Navbar img{
-    height: 100%; /* Makes the image take the full height of the navbar */
-    width: 50px; 
-  }
-  .Navbar a{
+    height: 50px;
+}
+
+.Navbar .logo {
+    margin-right: auto;
+}
+
+.Navbar img {
+    height: 100%;
+    width: 50px;
+}
+
+.Navbar a {
     color: white;
     text-decoration: none;
     padding: 15px;
     display: block;
     text-align: center;
-    
-  }
-  .Navbar a:hover{
-    color: red;  
-  }
-  .Navbar li{
+}
+
+.Navbar a:hover {
+    color: red;
+}
+
+.Navbar li {
     float: left;
-  }
+}
+
+/* Header styles */
 header {
-    background-color:  #111;
+    background-color: #111;
     padding: 15px;
     text-align: center;
 }
@@ -67,12 +78,73 @@ header nav ul li a {
     font-weight: bold;
 }
 
+/* Name section */
+.name-section {
+    display: table;
+    left: 0;
+    margin-top: auto;
+    width: 100%;
+}
 
-.header h1 {
-font-family: 'Roboto', sans-serif;
-color: #fff;
-font-size: 28px;
-margin: 0;
+.name-block {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.name-block h1, .name-block h2 {
+    margin-right: 5%;
+    margin-left: auto;
+    width: fit-content;
+    min-height: fit-content;
+    display: block;
+}
+
+#name {
+    color: red;
+}
+
+/* Footer styling */
+footer {
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: auto; /* Ensures footer is pushed to the bottom */
+}
+
+footer p {
+    margin: 0;
+    margin-bottom: 7px;
+}
+
+#social-media a {
+    color: #888;
+    margin: 0 10px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+#social-media a:hover {
+    color: #FFF;
+}
+
+/* Hide scrollbar by default */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 0px;
+}
+
+/* Show scrollbar on hover */
+.scrollable:hover::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Customize the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    width: 5%;
 }
 
 
