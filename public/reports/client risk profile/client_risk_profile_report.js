@@ -5,6 +5,7 @@ import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 document.addEventListener("DOMContentLoaded", async function () {
   const titles = [
     "Home",
+    "Employees",
     "Services",
     "Quotes",
     "Generate report",
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   ];
   const links = [
     "/admin home/Home(Admin).html",
+    "/current employees/current_employees.html",
     "/services admin/ServicesAdmin.html",
     "/quotes/admin/Quotes(Admin).html",
     "/reports/Reports.html",

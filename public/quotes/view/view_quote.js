@@ -29,9 +29,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       "/profile/Profile.html",
     ];
   } else if (user.userType === UserType.ADMIN) {
-    titles = ["Home", "Services", "Quotes", "Generate report", "My Profile"];
+    titles = ["Home", "Employees", "Services", "Quotes", "Generate report", "My Profile"];
     links = [
       "/admin home/Home(Admin).html",
+      "/current employees/current_employees.html",
       "/services admin/ServicesAdmin.html",
       "/quotes/admin/Quotes(Admin).html",
       "/reports/Reports.html",
