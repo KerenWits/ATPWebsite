@@ -49,6 +49,9 @@ class Service extends MyClass {
 
   static fromJsonArray(jsonArray) {
     let service = new Service(jsonArray);
+    // console.log("in Service.fromJsonArray:", jsonArray);
+    // console.log("in Service.fromJsonArray:", jsonArray.riskAnalysis);
+    // console.log("in Service.fromJsonArray:", service);
     service.riskAnalysis = jsonArray.riskAnalysis.map((q) =>
       Question.fromJson({ json: q })
     );

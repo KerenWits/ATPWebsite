@@ -100,6 +100,7 @@ class FirestoreService {
     try {
       let q = query(this.collectionReference);
 
+      // Apply where conditions
       whereConditions.forEach((condition) => {
         q = query(
           q,
@@ -107,8 +108,9 @@ class FirestoreService {
         );
       });
 
+      // Apply order by conditions
       orderByFields.forEach((field) => {
-        q = query(q, orderBy(field));
+        q = query(q, orderBy(field.field, field.direction));
       });
 
       const querySnapshot = await getDocs(q);

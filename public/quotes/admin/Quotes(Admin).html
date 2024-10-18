@@ -11,9 +11,9 @@
     />
     <link rel="stylesheet" href="Quotes(Admin).css" />
   </head>
- 
-    <!-- Header -->
-    <!-- <header>
+
+  <!-- Header -->
+  <!-- <header>
       <nav class="Navbar">
         <ul>
           <li class="logo">
@@ -32,38 +32,43 @@
         </ul>
       </nav>
     </header> -->
-    <body>
+  <body>
     <!-- Quote Filters Section -->
     <div class="quote-filters">
       <h2>Filter Quotes</h2>
       <div class="form-group">
-          <label for="filter-client">Client Name:</label>
-          <select id="filter-client">
-              <option value="">All Clients</option>
-              <option value="XYZ Corp.">XYZ Corp.</option>
-              <option value="ABC Ltd.">ABC Ltd.</option>
-              <option value="DEF Inc.">DEF Inc.</option>
-          </select>
+        <label for="filter-client">Client Name:</label>
+        <select id="filter-client">
+          <option value="">All Clients</option>
+          <option value="XYZ Corp.">XYZ Corp.</option>
+          <option value="ABC Ltd.">ABC Ltd.</option>
+          <option value="DEF Inc.">DEF Inc.</option>
+        </select>
       </div>
 
       <div class="form-group">
-          <label for="filter-service">Service:</label>
-          <select id="filter-service">
-              <option value="">All Services</option>
-              <option value="Security Audit">Security Audit</option>
-              <option value="Risk Analysis">Risk Analysis</option>
-              <option value="Penetration Testing">Penetration Testing</option>
-          </select>
+        <label for="filter-service">Service:</label>
+        <select id="filter-service">
+          <option value="">All Services</option>
+          <option value="Security Audit">Security Audit</option>
+          <option value="Risk Analysis">Risk Analysis</option>
+          <option value="Penetration Testing">Penetration Testing</option>
+        </select>
       </div>
 
       <div class="form-group">
-          <label for="filter-date">Date:</label>
-          <input type="date" id="filter-date">
+        <label for="filter-date">From Date:</label>
+        <input type="date" id="filter-date" />
       </div>
-      
+
+      <div class="form-group">
+        <label for="filter-date">To Date:</label>
+        <input type="date" id="filter-date" />
+      </div>
+
       <button id="filter-btn" class="button">Apply Filters</button>
-  </div>
-  
+    </div>
+
     <div class="container">
       <h2>Quotes Pending Generation</h2>
       <div id="requested-quotes" class="quote-section">
@@ -87,8 +92,8 @@
         </div>
       </div>
 
-      <h2>Quotes Approved</h2>
-      <h3>Awaiting Team Assignment</h3>
+      <h2 id="accepted-quotes-heading">Quotes Approved</h2>
+      <h3 id="accepted-quotes-subheading">Awaiting Team Assignment</h3>
       <div id="accepted-quotes" class="quote-section">
         <div class="quote-box">
           <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
@@ -133,7 +138,7 @@
         </div> -->
 
       <h2>Reviewed Quotes</h2>
-      <div class="quote-section">
+      <div id="reviewed-quotes" class="quote-section">
         <div class="quote-box">
           <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
           <div>
@@ -158,15 +163,14 @@
     </div>
 
     <script type="module" src="quotes_admin.js"></script>
-</body>
-    <!-- Footer -->
-    <footer>
-      <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
-      <div id="social-media">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-    </footer>
- 
+  </body>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+    <div id="social-media">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </footer>
 </html>

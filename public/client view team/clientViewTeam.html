@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Team</title>
     <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="clientViewTeam.css"> <!-- Link to the external CSS file -->
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="clientViewTeam.css" />
+    <!-- Link to the external CSS file -->
+  </head>
+  <body>
     <!-- Header -->
     <!-- <header>
         <nav class="Navbar">
@@ -27,80 +31,68 @@
     </header> -->
 
     <div class="container">
-        <h2>View Assigned Team</h2>
+      <h2>View Assigned Team</h2>
 
-        <!-- Dropdown to select quote -->
-        <div class="form-group">
-            <label for="quote-select">Select Quote:</label>
-            <select id="quote-select" onchange="showTeam()">
-                <option value="quote1">Quote #005 - Incident Response for JKL Enterprises</option>
-                <option value="quote2">Quote #006 - Vulnerability Assessment for MNO Corp.</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
+      <!-- Dropdown to select quote -->
+      <div class="form-group">
+        <label for="quote-select">Select Quote:</label>
+        <select id="quote-select">
+          <option value="quote1">
+            Quote #005 - Incident Response for JKL Enterprises
+          </option>
+          <option value="quote2">
+            Quote #006 - Vulnerability Assessment for MNO Corp.
+          </option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
 
-        <!-- Table to display team members -->
-        <table id="team-table">
-            <thead>
-                <tr>
-                    <th>Member Name</th>
-                    <th>Role</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Placeholder rows -->
-                <tr data-quote="quote1">
-                    <td>John Doe</td>
-                    <td>Lead Auditor</td>
-                    <td>john.doe@example.com</td>
-                </tr>
-                <tr data-quote="quote1">
-                    <td>Jane Smith</td>
-                    <td>Security Analyst</td>
-                    <td>jane.smith@example.com</td>
-                </tr>
-                <tr data-quote="quote2">
-                    <td>Robert Brown</td>
-                    <td>Penetration Tester</td>
-                    <td>robert.brown@example.com</td>
-                </tr>
-                <tr data-quote="quote2">
-                    <td>Lisa White</td>
-                    <td>Network Specialist</td>
-                    <td>lisa.white@example.com</td>
-                </tr>
-            </tbody>
-        </table>
+      <!-- Table to display team members -->
+      <table id="team-table">
+        <thead>
+          <tr>
+            <th>Member Name</th>
+            <th>Role</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Placeholder rows -->
+          <tr data-quote="quote1">
+            <td>John Doe</td>
+            <td>Lead Auditor</td>
+            <td>john.doe@example.com</td>
+          </tr>
+          <tr data-quote="quote1">
+            <td>Jane Smith</td>
+            <td>Security Analyst</td>
+            <td>jane.smith@example.com</td>
+          </tr>
+          <tr data-quote="quote2">
+            <td>Robert Brown</td>
+            <td>Penetration Tester</td>
+            <td>robert.brown@example.com</td>
+          </tr>
+          <tr data-quote="quote2">
+            <td>Lisa White</td>
+            <td>Network Specialist</td>
+            <td>lisa.white@example.com</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
-        <div id="social-media">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
+      <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+      <div id="social-media">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </footer>
 
     <!-- JavaScript to handle dropdown change -->
-    <script type="module" src="client_view_team.js">
-        function showTeam() {
-            const selectedQuote = document.getElementById('quote-select').value;
-            const rows = document.querySelectorAll('#team-table tbody tr');
-
-            rows.forEach(row => {
-                if (row.getAttribute('data-quote') === selectedQuote) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-
-        // Initially display the first quote's team
-        window.onload = showTeam;
-    </script>
-</body>
+    <script type="module" src="client_view_team.js"></script>
+  </body>
 </html>

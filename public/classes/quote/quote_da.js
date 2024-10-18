@@ -2,10 +2,8 @@ import FirestoreService from "/firebase/query.js";
 import Quote from "/classes/quote/quote.js";
 import { UserType } from "/global/enums.js";
 import ClientDA from "/classes/users/client_da.js";
-import {
-  isMapStringDynamic
-} from "/utilities/type_checks/map_string_dynamic.js";
-import EmployeeDA from "/classes/users/employee_da.js";
+import { isMapStringDynamic } from "/utilities/type_checks/map_string_dynamic.js";
+import UserDA from "/classes/users/userDA.js";
 
 class QuoteDA {
   static _instance = null;
@@ -38,10 +36,10 @@ class QuoteDA {
     }
   }
 
-    async updateQuote({ quote, returnNewQuote = false, rethrowError = false }) {
+  async updateQuote({ quote, returnNewQuote = false, rethrowError = false }) {
     try {
       let docID, data;
-  
+
       if (quote instanceof Quote) {
         docID = quote.id;
         data = quote.toJson();
@@ -52,7 +50,7 @@ class QuoteDA {
       } else {
         throw new Error("Invalid quote data");
       }
-  
+
       if (returnNewQuote) {
         let updatedQuote = await this.quoteFs.getNewUpdatedDocument({
           docID: docID,
@@ -81,7 +79,12 @@ class QuoteDA {
       let where = [];
       if (user.userType === UserType.CLIENT) {
         where = [{ field: Quote.sClientId, operator: "==", value: user.id }];
+      } else if (user.userType === UserType.EMPLOYEE) {
+        where = [
+          { field: Quote.sTeamIds, operator: "array-contains", value: user.id },
+        ];
       }
+
       let querySnapshot = await this.quoteFs.getDocuments({
         whereConditions: where,
         rethrowError: rethrowError,
@@ -153,7 +156,7 @@ class QuoteDA {
   async completeQuoteData({
     quote,
     getClient = false,
-    getAllEmployees = false,
+    getAssignedTeam = false,
     getJob = false,
     rethrowError,
   }) {
@@ -176,7 +179,7 @@ class QuoteDA {
       }
 
       // Check if clientId exists and getClient is true
-      if (quote.clientId && getClient) {
+      if (quote.clientId && getClient && !quote.client) {
         console.log("Getting client for quote");
         let client = await ClientDA.instance.getClientByID({
           clientID: quote.clientId,
@@ -185,21 +188,16 @@ class QuoteDA {
         quote.client = client;
       }
 
-      // Uncomment and update the following blocks as needed
-      // if (quote.teamIds && getAllEmployees) {
-      //   let employees = await EmployeeDA.instance.getAllEmployees({
-      //     rethrowError: false,
-      //   });
-      //   let selectedEmployees = [];
-      //   quote.teamIds.forEach((teamId) => {
-      //     employees.forEach((employee) => {
-      //       if (employee.id === teamId) {
-      //         selectedEmployees.push(employee);
-      //       }
-      //     });
-      //   });
-      //   quote.team = selectedEmployees;
-      // }
+      if (quote.teamIds && getAssignedTeam) {
+        quote.team = [];
+        quote.teamIds.forEach(async (teamId) => {
+          let employee = await UserDA.instance.getUser({
+            id: teamId,
+            getProfilePic: false,
+          });
+          quote.team.push(employee);
+        });
+      }
 
       // if (quote.job && getJob) {
       //   let job = await JobDA.instance.getJobById({ jobId: quote.job.id });

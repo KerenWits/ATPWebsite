@@ -1,6 +1,11 @@
 import createNavBar from "/utilities/navbar.js";
 import QuoteReportsService from "/firebase/reports.js";
 
+const user = localStorage.getItem("loggedInUser");
+if (!user) {
+  window.location.href = "/index.html";
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const titles = [
     "Home",
@@ -60,7 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
           "passedVar",
           JSON.stringify(servicesRenderedReport)
         );
-        window.location.href = "/reports/services rendered/ServicesRenderedReport.html";
+        window.location.href =
+          "/reports/services rendered/ServicesRenderedReport.html";
         // console.log("Services rendered report", servicesRenderedReport);
         break;
       case "Client Risk Profile":
@@ -74,7 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
           "passedVar",
           JSON.stringify(clientRiskProfileReport)
         );
-        window.location.href = "/reports/client risk profile/clientRiskProfileReport.html";
+        window.location.href =
+          "/reports/client risk profile/clientRiskProfileReport.html";
       default:
         console.log("Invalid report type");
     }
