@@ -29,7 +29,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       "/profile/Profile.html",
     ];
   } else if (user.userType === UserType.ADMIN) {
-    titles = ["Home", "Employees", "Services", "Quotes", "Generate report", "My Profile"];
+    titles = [
+      "Home",
+      "Employees",
+      "Services",
+      "Quotes",
+      "Generate report",
+      "My Profile",
+    ];
     links = [
       "/admin home/Home(Admin).html",
       "/current employees/current_employees.html",
@@ -70,22 +77,32 @@ document.addEventListener("DOMContentLoaded", async () => {
   service.textContent = quote.service.name;
 
   const amount = document.getElementById("amount");
-  amount.textContent = `R ${quote.amount.toLocaleString("en-ZA")}`;
+  if (quote.amount != null) {
+    amount.textContent = `R ${quote.amount.toLocaleString("en-ZA")}`;
+  } else {
+    amount.textContent = "N/A"; 
+  }
 
-  const startDateTime = document.getElementById("date");
-  startDateTime.textContent = quote.startDateTime.toLocaleDateString("en-GB", {
+  const startDate = document.getElementById("date");
+  startDate.textContent = quote.startDateTime.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 
-  const startTime = document.getElementById("time");
-  startTime.textContent = quote.startDateTime.toLocaleTimeString("en-GB", {
+  const time = document.getElementById("time");
+  const startTime = quote.startDateTime.toLocaleTimeString("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
+  const endTime = quote.endDateTime.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  time.textContent = `${startTime} - ${endTime}`;
 
   const comment = document.getElementById("comment");
-  comment.textContent = quote.comment;
+  comment.textContent = quote.comment ?? "N/A";
 });
