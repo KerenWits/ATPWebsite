@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const serviceDate = new Date(serviceDateInput.value);
       const today = new Date();
       today.setDate(today.getDate() + 1);
-
+      // serviceDate > today
       if (serviceDate > today) {
         const dialog = new ConfirmDialog({
           document: document,

@@ -1,7 +1,5 @@
 import createNavBar from "/utilities/navbar.js";
-// import { UserType } from "/global/enums.js";
-import UserDA from "/classes/users/userDA.js";
-import MyUser from "/classes/users/my_user.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import { UserType } from "/global/enums.js";
@@ -15,6 +13,8 @@ if (
   // throw new Error("Unauthorized access");
 }
 document.addEventListener("DOMContentLoaded", async () => {
+  let lc = new LoadingScreen(document);
+  lc.show();
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
   let titles = [];
   let links = [];
@@ -113,7 +113,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   time.textContent = `${startTime} - ${endTime}`;
 
   const comment = document.getElementById("comment");
-  comment.textContent = quote.comment ?? "N/A";
+  if (quote.comment && quote.comment !== "") {
+    comment.textContent = quote.comment;
+  } else {
+    comment.textContent = "N/A";
+  }
 
   const riskAnalysis = document.getElementById("risk-analysis");
   riskAnalysis.innerHTML = "";
@@ -142,10 +146,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const reviewText = document.getElementById("review-text");
   reviewText.textContent = quote.reviewComments ?? "N/A";
 
-    const reviewRating = document.getElementById("review-stars");
+  const reviewRating = document.getElementById("review-stars");
   if (quote.reviewRating) {
-    reviewRating.remove();
-  } else {
     reviewRating.textContent = quote.reviewRating;
+  } else {
+    reviewRating.remove();
   }
+
+  lc.hide();
 });

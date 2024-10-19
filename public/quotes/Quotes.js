@@ -4,6 +4,7 @@ import QuoteDA from "/classes/quote/quote_da.js";
 import createNavBar from "/utilities/navbar.js";
 import { UserType } from "/global/enums.js";
 import Service from "/classes/service/service.js";
+import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
 if (!user || user.userType !== UserType.CLIENT) {
@@ -269,26 +270,48 @@ function populatePage(
         text: "Accept Quote",
         className: "button accept-button",
         callback: async (quote) => {
-          let lc = new LoadingScreen(document);
-          lc.show("Accepting Quote...");
-          quote.status = Quote.sStatusAccepted;
-          await QuoteDA.instance.updateQuote({ quote: quote });
-          quotedQ.delete(quote.id);
-          lc.hide();
-          location.reload();
+          const dialog = new ConfirmDialog({
+            document: document,
+            title: "Accept Quote?",
+            message: `Are you sure you want to 'Accept' Quote for #${quote.id}?`,
+            buttons: ["Accept", "Cancel"],
+            callBacks: [
+              async () => {
+                let lc = new LoadingScreen(document);
+                lc.show("Accepting Quote...");
+                quote.status = Quote.sStatusAccepted;
+                await QuoteDA.instance.updateQuote({ quote: quote });
+                quotedQ.delete(quote.id);
+                lc.hide();
+                location.reload();
+              },
+              () => {},
+            ],
+          });
         },
       },
       {
         text: "Reject Quote",
         className: "button reject-button",
         callback: async (quote) => {
-          let lc = new LoadingScreen(document);
-          lc.show("Rejecting Quote...");
-          quote.status = Quote.sStatusRejected;
-          await QuoteDA.instance.updateQuote({ quote: quote });
-          quotedQ.delete(quote.id);
-          lc.hide();
-          location.reload();
+          const dialog = new ConfirmDialog({
+            document: document,
+            title: "Reject Quote?",
+            message: `Are you sure you want to 'Reject' Quote for #${quote.id}?`,
+            buttons: ["Reject", "Cancel"],
+            callBacks: [
+              async () => {
+                let lc = new LoadingScreen(document);
+                lc.show("Rejecting Quote...");
+                quote.status = Quote.sStatusRejected;
+                await QuoteDA.instance.updateQuote({ quote: quote });
+                quotedQ.delete(quote.id);
+                lc.hide();
+                location.reload();
+              },
+              () => {},
+            ],
+          });
         },
       },
       viewQuoteButton,

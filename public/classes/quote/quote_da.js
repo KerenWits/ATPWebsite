@@ -135,21 +135,24 @@ class QuoteDA {
       let completedQ = new Map();
       let reviewedQ = new Map();
 
-      querySnapshot.forEach(async (doc) => {
-        let data = doc.data();
-        let quoteDate = new Date(data[Quote.sEndDateTime]);
+      for (let docSnap of querySnapshot.docs) {
+        let docId = docSnap.id;
+        let data = docSnap.data();
+        let quoteDate = new Date(data[Quote.sEndDateTime].seconds * 1000);
+        // console.log("Quote date:", data[Quote.sEndDateTime]);
         if (
           data[Quote.sStatus] === Quote.sStatusInProgress &&
           quoteDate < Date.now()
         ) {
-          doc = await this.updateQuoteValues({
-            quoteId: doc.id,
+          const newDocSnap = await this.updateQuoteValues({
+            quoteId: docSnap.id,
             data: { [Quote.sStatus]: Quote.sStatusCompleted },
             returnNewQuote: true,
           });
-          data = doc.data();
+          docId = newDocSnap.id;
+          data = newDocSnap.data();
         }
-        let quote = Quote.fromJson({ docID: doc.id, json: data });
+        let quote = Quote.fromJson({ docID: docId, json: data });
         if (allServices) {
           for (let i = 0; i < allServices.length; i++) {
             const service = allServices[i];
@@ -182,7 +185,7 @@ class QuoteDA {
             reviewedQ.set(quote.id, quote);
             break;
         }
-      });
+      }
 
       allQuotes.set(Quote.sStatusRequested, requestedQ);
       allQuotes.set(Quote.sStatusQuoted, quotedQ);
