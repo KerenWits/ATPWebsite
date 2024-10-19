@@ -137,16 +137,17 @@ class QuoteDA {
 
       querySnapshot.forEach(async (doc) => {
         let data = doc.data();
+        let quoteDate = new Date(data[Quote.sEndDateTime]);
         if (
           data[Quote.sStatus] === Quote.sStatusInProgress &&
-          data[Quote.sEndDateTime] < Date.now()
+          quoteDate < Date.now()
         ) {
           doc = await this.updateQuoteValues({
             quoteId: doc.id,
             data: { [Quote.sStatus]: Quote.sStatusCompleted },
             returnNewQuote: true,
           });
-          data = docSnapShot.data();
+          data = doc.data();
         }
         let quote = Quote.fromJson({ docID: doc.id, json: data });
         if (allServices) {

@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const raQ = document.createElement("p");
     raQ.textContent = `${index + 1}. ${answer.question}`;
     const raA = document.createElement("p");
-    raA.textContent = `Answer: ${answer.answer === 1 ? "Yes" : "No"}`;
+    raA.textContent = `Answer: ${answer.answer === "1" ? "Yes" : "No"}`;
     riskAnalysis.appendChild(raQ);
     riskAnalysis.appendChild(raA);
   });
