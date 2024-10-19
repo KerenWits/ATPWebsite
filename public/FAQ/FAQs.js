@@ -1,14 +1,14 @@
 import createNavBar from "/utilities/navbar.js";
-import { UserType } from "/global/enums.js";
+// import { UserType } from "/global/enums.js";
 import UserDA from "/classes/users/userDA.js";
 import MyUser from "/classes/users/my_user.js";
 import { UserType } from "/global/enums.js";
 
-const user = JSON.parse(localStorage.getItem("loggedInUser"));
-if (!user || user.userType !== UserType.CLIENT) {
-  window.location.href = "/index.html";
-  // throw new Error("Unauthorized access");
-}
+// const user = JSON.parse(localStorage.getItem("loggedInUser"));
+// if (!user || user.userType !== UserType.CLIENT) {
+//   window.location.href = "/index.html";
+//   // throw new Error("Unauthorized access");
+// }
 
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));

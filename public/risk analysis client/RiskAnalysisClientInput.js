@@ -1,5 +1,5 @@
 import ServiceDA from "/classes/service/service_da.js";
-import { UserType } from "/global/enums.js";
+// import { UserType } from "/global/enums.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";

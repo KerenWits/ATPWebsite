@@ -2,7 +2,7 @@ import createNavBar from "/utilities/navbar.js";
 import { UserType } from "/global/enums.js";
 
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
-if (!user || user.userType !== UserType.EMPLOYEE) {
+if (!user || user.userType !== UserType.ADMIN) {
   window.location.href = "/index.html";
   // throw new Error("Unauthorized access");
 }

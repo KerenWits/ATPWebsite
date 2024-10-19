@@ -1,6 +1,39 @@
 import Question from "/classes/service/question.js";
 import ServiceDA from "/classes/service/service_da.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
+import { UserType } from "/global/enums.js";
+import createNavBar from "/utilities/navbar.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.ADMIN) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
+document.addEventListener("DOMContentLoaded", async () => {
+  const titles = [
+    "Home",
+    "Employees",
+    "Services",
+    "Quotes",
+    "Generate report",
+    "My Profile",
+  ];
+  const links = [
+    "/admin home/Home(Admin).html",
+    "/current employees/current_employees.html",
+    "/services admin/ServicesAdmin.html",
+    "/quotes/admin/Quotes(Admin).html",
+    "/reports/Reports.html",
+    "/profile/Profile.html",
+  ];
+
+  createNavBar({
+    document: document,
+    titles: titles,
+    links: links,
+    addLogout: true,
+  });
+});
 
 // Parse the query string
 const params = new URLSearchParams(window.location.search);
