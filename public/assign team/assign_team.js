@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     getClient: true,
     rethrowError: false,
   });
-  console.log(quote);
+  // console.log(quote);
 
   const titles = [
     "Home",
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     //check that atleast one member has been selected
     if (checkboxes.length >= 1) {
-      console.log("save the rows");
+      // console.log("save the rows");
       //get the rows
       let rows = getAllSelectedRowIndexes();
       let team = [];
@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         allEmployeeIds.push(employee.id);
       });
       quote.teamIds = allEmployeeIds;
+      quote.status = Quote.sStatusInProgress
       await QuoteDA.instance.updateQuote({
         quote: quote,
       });

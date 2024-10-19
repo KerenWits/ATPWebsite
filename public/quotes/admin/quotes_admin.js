@@ -2,7 +2,7 @@ import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import createNavBar from "/utilities/navbar.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
-import UserDA from "/classes/users/userDA.js";
+import ClientDA from "/classes/users/client_da.js";
 import Service from "/classes/service/service.js";
 import Client from "/classes/users/client.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let allQuotes = await QuoteDA.instance.getAllQuotesForUser({
     user: loggedInUser,
   });
-  console.log(allQuotes);
+  // console.log(allQuotes);
 
   lc.updateText("Organising your quotes...");
 
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const reviewedQ = allQuotes.get(Quote.sStatusReviewed);
 
   populatePage(requestedQ, acceptedQ, reviewedQ);
-  
+
   const filterBtn = document.getElementById("filter-btn");
   filterBtn.onclick = () => {
     const serviceSelect = document.getElementById("filter-service");
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       service !== null ? service.id : null,
       client !== null ? client.id : null,
       fromDate,
-      toDate,
+      toDate
     );
 
     const filterReviewed = filterQuotes(
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       service !== null ? service.id : null,
       client !== null ? client.id : null,
       fromDate,
-      toDate,
+      toDate
     );
 
     populatePage(filterRequested, filterAccepted, filterReviewed);
@@ -126,7 +126,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     serviceSelect.appendChild(option);
   });
 
-  let allClients = await UserDA.instance.getAllClients({ rethrowError: true });
+  let allClients = await ClientDA.instance.getAllClients({
+    rethrowError: true,
+  });
   // console.log("Clients:", allClients);
 
   const clientSelect = document.getElementById("filter-client");
@@ -153,11 +155,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 function createQuoteBox({
   topDiv,
   quoteMap,
+  topHeading,
   clearTopDiv = false,
   buttonList = [],
 }) {
   if (clearTopDiv) {
     topDiv.innerHTML = "";
+  }
+
+  if (quoteMap.size === 0 && topHeading) {
+    topHeading.style.display = "none";
   }
 
   quoteMap.forEach((quote, key) => {
@@ -197,14 +204,14 @@ function viewQuote(quote) {
 
 function filterQuotes(quoteMap, serviceID, clientID, strFromDate, strToDate) {
   let filteredQuotes = new Map();
-  console.log(quoteMap, serviceID, clientID, strFromDate, strToDate);
+  // console.log(quoteMap, serviceID, clientID, strFromDate, strToDate);
   let fromDate = null;
   if (strFromDate) {
     fromDate = new Date(strFromDate);
   }
 
   let toDate = null;
-  if(strToDate) {
+  if (strToDate) {
     toDate = new Date(strToDate);
   }
 
@@ -241,60 +248,47 @@ function populatePage(requestedQ, acceptedQ, reviewedQ) {
   viewQuoteButton.onclick = (quote) => viewQuote(quote);
 
   const requestedQuotesSection = document.getElementById("requested-quotes");
+  const requestedHeading = document.getElementById("requested-quotes-heading");
   requestedQuotesSection.innerHTML = "";
+  const quoteButton = document.createElement("button");
+  quoteButton.className = "button";
+  quoteButton.textContent = "Generate Quote";
+  quoteButton.onclick = (quote) => generateQuote(quote);
 
-  if (requestedQ.size > 0) {
-    const quoteButton = document.createElement("button");
-    quoteButton.className = "button";
-    quoteButton.textContent = "Generate Quote";
-    quoteButton.onclick = (quote) => generateQuote(quote);
-
-    createQuoteBox({
-      topDiv: requestedQuotesSection,
-      quoteMap: requestedQ,
-      clearTopDiv: true,
-      buttonList: [quoteButton, viewQuoteButton],
-    });
-  } else {
-    const noQuotesToGenerate = document.createElement("h3");
-    noQuotesToGenerate.textContent = "No quotes to generate";
-    requestedQuotesSection.appendChild(noQuotesToGenerate);
-  }
+  createQuoteBox({
+    topDiv: requestedQuotesSection,
+    quoteMap: requestedQ,
+    topHeading: requestedHeading,
+    clearTopDiv: true,
+    buttonList: [quoteButton, viewQuoteButton],
+  });
 
   const acceptedQuotesSection = document.getElementById("accepted-quotes");
+  const acceptedHeading = document.getElementById("accepted-quotes-heading");
   acceptedQuotesSection.innerHTML = "";
-  if (acceptedQ.size > 0) {
-    const assingTeam = document.createElement("button");
-    assingTeam.className = "button";
-    assingTeam.textContent = "Assign Team";
-    assingTeam.onclick = (quote) => assignTeam(quote);
 
-    createQuoteBox({
-      topDiv: acceptedQuotesSection,
-      quoteMap: acceptedQ,
-      clearTopDiv: true,
-      buttonList: [assingTeam, viewQuoteButton],
-    });
-  } else {
-    const noQuotesToAssign = document.createElement("h3");
-    noQuotesToAssign.textContent = "No quotes to assign team";
-    acceptedQuotesSection.appendChild(noQuotesToAssign);
-  }
+  const assingTeam = document.createElement("button");
+  assingTeam.className = "button";
+  assingTeam.textContent = "Assign Team";
+  assingTeam.onclick = (quote) => assignTeam(quote);
+
+  createQuoteBox({
+    topDiv: acceptedQuotesSection,
+    quoteMap: acceptedQ,
+    topHeading: acceptedHeading,
+    clearTopDiv: true,
+    buttonList: [assingTeam, viewQuoteButton],
+  });
 
   const reviewedQuotesSection = document.getElementById("reviewed-quotes");
+  const reviewedHeading = document.getElementById("reviewed-quotes-heading");
   reviewedQuotesSection.innerHTML = "";
-  console.log(reviewedQ.size);
-  if (reviewedQ.size > 0) {
-    createQuoteBox({
-      topDiv: reviewedQuotesSection,
-      quoteMap: reviewedQ,
-      clearTopDiv: true,
-      buttonList: [viewQuoteButton],
-    });
-  } else {
-    console.log("No quotes to review");
-    const noQuotesToReview = document.createElement("h3");
-    noQuotesToReview.textContent = "No Reviewed Quotes";
-    reviewedQuotesSection.appendChild(noQuotesToReview);
-  }
+
+  createQuoteBox({
+    topDiv: reviewedQuotesSection,
+    quoteMap: reviewedQ,
+    topHeading: reviewedHeading,
+    clearTopDiv: true,
+    buttonList: [viewQuoteButton],
+  });
 }

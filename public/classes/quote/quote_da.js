@@ -74,6 +74,40 @@ class QuoteDA {
     }
   }
 
+  async updateQuoteValues({
+    quoteId,
+    data,
+    returnNewQuote = false,
+    rethrowError = false,
+  }) {
+    try {
+      if (!isMapStringDynamic(data) && quoteId) {
+        throw new Error("Invalid quote data");
+      }
+
+      if (returnNewQuote) {
+        let updatedQuote = await this.quoteFs.getNewUpdatedDocument({
+          docID: quoteId,
+          data: data,
+          rethrowError: rethrowError,
+        });
+        // console.log("Quote updated in QuoteDA");
+        return updatedQuote;
+      } else {
+        await this.quoteFs.updateDocument({
+          docID: quoteId,
+          data: data,
+          rethrowError: rethrowError,
+        });
+        // console.log("Quote updated in QuoteDA");
+        return true;
+      }
+    } catch (e) {
+      // console.log("Error updating quote in QuoteDA:", e);
+      return false;
+    }
+  }
+
   async getAllQuotesForUser({ user, rethrowError = false }) {
     try {
       let where = [];
@@ -101,8 +135,20 @@ class QuoteDA {
       let completedQ = new Map();
       let reviewedQ = new Map();
 
-      querySnapshot.forEach((doc) => {
-        let quote = Quote.fromJson({ docID: doc.id, json: doc.data() });
+      querySnapshot.forEach(async (doc) => {
+        let data = doc.data();
+        if (
+          data[Quote.sStatus] === Quote.sStatusInProgress &&
+          data[Quote.sEndDateTime] < Date.now()
+        ) {
+          doc = await this.updateQuoteValues({
+            quoteId: doc.id,
+            data: { [Quote.sStatus]: Quote.sStatusCompleted },
+            returnNewQuote: true,
+          });
+          data = docSnapShot.data();
+        }
+        let quote = Quote.fromJson({ docID: doc.id, json: data });
         if (allServices) {
           for (let i = 0; i < allServices.length; i++) {
             const service = allServices[i];
@@ -190,13 +236,13 @@ class QuoteDA {
 
       if (quote.teamIds && getAssignedTeam) {
         quote.team = [];
-        quote.teamIds.forEach(async (teamId) => {
+        for (const teamId of quote.teamIds) {
           let employee = await UserDA.instance.getUser({
             id: teamId,
             getProfilePic: false,
           });
           quote.team.push(employee);
-        });
+        }
       }
 
       // if (quote.job && getJob) {

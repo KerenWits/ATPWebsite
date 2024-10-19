@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quotes Page</title>
-     <!-- Font Awesome CDN -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="Quotes.css">
-    
-</head>
-<body>
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="Quotes.css" />
+  </head>
+  <body>
     <!-- Header -->
     <!-- <header>
         <nav class="Navbar">
@@ -29,29 +31,29 @@
     </header> -->
 
     <div class="container">
-        <!-- Request a Quote Section -->
-        <div class="request-quote">
-            <h2>Request a Quote</h2>
-            <p>Please select the service you'd like to request a quote for:</p>
-            <div class="form-group">
-                <label for="service">Service:</label>
-                <select id="service">
-                    <option value="Service 1">Service 1</option>
-                    <option value="Service 2">Service 2</option>
-                    <option value="Service 3">Service 3</option>
-                </select>
-            </div>
-            <div class="description-box" id="description-box">
-                <!-- This will be dynamically updated based on the selected service -->
-                <p>Select a service to see its description.</p>
-            </div>
-            <button id="request-btn" class="button">Submit Request</button>
+      <!-- Request a Quote Section -->
+      <div class="request-quote">
+        <h2>Request a Quote</h2>
+        <p>Please select the service you'd like to request a quote for:</p>
+        <div class="form-group">
+          <label for="service">Service:</label>
+          <select id="service">
+            <option value="Service 1">Service 1</option>
+            <option value="Service 2">Service 2</option>
+            <option value="Service 3">Service 3</option>
+          </select>
         </div>
+        <div class="description-box" id="description-box">
+          <!-- This will be dynamically updated based on the selected service -->
+          <p>Select a service to see its description.</p>
+        </div>
+        <button id="request-btn" class="button">Submit Request</button>
+      </div>
 
-         <!-- Quote Filters Section -->
-         <div class="quote-filters">
-            <h2>Filter Quotes</h2>
-            <!-- <div class="form-group">
+      <!-- Quote Filters Section -->
+      <div class="quote-filters">
+        <h2>Filter Quotes</h2>
+        <!-- <div class="form-group">
                 <label for="filter-client">Client Name:</label>
                 <select id="filter-client">
                     <option value="">All Clients</option>
@@ -61,115 +63,153 @@
                 </select>
             </div> -->
 
-            <div class="form-group">
-                <label for="filter-service">Service:</label>
-                <select id="filter-service">
-                    <option value="">All Services</option>
-                    <option value="Security Audit">Security Audit</option>
-                    <option value="Risk Analysis">Risk Analysis</option>
-                    <option value="Penetration Testing">Penetration Testing</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="filter-date">Date:</label>
-                <input type="date" id="filter-date">
-            </div>
-            
-            <button id="filter-btn" class="button">Apply Filters</button>
+        <div class="form-group">
+          <label for="filter-service">Service:</label>
+          <select id="filter-service">
+            <option value="">All Services</option>
+            <option value="Security Audit">Security Audit</option>
+            <option value="Risk Analysis">Risk Analysis</option>
+            <option value="Penetration Testing">Penetration Testing</option>
+          </select>
         </div>
 
-        <h2>Quotes Pending Generation</h2>
-        <div id="requested-quotes" class="quote-section">
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #001</h3>
-                    <p>Description: Security Audit for XYZ Corp.</p>
-                </div>
-            </div>
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #002</h3>
-                    <p>Description: Risk Analysis for ABC Ltd.</p>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="filter-from-date">From Date:</label>
+          <input type="date" id="filter-from-date" />
         </div>
 
-        <h2>Quotes Awaiting Client Acceptance</h2>
-        <div id="quoted-quotes" class="quote-section">
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #003</h3>
-                    <p>Description: Penetration Testing for DEF Inc.</p>
-                    <button class="button accept-button">Accept Quote</button>
-                    <button class="button reject-button">Reject Quote</button>
-                </div>
-            </div>
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #004</h3>
-                    <p>Description: Compliance Review for GHI Solutions.</p>
-                    <button class="button accept-button">Accept Quote</button>
-                    <button class="button reject-button">Reject Quote</button>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="filter-to-date">To Date:</label>
+          <input type="date" id="filter-to-date" />
         </div>
 
-        <h2>Quotes with Assigned Teams</h2>
-        <div id="accepted-quotes" class="quote-section">
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #005</h3>
-                    <p>Description: Incident Response for JKL Enterprises.</p>
-                    <a href="clientViewTeam.html"><button class="button">View Team</button></a>
-                </div>
-            </div>
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #006</h3>
-                    <p>Description: Vulnerability Assessment for MNO Corp.</p>
-                    <a href="clientViewTeam.html"><button class="button">View Team</button></a>
-                </div>
-            </div>
-        </div>
+        <button id="filter-btn" class="button">Apply Filters</button>
+        <button id="undo-filter" class="button">Undo Filters</button>
+      </div>
 
-        <h2>Quotes Pending Client Review</h2>
-        <div id="completed-quotes" class="quote-section">
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #007</h3>
-                    <p>Description: Data Privacy Audit for PQR Global.</p>
-                   <a href="reviewService.html"><button class="button">Pending Review</button></a>
-                </div>
-            </div>
-            <div class="quote-box">
-                <img src="https://via.placeholder.com/100" alt="Placeholder Image">
-                <div>
-                    <h3>Quote #008</h3>
-                    <p>Description: Network Security Review for STU Systems.</p>
-                    <a href="reviewService.html"><button class="button">Pending Review</button></a>
-                </div>
-            </div>
+      <h2 id="requested-quotes-heading">Quotes Pending Generation</h2>
+      <div id="requested-quotes" class="quote-section">
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #001</h3>
+            <p>Description: Security Audit for XYZ Corp.</p>
+          </div>
         </div>
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #002</h3>
+            <p>Description: Risk Analysis for ABC Ltd.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="quoted-quotes-heading">Quotes Awaiting Client Acceptance</h2>
+      <div id="quoted-quotes" class="quote-section">
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #003</h3>
+            <p>Description: Penetration Testing for DEF Inc.</p>
+            <button class="button accept-button">Accept Quote</button>
+            <button class="button reject-button">Reject Quote</button>
+          </div>
+        </div>
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #004</h3>
+            <p>Description: Compliance Review for GHI Solutions.</p>
+            <button class="button accept-button">Accept Quote</button>
+            <button class="button reject-button">Reject Quote</button>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="in-progress-quotes-heading">Quotes with Assigned Teams</h2>
+      <div id="in-progress-quotes" class="quote-section">
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #005</h3>
+            <p>Description: Incident Response for JKL Enterprises.</p>
+            <a href="clientViewTeam.html"
+              ><button class="button">View Team</button></a
+            >
+          </div>
+        </div>
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #006</h3>
+            <p>Description: Vulnerability Assessment for MNO Corp.</p>
+            <a href="clientViewTeam.html"
+              ><button class="button">View Team</button></a
+            >
+          </div>
+        </div>
+      </div>
+
+      <h2 id="completed-quotes-heading">Quotes Pending Client Review</h2>
+      <div id="completed-quotes" class="quote-section">
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #007</h3>
+            <p>Description: Data Privacy Audit for PQR Global.</p>
+            <a href="reviewService.html"
+              ><button class="button">Pending Review</button></a
+            >
+          </div>
+        </div>
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #008</h3>
+            <p>Description: Network Security Review for STU Systems.</p>
+            <a href="reviewService.html"
+              ><button class="button">Pending Review</button></a
+            >
+          </div>
+        </div>
+      </div>
+
+      <h2 id="reviewed-quotes-heading">Reviewed Quotes</h2>
+      <div id="reviewed-quotes" class="quote-section">
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #007</h3>
+            <p>Description: Data Privacy Audit for PQR Global.</p>
+            <a href="Reviews(Admin).html"
+              ><button class="button">See Review</button></a
+            >
+          </div>
+        </div>
+        <div class="quote-box">
+          <img src="https://via.placeholder.com/100" alt="Placeholder Image" />
+          <div>
+            <h3>Quote #008</h3>
+            <p>Description: Network Security Review for STU Systems.</p>
+            <a href="Reviews(Admin).html"
+              ><button class="button">See Review</button></a
+            >
+          </div>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="Quotes.js"></script>
 
-      <!-- Footer -->
-      <footer>
-        <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
-        <div id="social-media">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; Alpha Tactical Protection. All rights reserved.</p>
+      <div id="social-media">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

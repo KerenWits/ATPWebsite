@@ -7,7 +7,10 @@ import QuoteDA from "/classes/quote/quote_da.js";
 import { UserType } from "/global/enums.js";
 
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
-if (!user || (user.userType !== UserType.CLIENT && user.userType !== UserType.ADMIN)) {
+if (
+  !user ||
+  (user.userType !== UserType.CLIENT && user.userType !== UserType.ADMIN)
+) {
   window.location.href = "/index.html";
   // throw new Error("Unauthorized access");
 }
@@ -86,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (quote.amount != null) {
     amount.textContent = `R ${quote.amount.toLocaleString("en-ZA")}`;
   } else {
-    amount.textContent = "N/A"; 
+    amount.textContent = "N/A";
   }
 
   const startDate = document.getElementById("date");
@@ -111,4 +114,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const comment = document.getElementById("comment");
   comment.textContent = quote.comment ?? "N/A";
+
+  const riskAnalysis = document.getElementById("risk-analysis");
+  riskAnalysis.innerHTML = "";
+  quote.raAnswers.forEach((answer, index) => {
+    const raQ = document.createElement("p");
+    raQ.textContent = `${index + 1}. ${answer.question}`;
+    const raA = document.createElement("p");
+    raA.textContent = `Answer: ${answer.answer === 1 ? "Yes" : "No"}`;
+    riskAnalysis.appendChild(raQ);
+    riskAnalysis.appendChild(raA);
+  });
+
+  const assignedTeam = document.getElementById("assigned-team");
+  assignedTeam.innerHTML = "";
+
+  if (quote.team && quote.team.length > 0) {
+    quote.team.forEach((employee) => {
+      const teamMember = document.createElement("li");
+      teamMember.textContent = employee.fullName;
+      assignedTeam.appendChild(teamMember);
+    });
+  } else {
+    assignedTeam.textContent = "No Assigned Team";
+  }
+
+  const reviewText = document.getElementById("review-text");
+  reviewText.textContent = quote.reviewComments ?? "N/A";
+
+    const reviewRating = document.getElementById("review-stars");
+  if (quote.reviewRating) {
+    reviewRating.remove();
+  } else {
+    reviewRating.textContent = quote.reviewRating;
+  }
 });

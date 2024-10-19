@@ -1,5 +1,6 @@
 import MyUser from "/classes/users/my_user.js";
 // import { db } from "/firebase/firebase.js";
+import { UserType } from "/global/enums.js";
 
 class Client extends MyUser {
   constructor({
@@ -68,7 +69,7 @@ class Client extends MyUser {
   }
 
   static unStringify(parsedClient) {
-    if (typeof parsedClient === "string") {
+    if (typeof parsedClient === UserType.CLIENT) {
       parsedClient = JSON.parse(parsedClient);
     }
     parsedClient[MyUser.sDateCreated] = new Date(parsedClient.dateCreated);

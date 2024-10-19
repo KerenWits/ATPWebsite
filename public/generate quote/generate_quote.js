@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     questionPTag.textContent = `Question ${index + 1}: ${question.questionTxt}`;
 
     let answerPTag = document.createElement("p");
-    answerPTag.textContent = `Answer: ${quote.raAnswers[index].answer}`;
+    answerPTag.textContent = `Answer: ${quote.raAnswers[index].answer == 1 ? "Yes" : "No"}`;
 
     questionDiv.appendChild(questionPTag);
     questionDiv.appendChild(answerPTag);

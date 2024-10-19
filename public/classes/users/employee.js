@@ -1,4 +1,5 @@
 import MyUser from "/classes/users/my_user.js";
+import { UserType } from "/global/enums.js";
 
 class Employee extends MyUser {
   constructor({
@@ -66,6 +67,9 @@ class Employee extends MyUser {
   }
 
   static unStringify(parsedEmployee) {
+    if (typeof parsedEmployee === UserType.EMPLOYEE) {
+      parsedEmployee = JSON.parse(parsedClient);
+    }
     parsedEmployee[MyUser.sDateCreated] = new Date(parsedEmployee.dateCreated);
     let employee = new Employee(parsedEmployee);
     return employee;
