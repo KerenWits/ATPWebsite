@@ -1,5 +1,11 @@
 import createNavBar from "/utilities/navbar.js";
+import { UserType } from "/global/enums.js";
 
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.EMPLOYEE) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 document.addEventListener("DOMContentLoaded", () => {
   const titles = [
     "Home",

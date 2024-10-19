@@ -6,6 +6,13 @@ import UserDA from "/classes/users/userDA.js";
 import Service from "/classes/service/service.js";
 import Client from "/classes/users/client.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
+import { UserType } from "/global/enums.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.ADMIN) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
   const titles = [

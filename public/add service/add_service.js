@@ -2,6 +2,13 @@ import Service from "/classes/service/service.js";
 import ServiceDA from "/classes/service/service_da.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 import createNavBar from "/utilities/navbar.js";
+import { UserType } from "/global/enums.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.ADMIN) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const titles = [

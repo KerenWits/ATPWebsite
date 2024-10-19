@@ -4,6 +4,13 @@ import UserDA from "/classes/users/userDA.js";
 import MyUser from "/classes/users/my_user.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
+import { UserType } from "/global/enums.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.ADMIN) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));

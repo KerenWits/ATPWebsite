@@ -5,7 +5,13 @@ import { UserType } from "/global/enums.js";
 import state from "/global/variables.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import createNavBar from "/utilities/navbar.js";
+import { UserType } from "/global/enums.js";
 
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.CLIENT) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
