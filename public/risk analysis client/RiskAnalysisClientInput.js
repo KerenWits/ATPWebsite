@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     service.riskAnalysis.forEach((question, qIndex) => {
       const questionBlock = document.createElement("div");
       questionBlock.className = "question-block";
+      questionBlock.title = "This field is required";
 
       const questionText = document.createElement("p");
       questionText.textContent = `Question ${qIndex + 1}: ${
@@ -84,69 +85,86 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const requestQuoteBtn = document.getElementById("request-quote");
     requestQuoteBtn.onclick = async () => {
-      const dialog = new ConfirmDialog({
-        document: document,
-        title: "Request quote?",
-        message: "Are you sure you want to request this quote?",
-        buttons: ["Request", "Cancel"],
-        callBacks: [
-          async () => {
-            let lc = new LoadingScreen(document);
-            lc.show("Submitting request...");
-            let date = document.getElementById("service-date").value;
-            let startTime = document.getElementById("start-time").value;
-            let endTime = document.getElementById("end-time").value;
-            let comments = document.getElementById("service-comments").value;
+      const serviceDateInput = document.getElementById("service-date");
+      const serviceDate = new Date(serviceDateInput.value);
+      const today = new Date();
+      today.setDate(today.getDate() + 1);
 
-            let answers = [];
-            service.riskAnalysis.forEach((question, qIndex) => {
-              const selectedOption = document.querySelector(
-                `input[name="question${qIndex + 1}"]:checked`
-              );
-              // console.log("Selected option:", selectedOption);
-              if (selectedOption) {
-                answers.push({
-                  question: question.questionTxt,
-                  answer: selectedOption.value,
-                });
-              } else {
-                answers.push({
-                  question: question.questionTxt,
-                  answer: null,
-                });
-              }
-            });
+      if (serviceDate > today) {
+        const dialog = new ConfirmDialog({
+          document: document,
+          title: "Request quote?",
+          message: "Are you sure you want to request this quote?",
+          buttons: ["Request", "Cancel"],
+          callBacks: [
+            async () => {
+              let lc = new LoadingScreen(document);
+              lc.show("Submitting request...");
+              let date = document.getElementById("service-date").value;
+              let startTime = document.getElementById("start-time").value;
+              let endTime = document.getElementById("end-time").value;
+              let comments = document.getElementById("service-comments").value;
 
-            let startDateTime = new Date(`${date}T${startTime}`);
-            let endDateTime = new Date(`${date}T${endTime}`);
+              let answers = [];
+              service.riskAnalysis.forEach((question, qIndex) => {
+                const selectedOption = document.querySelector(
+                  `input[name="question${qIndex + 1}"]:checked`
+                );
+                // console.log("Selected option:", selectedOption);
+                if (selectedOption) {
+                  answers.push({
+                    question: question.questionTxt,
+                    answer: selectedOption.value,
+                  });
+                } else {
+                  answers.push({
+                    question: question.questionTxt,
+                    answer: null,
+                  });
+                }
+              });
 
-            let quote = new Quote({
-              id: "",
-              clientId: loggedInUser.id,
-              serviceId: service.id,
-              startDateTime: startDateTime,
-              endDateTime: endDateTime,
-              comment: comments,
-              raAnswers: answers,
-            });
+              let startDateTime = new Date(`${date}T${startTime}`);
+              let endDateTime = new Date(`${date}T${endTime}`);
 
-            let createdQuote = await QuoteDA.instance.createQuote({ quote });
+              let quote = new Quote({
+                id: "",
+                clientId: loggedInUser.id,
+                serviceId: service.id,
+                startDateTime: startDateTime,
+                endDateTime: endDateTime,
+                comment: comments,
+                raAnswers: answers,
+              });
 
-            console.log("Quote:", createdQuote);
-            lc.hide();
-            const dialog = new ConfirmDialog({
-              document: document,
-              title: "Quote requested",
-              message: "Quote has been requested",
-              buttons: ["Ok"],
-              callBacks: [() => {
-                window.location.href = `/client home/client_home.html`;
-              }],
-            });
-          },
-          () => {},
-        ],
-      });
+              let createdQuote = await QuoteDA.instance.createQuote({ quote });
+
+              console.log("Quote:", createdQuote);
+              lc.hide();
+              const dialog = new ConfirmDialog({
+                document: document,
+                title: "Quote requested",
+                message: "Quote has been requested",
+                buttons: ["Ok"],
+                callBacks: [
+                  () => {
+                    window.location.href = `/client home/client_home.html`;
+                  },
+                ],
+              });
+            },
+            () => {},
+          ],
+        });
+      } else {
+        const dialog = new ConfirmDialog({
+          document: document,
+          title: "Invalid date",
+          message: "Please select a date that is after today",
+          buttons: ["Ok"],
+          callBacks: [() => {}],
+        });
+      }
     };
     lc.hide();
   } catch (error) {

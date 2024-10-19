@@ -76,8 +76,21 @@ async function addRiskAnaylsisQuestion() {
       buttons: ["Ok"],
       callBacks: [
         () => {
-          // Clear the input for the next question
-          questionInput.value = "";
+          const dialog = new ConfirmDialog({
+            document: document,
+            title: "Add another question?",
+            message: "Would you like to add another question?",
+            buttons: ["Yes", "No"],
+            callBacks: [
+              async () => {
+                // Clear the input for the next question
+                questionInput.value = "";
+              },
+              () => {
+                window.location.href = "/admin home/Home(Admin).html";
+              },
+            ],
+          });
         },
       ],
     });
