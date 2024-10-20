@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       quote.teamIds = allEmployeeIds;
       quote.status = Quote.sStatusInProgress;
       await QuoteDA.instance.updateQuote({
-        quote: quote,
+        quote: quote,s
       });
       new ConfirmDialog({
         document: document,

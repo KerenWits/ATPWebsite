@@ -46,8 +46,8 @@ async function register() {
   let password = passwordInput.value;
   let firstname = document.getElementById("firstname").value;
   let lastname = document.getElementById("lastname").value;
-  let cellphone = document.getElementById("cellphone").value; 
-  
+  let cellphone = document.getElementById("cellphone").value;
+
   lc.updateText("Signing you up...");
   let registerUser = {
     [MyUser.sEmail]: email,
@@ -64,33 +64,29 @@ async function register() {
 
   let authParams = new AppAuthPramsRegister(registerUser);
   let authService = await AuthService.firebase();
-  try{
-  let user = await authService.register(authParams);
-  lc.hide();
-  const dialog = new ConfirmDialog({
-    document: document,
-    title: "Account created",
-    message: "Your account has been created successfully",
-    buttons: ["Login"],
-    callBacks: [
-      () => {
-        window.location.href = `/login/Login.html`;
-      },
-    ],
-  });
-  console.log(user.toString());
-  }catch(e){
+  try {
+    let user = await authService.register(authParams);
+    lc.hide();
+    const dialog = new ConfirmDialog({
+      document: document,
+      title: "Account created",
+      message: "Your account has been created successfully",
+      buttons: ["Login"],
+      callBacks: [
+        () => {
+          window.location.href = `/login/Login.html`;
+        },
+      ],
+    });
+    console.log(user.toString());
+  } catch (e) {
     lc.hide();
     const dialog = new ConfirmDialog({
       document: document,
       title: "Error registering!",
       message: e.message,
       buttons: ["Ok"],
-      callBacks: [
-        () => {
-          
-        },
-      ],
+      callBacks: [() => {}],
     });
   }
 }

@@ -39,9 +39,20 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Passed var", passedVar);
   lc.updateText("Preparing Income Report...");
   const clientInfo = [];
+  const startDate = new Date(passedVar[0]);
+  const endDate = new Date(passedVar[1]);
+  const topClients = passedVar[2];
+
+  const startDateTime = document.getElementById("start-date");
+  const endDateTime = document.getElementById("end-date");
+
+  const options = { day: "numeric", month: "long", year: "numeric" };
+
+  startDateTime.textContent = startDate.toLocaleDateString("en-GB", options);
+  endDateTime.textContent = endDate.toLocaleDateString("en-GB", options);
 
   (async () => {
-    for (const element of passedVar) {
+    for (const element of topClients) {
       const clientID = element[0];
       const clientAmt = element[1];
       const client = await ClientDA.instance.getClientByID({

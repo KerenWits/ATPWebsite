@@ -72,9 +72,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     const passedVar = JSON.parse(localStorage.getItem("passedVar"));
     console.log("Passed var", passedVar);
 
-    const highProfile = passedVar["High-Risk"] || [];
-    const mediumProfile = passedVar["Medium-Risk"] || [];
-    const lowProfile = passedVar["Low-Risk"] || [];
+    const startDate = new Date(passedVar[0]);
+    const endDate = new Date(passedVar[1]);
+
+    const startDateTime = document.getElementById("start-date");
+    const endDateTime = document.getElementById("end-date");
+
+    const options = { day: "numeric", month: "long", year: "numeric" };
+
+    startDateTime.textContent = startDate.toLocaleDateString("en-GB", options);
+    endDateTime.textContent = endDate.toLocaleDateString("en-GB", options);
+
+    const riskProfile = passedVar[2];
+
+    const highProfile = riskProfile["High-Risk"] || [];
+    const mediumProfile = riskProfile["Medium-Risk"] || [];
+    const lowProfile = riskProfile["Low-Risk"] || [];
 
     // console.log("High", highProfile);
     // console.log("Medium", mediumProfile);

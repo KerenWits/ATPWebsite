@@ -45,7 +45,20 @@ document.addEventListener("DOMContentLoaded", function () {
     table.deleteRow(0);
   }
 
-  addData(passedVar);
+  const startDate = new Date(passedVar[0]);
+  const endDate = new Date(passedVar[1]);
+
+  const startDateTime = document.getElementById("start-date");
+  const endDateTime = document.getElementById("end-date");
+
+  const options = { day: "numeric", month: "long", year: "numeric" };
+
+  startDateTime.textContent = startDate.toLocaleDateString("en-GB", options);
+  endDateTime.textContent = endDate.toLocaleDateString("en-GB", options);
+
+  const serviceInfo = passedVar[2];
+
+  addData(serviceInfo);
 
   function addData(data) {
     for (const [serviceId, serviceData] of Object.entries(data)) {

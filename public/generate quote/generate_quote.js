@@ -108,10 +108,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   time.textContent = formattedTime;
 
   const comment = document.getElementById("quote-comment");
-  if(quote.comment && quote.comment !== ""){
+  if (quote.comment && quote.comment !== "") {
     comment.textContent = quote.comment;
-  }
-  else {
+  } else {
     comment.textContent = "N/A";
   }
   lc.hide();

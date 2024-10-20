@@ -46,7 +46,7 @@ class QuoteReportsService extends FirestoreService {
       .sort(([, amountA], [, amountB]) => amountB - amountA)
       .slice(0, 10);
 
-    return topClients; // Array of [clientId, amount]
+    return [startDateTime, endDateTime, topClients]; // Array of [clientId, amount]
   }
 
   // Services Rendered Report: Total amount by service within a time period
@@ -85,7 +85,7 @@ class QuoteReportsService extends FirestoreService {
         return acc;
       }, {});
 
-    return sortedServiceData; // Object with serviceId as key and total amount as value, sorted by amount
+    return [startDateTime, endDateTime, sortedServiceData]; // Object with serviceId as key and total amount as value, sorted by amount
   }
 
   // Client Risk Profile Report: Calculate risk for each client within a time period
@@ -149,7 +149,7 @@ class QuoteReportsService extends FirestoreService {
       return acc;
     }, {});
 
-    return groupedByRiskLevel; // Object with risk levels as keys and arrays of clients as values
+    return [startDateTime, endDateTime, groupedByRiskLevel]; // Object with risk levels as keys and arrays of clients as values
   }
 }
 
