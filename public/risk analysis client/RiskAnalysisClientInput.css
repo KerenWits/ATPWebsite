@@ -129,7 +129,7 @@ body {
 
 .date-time-block input[type="date"],
 .date-time-block input[type="time"] {
-    width: 100%;
+    width: 98%;
     padding: 10px;
     border: none;
     border-radius: 5px;
