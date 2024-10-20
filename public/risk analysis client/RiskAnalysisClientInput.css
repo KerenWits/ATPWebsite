@@ -37,10 +37,30 @@ body {
       .Navbar li{
         float: left;
       }
-     .Red{
-        color: red;
-     } 
-     /* Headings */
+    header {
+        background-color: #111;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    header nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+    
+    header nav ul li a {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+  
 .Headings h1 {
     text-align: center;
     font-size: 24px;
@@ -183,6 +203,9 @@ footer p {
 
 #social-media a:hover {
     color: #FFF;
+}
+.Red{
+    color: red;
 }
 
     }
