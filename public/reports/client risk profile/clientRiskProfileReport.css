@@ -87,6 +87,12 @@ h1 {
     text-align: center;
     color: red;
 }
+.date{
+    margin-left: 60%;
+}
+.dates{
+    display: inline;
+}
 
 .risk-profile-table {
     width: 100%;

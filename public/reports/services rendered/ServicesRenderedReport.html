@@ -35,9 +35,16 @@
     <section class="mainHeading">
       <h1>Services Rendered</h1>
     </section>
+    
+    <div class="date">
+        <h3 id="startDate" class="dates">01/01/1990</h3>
+        <h3 class="dates"> to </h3>
+        <h3 id="endDate" class="dates">01/01/1990</h3>
+    </div>
+
     <!-- services rendered table -->
     <div class="table-section">
-      <table cellpadding="10" cellspacing="0">
+      <table id="services-table" class="services-table">
         <thead>
           <tr>
             <th>Service Name</th>
@@ -68,6 +75,11 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="print-button-container">
+        <button onclick="window.print()" class="print-btn">Print Report</button>
+    </div>
+    
     </div>
 
     <script type="module" src="services_rendered_report.js"></script>

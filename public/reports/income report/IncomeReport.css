@@ -92,6 +92,13 @@ h1 {
     color: red;
 }
 
+.date{
+    margin-left: 60%;
+}
+.dates{
+    display: inline;
+}
+
 .clients-table {
     width: 100%;
     max-width: 800px;
