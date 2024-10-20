@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // Function to add new data to the table
-  function addData(data) {
-    data.forEach((item) => {
+  async function addData(data) {
+    for (const item of data) {
       const row = table.insertRow();
       const firstName = row.insertCell(0);
       const lastName = row.insertCell(1);
@@ -54,32 +54,69 @@ document.addEventListener("DOMContentLoaded", async function () {
       const phoneNumber = row.insertCell(3);
       const riskRating = row.insertCell(4);
 
-      firstName.textContent = item[0].firstName;
-      lastName.textContent = item[0].lastName;
-      email.textContent = item[0].email;
-      phoneNumber.textContent = item[0].number;
-      riskRating.textContent = item[2];
-      riskRating.className = `${item[2].toLowerCase()}`;
-    });
+      const client = await ClientDA.instance.getClientByID({
+        clientID: item.clientId,
+      });
+
+      firstName.textContent = client.firstName;
+      lastName.textContent = client.lastName;
+      email.textContent = client.email;
+      phoneNumber.textContent = client.number;
+      riskRating.textContent = item.riskLevel;
+      riskRating.className = `${item.riskLevel.toLowerCase()}`;
+    }
   }
 
   // Fetch data and populate the table
-  const passedVar = JSON.parse(localStorage.getItem("passedVar"));
-  console.log("Passed var", passedVar);
-  const profileInfo = [];
+  async function fetchAndPopulateTable() {
+    const passedVar = JSON.parse(localStorage.getItem("passedVar"));
+    console.log("Passed var", passedVar);
 
-  for (const element of passedVar) {
-    const clientID = element.clientId;
-    const averageRisk = element.averageRisk;
-    const riskLevel = element.riskLevel;
-    const client = await ClientDA.instance.getClientByID({
-      clientID: clientID,
+    const highProfile = passedVar["High-Risk"] || [];
+    const mediumProfile = passedVar["Medium-Risk"] || [];
+    const lowProfile = passedVar["Low-Risk"] || [];
+
+    // console.log("High", highProfile);
+    // console.log("Medium", mediumProfile);
+    // console.log("Low", lowProfile);
+
+    // Combine all profiles into one array
+    const allProfiles = [
+      ...highProfile.map((profile) => ({ ...profile, riskLevel: "High-Risk" })),
+      ...mediumProfile.map((profile) => ({
+        ...profile,
+        riskLevel: "Medium-Risk",
+      })),
+      ...lowProfile.map((profile) => ({ ...profile, riskLevel: "Low-Risk" })),
+    ];
+
+    // Fetch client names and sort alphabetically within each risk group
+    const sortedProfiles = await Promise.all(
+      allProfiles.map(async (profile) => {
+        const client = await ClientDA.instance.getClientByID({
+          clientID: profile.clientId,
+        });
+        return { ...profile, client };
+      })
+    );
+
+    sortedProfiles.sort((a, b) => {
+      if (a.riskLevel === b.riskLevel) {
+        return a.client.firstName.localeCompare(b.client.firstName);
+      }
+      if (a.riskLevel === "High-Risk") return -1;
+      if (b.riskLevel === "High-Risk") return 1;
+      if (a.riskLevel === "Medium-Risk") return -1;
+      if (b.riskLevel === "Medium-Risk") return 1;
+      return 0;
     });
-    profileInfo.push([client, averageRisk, riskLevel]);
+
+    // Clear the table and add new data
+    clearTable();
+    await addData(sortedProfiles);
   }
 
-  // Clear the table and add new data
-  clearTable();
-  addData(profileInfo);
+  // Call the function to fetch data and populate the table
+  await fetchAndPopulateTable();
   lc.hide();
 });

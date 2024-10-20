@@ -55,6 +55,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   let service = quote.service;
 
+  const serviceName = document.getElementById("service");
+  serviceName.textContent = service.name;
+
   const questionContainer = document.getElementById("questions-container");
   questionContainer.innerHTML = "";
 
@@ -105,7 +108,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   time.textContent = formattedTime;
 
   const comment = document.getElementById("quote-comment");
-  comment.textContent = quote.comment;
+  if(quote.comment && quote.comment !== ""){
+    comment.textContent = quote.comment;
+  }
+  else {
+    comment.textContent = "N/A";
+  }
   lc.hide();
 
   const amount = document.getElementById("quoteAmount");

@@ -19,7 +19,11 @@ class QuoteReportsService extends FirestoreService {
     const whereConditions = [
       { field: Quote.sEndDateTime, operator: ">=", value: startDateTime },
       { field: Quote.sEndDateTime, operator: "<=", value: endDateTime },
-      { field: Quote.sStatus, operator: "==", value: Quote.sStatusCompleted },
+      {
+        field: Quote.sStatus,
+        operator: "in",
+        value: [Quote.sStatusCompleted, Quote.sStatusReviewed],
+      },
     ];
 
     // console.log("getting data");
@@ -50,7 +54,11 @@ class QuoteReportsService extends FirestoreService {
     const whereConditions = [
       { field: Quote.sEndDateTime, operator: ">=", value: startDateTime },
       { field: Quote.sEndDateTime, operator: "<=", value: endDateTime },
-      { field: Quote.sStatus, operator: "==", value: Quote.sStatusCompleted },
+      {
+        field: Quote.sStatus,
+        operator: "in",
+        value: [Quote.sStatusCompleted, Quote.sStatusReviewed],
+      },
     ];
 
     const quotesSnapshot = await this.getDocuments({
@@ -69,7 +77,15 @@ class QuoteReportsService extends FirestoreService {
       }
     });
 
-    return serviceData; // Object with serviceId as key and total amount as value
+    // Convert serviceData to an array of entries, sort by amount, and convert back to an object
+    const sortedServiceData = Object.entries(serviceData)
+      .sort((a, b) => b[1].amount - a[1].amount)
+      .reduce((acc, [serviceId, data]) => {
+        acc[serviceId] = data;
+        return acc;
+      }, {});
+
+    return sortedServiceData; // Object with serviceId as key and total amount as value, sorted by amount
   }
 
   // Client Risk Profile Report: Calculate risk for each client within a time period
@@ -77,7 +93,11 @@ class QuoteReportsService extends FirestoreService {
     const whereConditions = [
       { field: Quote.sEndDateTime, operator: ">=", value: startDateTime },
       { field: Quote.sEndDateTime, operator: "<=", value: endDateTime },
-      { field: Quote.sStatus, operator: "==", value: Quote.sStatusCompleted },
+      {
+        field: Quote.sStatus,
+        operator: "in",
+        value: [Quote.sStatusCompleted, Quote.sStatusReviewed],
+      },
     ];
 
     const quotesSnapshot = await this.getDocuments({
@@ -93,7 +113,6 @@ class QuoteReportsService extends FirestoreService {
           0
         );
         const averageRisk = totalRisk / quote.raAnswers.length;
-        // console.log("Average risk: ", averageRisk, "Total risk: ", totalRisk);
 
         if (!clientRiskProfiles[quote.clientId]) {
           clientRiskProfiles[quote.clientId] = { totalRisk: 0, count: 0 };
@@ -104,11 +123,8 @@ class QuoteReportsService extends FirestoreService {
       }
     });
 
-    // console.log("Client risk profiles", clientRiskProfiles);
-
     const clientRiskRatings = Object.entries(clientRiskProfiles).map(
       ([clientId, { totalRisk, count }]) => {
-        // console.log("total risk: ", totalRisk, "count: ", count);
         const averageClientRisk = totalRisk / count;
         let riskLevel;
 
@@ -124,7 +140,16 @@ class QuoteReportsService extends FirestoreService {
       }
     );
 
-    return clientRiskRatings; // Array of { clientId, averageRisk, riskLevel }
+    // Group by risk level
+    const groupedByRiskLevel = clientRiskRatings.reduce((acc, client) => {
+      if (!acc[client.riskLevel]) {
+        acc[client.riskLevel] = [];
+      }
+      acc[client.riskLevel].push(client);
+      return acc;
+    }, {});
+
+    return groupedByRiskLevel; // Object with risk levels as keys and arrays of clients as values
   }
 }
 

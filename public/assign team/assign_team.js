@@ -4,6 +4,7 @@ import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 import { UserType } from "/global/enums.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
 const user = JSON.parse(localStorage.getItem("loggedInUser"));
 if (!user || user.userType !== UserType.ADMIN) {
@@ -12,6 +13,9 @@ if (!user || user.userType !== UserType.ADMIN) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  let lc = new LoadingScreen(document);
+  lc.show();
+
   let quote = localStorage.getItem("passedVar");
   //   console.log("stringified quote: ",quote);
   quote = Quote.unStringify(quote);
@@ -92,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         allEmployeeIds.push(employee.id);
       });
       quote.teamIds = allEmployeeIds;
-      quote.status = Quote.sStatusInProgress
+      quote.status = Quote.sStatusInProgress;
       await QuoteDA.instance.updateQuote({
         quote: quote,
       });
@@ -115,6 +119,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const deselectAllBtn = document.getElementById("deselect-all");
   deselectAllBtn.addEventListener("click", deselAll);
+
+  lc.hide();
 });
 
 function deselAll() {

@@ -219,6 +219,7 @@ class QuoteDA {
       if (!quote.service) {
         console.log("Quote does not have service data");
         let allServices = JSON.parse(localStorage.getItem("allServices"));
+        console.log(allServices);
         for (let i = 0; i < allServices.length; i++) {
           const service = allServices[i];
           if (quote.serviceId === service.id) {
