@@ -236,3 +236,30 @@ footer p {
 #social-media a:hover {
     color: #FFF;
 }
+
+.full-answer {
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.show-answer .full-answer {
+    display: inline;
+}
+
+.checkbox-group {
+    margin-top: 20px; /* Add some space above the checkbox group */
+}
+
+.checkbox-group ul {
+    list-style-type: disc; /* Add bullets */
+    padding-left: 20px; /* Indent the list */
+}
+
+.checkbox-group li {
+    margin-bottom: 10px; /* Space between options */
+    font-size: 16px; /* Adjust font size as needed */
+}
+
+.checkbox-group label {
+    cursor: pointer; /* Changes the cursor on hover */
+}

@@ -60,3 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
     addLogout: addlogout,
   });
 });
+
+document.querySelectorAll('.read-more-btn').forEach(button => {
+  button.addEventListener('click', () => {
+      const faqItem = button.parentElement;
+      const fullAnswer = faqItem.querySelector('.full-answer');
+      
+      if (fullAnswer.style.display === 'none') {
+          fullAnswer.style.display = 'inline';
+          button.textContent = 'Read Less';
+      } else {
+          fullAnswer.style.display = 'none';
+          button.textContent = 'Read More';
+      }
+  });
+});
