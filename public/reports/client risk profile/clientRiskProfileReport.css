@@ -87,14 +87,13 @@ h1 {
     text-align: center;
     color: red;
 }
+.date{
+    margin-left: 60%;
+}
 .dates{
-    display: flex;
-    flex-direction: row;
-    margin: 0px 60%;
+    display: inline;
 }
-#startDate,#endDate{
-    margin-inline: 10%;
-}
+
 .risk-profile-table {
     width: 100%;
     max-width: 800px;
