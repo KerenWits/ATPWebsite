@@ -3,6 +3,13 @@ import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
+import { UserType } from "/global/enums.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.CLIENT) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
   const titles = [
@@ -60,57 +67,72 @@ document.addEventListener("DOMContentLoaded", async () => {
   const submitBtn = document.getElementById("submit-review-btn");
   submitBtn.onclick = async (event) => {
     event.preventDefault();
-    const dialog = new ConfirmDialog({
-      document: document,
-      title: "Review?",
-      message: `Add Review for #${quote.id}?`,
-      buttons: ["Review", "Cancel"],
-      callBacks: [
-        async () => {
-          let lc = new LoadingScreen(document);
-          lc.show("Adding Review...");
-          // lc.hide();
-          try {
-            const rating = document.querySelector(
-              ".star-rating input:checked"
-            ).value;
-            const comments = document.getElementById("review").value;
-            // console.log(rating, comments);
-            quote.reviewRating = rating;
-            quote.reviewComments = comments;
-            console.log(quote);
-            await QuoteDA.instance.updateQuote({
-              quote: {
-                [Quote.sId]: quote.id,
-                [Quote.sReviewRating]: rating,
-                [Quote.sReviewComments]: comments,
-              },
-            });
-            lc.hide();
-            const dialog = new ConfirmDialog({
-              document: document,
-              title: "Success",
-              message: `#${quote.id} reviewed successfully.`,
-              buttons: ["Ok"],
-              callBacks: [
-                () => {
-                //   window.location.href = "/quotes/Quotes.html";
+
+    const rating = document.querySelector(".star-rating input:checked");
+    const comments = document.getElementById("review").value.trim();
+
+    if (!rating || !comments) {
+      const dialog = new ConfirmDialog({
+        document: document,
+        title: "Error",
+        message: "Please rate the service and add a comment before submitting.",
+        buttons: ["Ok"],
+        callBacks: [() => {}],
+      });
+    } else {
+      const dialog = new ConfirmDialog({
+        document: document,
+        title: "Review?",
+        message: `Add Review for #${quote.id}?`,
+        buttons: ["Review", "Cancel"],
+        callBacks: [
+          async () => {
+            let lc = new LoadingScreen(document);
+            lc.show("Adding Review...");
+            // lc.hide();
+            try {
+              const rating = document.querySelector(
+                ".star-rating input:checked"
+              ).value;
+              const comments = document.getElementById("review").value;
+              // console.log(rating, comments);
+              quote.reviewRating = rating;
+              quote.reviewComments = comments;
+              console.log(quote);
+              await QuoteDA.instance.updateQuote({
+                quote: {
+                  [Quote.sId]: quote.id,
+                  [Quote.sReviewRating]: rating,
+                  [Quote.sReviewComments]: comments,
+                  [Quote.sStatus]: Quote.sStatusReviewed,
                 },
-              ],
-            });
-          } catch (e) {
-            lc.hide();
-            const dialog = new ConfirmDialog({
-              document: document,
-              title: "Failed",
-              message: `Failed to review #${quote.id}.`,
-              buttons: ["Ok"],
-              callBacks: [() => {}],
-            });
-          }
-        },
-        () => {},
-      ],
-    });
+              });
+              lc.hide();
+              const dialog = new ConfirmDialog({
+                document: document,
+                title: "Success",
+                message: `#${quote.id} reviewed successfully.`,
+                buttons: ["Ok"],
+                callBacks: [
+                  () => {
+                      window.location.href = "/quotes/Quotes.html";
+                  },
+                ],
+              });
+            } catch (e) {
+              lc.hide();
+              const dialog = new ConfirmDialog({
+                document: document,
+                title: "Failed",
+                message: `Failed to review #${quote.id}.`,
+                buttons: ["Ok"],
+                callBacks: [() => {}],
+              });
+            }
+          },
+          () => {},
+        ],
+      });
+    }
   };
 });

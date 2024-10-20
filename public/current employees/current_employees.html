@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>current_employee</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_QX92TKOtMBdlS1wyO0ZjO0HYOE2hotYtpg&s.png " type="image/png">
     <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
@@ -35,11 +36,12 @@
     </section>
     <div class="container">
       <!-- Table to display team members -->
-      <table id="team-table">
+      <table id="all-employees">
         <thead>
           <tr>
-            <th>Member Name</th>
+            <th>Employee Name</th>
             <th>Email</th>
+            <th>Role</th>
             <th id="access_button">Access</th>
           </tr>
         </thead>
@@ -48,68 +50,86 @@
           <tr data-quote="member1">
             <td>John Doe</td>
             <td>john.doe@example.com</td>
-            <td><input type="button" class="button" value="Manage access"/></td>
+            <td>Admin</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
           </tr>
           <tr data-quote="member2">
             <td>Jane Smith</td>
             <td>jane.smith@example.com</td>
-            <td><input type="button" class="button" value="Manage access"/></td>
+            <td>Manager</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
           </tr>
           <tr data-quote="member3">
             <td>Robert Brown</td>
             <td>robert.brown@example.com</td>
-            <td><input type="button" class="button" value="Manage access"/></td>
+            <td>Employee</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
           </tr>
           <tr data-quote="member4">
             <td>Lisa White</td>
             <td>lisa.white@example.com</td>
-            <td><input type="button" class="button" value="Manage access"/></td>
+            <td>Employee</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
           </tr>
         </tbody>
       </table>
-      
     </div>
 
     <section class="mainHeadings">
-        <h1>Other accounts</h1>
-      </section>
+      <h1>Clients</h1>
+    </section>
 
-      <div class="container">
-        <!-- Table to display team members -->
-        <table id="accounts_table">
-          <thead>
-            <tr>
-              <th>Account Holder Name</th>
-              <th>Email</th>
-              <th id="access_button">Access</th>
-            </tr>
-          </thead>
-          <tbody id="accounts">
-            <!-- Placeholder rows -->
-            <tr data-quote="member1">
-              <td>John Doe</td>
-              <td>john.doe@example.com</td>
-              <td><input type="button" class="button" value="Manage access"/></td>
-            </tr>
-            <tr data-quote="member2">
-              <td>Jane Smith</td>
-              <td>jane.smith@example.com</td>
-              <td><input type="button" class="button" value="Manage access"/></td>
-            </tr>
-            <tr data-quote="member3">
-              <td>Robert Brown</td>
-              <td>robert.brown@example.com</td>
-              <td><input type="button" class="button" value="Manage access"/></td>
-            </tr>
-            <tr data-quote="member4">
-              <td>Lisa White</td>
-              <td>lisa.white@example.com</td>
-              <td><input type="button" class="button" value="Manage access"/></td>
-            </tr>
-          </tbody>
-        </table>
-        
-      </div>
+    <div class="container">
+      <!-- Table to display team members -->
+      <table id="all-clients">
+        <thead>
+          <tr>
+            <th>Account Holder Name</th>
+            <th>Email</th>
+            <th id="access_button">Access</th>
+          </tr>
+        </thead>
+        <tbody id="clients">
+          <!-- Placeholder rows -->
+          <tr data-quote="member1">
+            <td>John Doe</td>
+            <td>john.doe@example.com</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
+          </tr>
+          <tr data-quote="member2">
+            <td>Jane Smith</td>
+            <td>jane.smith@example.com</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
+          </tr>
+          <tr data-quote="member3">
+            <td>Robert Brown</td>
+            <td>robert.brown@example.com</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
+          </tr>
+          <tr data-quote="member4">
+            <td>Lisa White</td>
+            <td>lisa.white@example.com</td>
+            <td>
+              <input type="button" class="button" value="Manage access" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Footer -->
     <footer>

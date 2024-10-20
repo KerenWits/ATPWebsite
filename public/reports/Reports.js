@@ -1,11 +1,13 @@
 import createNavBar from "/utilities/navbar.js";
 import QuoteReportsService from "/firebase/reports.js";
+import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
+import { UserType } from "/global/enums.js";
 
-const user = localStorage.getItem("loggedInUser");
-if (!user) {
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.ADMIN) {
   window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   const titles = [
     "Home",
@@ -45,47 +47,68 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log("End date", endDateTime);
     // console.log("Report type", selectedReportType);
 
-    const quoteReportsService = new QuoteReportsService();
+    if (!startDateTime || !endDateTime) {
+      const dialog = new ConfirmDialog({
+        document: document,
+        title: "Error",
+        message: "Please select a date range",
+        buttons: ["Ok"],
+        callBacks: [() => {}],
+      });
+    } else {
+      if (startDateTime > endDateTime) {
+        const dialog = new ConfirmDialog({
+          document: document,
+          title: "Error",
+          message: "Start date cannot be greater than end date",
+          buttons: ["Ok"],
+          callBacks: [() => {}],
+        });
+        return;
+      } else {
+        const quoteReportsService = new QuoteReportsService();
 
-    switch (selectedReportType) {
-      case "Top 10 Client Income":
-        const incomeReport = await quoteReportsService.getIncomeReport(
-          startDateTime,
-          endDateTime
-        );
-        localStorage.setItem("passedVar", JSON.stringify(incomeReport));
-        window.location.href = "/reports/income report/IncomeReport.html";
-        // console.log("Income report", incomeReport);
-        break;
-      case "Services Rendered":
-        const servicesRenderedReport =
-          await quoteReportsService.getServicesRenderedReport(
-            startDateTime,
-            endDateTime
-          );
-        localStorage.setItem(
-          "passedVar",
-          JSON.stringify(servicesRenderedReport)
-        );
-        window.location.href =
-          "/reports/services rendered/ServicesRenderedReport.html";
-        // console.log("Services rendered report", servicesRenderedReport);
-        break;
-      case "Client Risk Profile":
-        const clientRiskProfileReport =
-          await quoteReportsService.getClientRiskProfileReport(
-            startDateTime,
-            endDateTime
-          );
-        // console.log("Client risk profile report", clientRiskProfileReport);
-        localStorage.setItem(
-          "passedVar",
-          JSON.stringify(clientRiskProfileReport)
-        );
-        window.location.href =
-          "/reports/client risk profile/clientRiskProfileReport.html";
-      default:
-        console.log("Invalid report type");
+        switch (selectedReportType) {
+          case "Top 10 Client Income":
+            const incomeReport = await quoteReportsService.getIncomeReport(
+              startDateTime,
+              endDateTime
+            );
+            localStorage.setItem("passedVar", JSON.stringify(incomeReport));
+            window.location.href = "/reports/income report/IncomeReport.html";
+            // console.log("Income report", incomeReport);
+            break;
+          case "Services Rendered":
+            const servicesRenderedReport =
+              await quoteReportsService.getServicesRenderedReport(
+                startDateTime,
+                endDateTime
+              );
+            localStorage.setItem(
+              "passedVar",
+              JSON.stringify(servicesRenderedReport)
+            );
+            window.location.href =
+              "/reports/services rendered/ServicesRenderedReport.html";
+            // console.log("Services rendered report", servicesRenderedReport);
+            break;
+          case "Client Risk Profile":
+            const clientRiskProfileReport =
+              await quoteReportsService.getClientRiskProfileReport(
+                startDateTime,
+                endDateTime
+              );
+            // console.log("Client risk profile report", clientRiskProfileReport);
+            localStorage.setItem(
+              "passedVar",
+              JSON.stringify(clientRiskProfileReport)
+            );
+            window.location.href =
+              "/reports/client risk profile/clientRiskProfileReport.html";
+          default:
+            console.log("Invalid report type");
+        }
+      }
     }
   });
 });

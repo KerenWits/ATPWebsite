@@ -109,13 +109,13 @@ h2 {
 }
 
  /* Existing CSS code remains the same */
-
-.star-rating {
+ .star-rating {
     display: flex;
     justify-content: flex-start;
     width: max-content;
     margin: 0 auto;
     font-size: 2em;
+    direction: rtl; /* Reverse the direction */
 }
 
 .star-rating input {
@@ -132,9 +132,19 @@ h2 {
     color: #FFD700;
 }
 
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #FFD700;
+}
+
+.star-rating label:hover ~ input ~ label {
+    color: #FFD700;
+}
+
 .star-rating input:checked ~ input ~ label {
     color: #FFD700;
 }
+
 
 .star-rating label:hover,
 .star-rating label:hover ~ label {
@@ -182,3 +192,6 @@ footer p {
 #social-media a:hover {
     color: #FFF;
 }
+.Red {
+    color: red;
+  }

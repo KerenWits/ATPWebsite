@@ -5,6 +5,11 @@ import MyUser from "/classes/users/my_user.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 document.addEventListener("DOMContentLoaded", () => {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
   // console.log(user);

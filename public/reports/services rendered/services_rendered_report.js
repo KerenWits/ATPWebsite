@@ -1,5 +1,12 @@
 import createNavBar from "/utilities/navbar.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
+import { UserType } from "/global/enums.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.ADMIN) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const titles = [

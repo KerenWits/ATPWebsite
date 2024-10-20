@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Generate Report</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_QX92TKOtMBdlS1wyO0ZjO0HYOE2hotYtpg&s.png " type="image/png">
     <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
@@ -33,13 +34,13 @@
       <div class="report-box">
         <h2>Generate Report</h2>
         <form action="#">
-          <label for="start-date">Start Date:</label>
+          <label for="start-date" title="Required">Start Date: <span class="Red">*</span></label>
           <input type="date" id="start-date" name="start-date" required />
 
-          <label for="end-date">End Date:</label>
+          <label for="end-date" title="Required">End Date: <span class="Red">*</span></label>
           <input type="date" id="end-date" name="end-date" required />
 
-          <label for="report-type">Select Report Type:</label>
+          <label for="report-type" title="Required">Select Report Type: <span class="Red">*</span></label>
           <select id="report-type" name="report-type" required>
             <option value="Client Risk Profile">Client Risk Profile</option>
             <option value="Top 10 Client Income">Top 10 Client Income</option>

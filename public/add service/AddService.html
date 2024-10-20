@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AddServicePage</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_QX92TKOtMBdlS1wyO0ZjO0HYOE2hotYtpg&s.png " type="image/png">
     <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
@@ -40,7 +41,7 @@
         <div class="service-box">
           <p>Provide the details of the new service you want to add.</p>
           <form id ="add-service-form" action="#">
-            <label for="service-name">Service Name</label>
+            <label for="service-name">Service Name <span class="Red">*</span></label>
             <input
               type="text"
               id="service-name"
@@ -49,7 +50,7 @@
               required
             />
 
-            <label for="service-description">Service Description</label>
+            <label for="service-description">Service Description <span class="Red">*</span></label>
             <textarea
               id="service-description"
               name="service-description"

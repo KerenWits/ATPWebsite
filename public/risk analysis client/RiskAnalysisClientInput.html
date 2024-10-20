@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RiskAnalysisClientInputPage</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_QX92TKOtMBdlS1wyO0ZjO0HYOE2hotYtpg&s.png " type="image/png">
     <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
@@ -73,15 +74,15 @@
     <!-- Date and Time Selection -->
     <div class="date-time-container">
       <div class="date-time-block">
-        <label for="service-date">Select Service Date</label>
+        <label for="service-date" title="This field is required">Select Service Date <span class="Red">*</span></label>
         <input type="date" id="service-date" name="service-date" required />
       </div>
       <div class="date-time-block">
-        <label for="start-time">Select Start Time</label>
+        <label for="start-time" title="This field is required">Select Start Time <span class="Red">*</span></label>
         <input type="time" id="start-time" name="start-time" required />
       </div>
       <div class="date-time-block">
-        <label for="end-time">Select End Time</label>
+        <label for="end-time" title="This field is required">Select End Time <span class="Red">*</span></label>
         <input type="time" id="end-time" name="end-time" required />
       </div>
     </div>
@@ -92,11 +93,12 @@
 
     <!--Comment about service-->
     <div class="comment-container">
-      <label for="service-comments">Additional Comments</label>
+      <label for="service-comments" title="This field is optional">Additional Comments</label>
       <textarea
         id="service-comments"
         name="service-comments"
         placeholder="Enter any additional comments or information here..."
+        title="optional"
       ></textarea>
     </div>
 

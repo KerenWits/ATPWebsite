@@ -3,6 +3,13 @@ import EmployeeDA from "/classes/users/employee_da.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
+import { UserType } from "/global/enums.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.ADMIN) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
   let quote = localStorage.getItem("passedVar");
@@ -14,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     getClient: true,
     rethrowError: false,
   });
-  console.log(quote);
+  // console.log(quote);
 
   const titles = [
     "Home",
@@ -73,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     //check that atleast one member has been selected
     if (checkboxes.length >= 1) {
-      console.log("save the rows");
+      // console.log("save the rows");
       //get the rows
       let rows = getAllSelectedRowIndexes();
       let team = [];
@@ -85,6 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         allEmployeeIds.push(employee.id);
       });
       quote.teamIds = allEmployeeIds;
+      quote.status = Quote.sStatusInProgress
       await QuoteDA.instance.updateQuote({
         quote: quote,
       });

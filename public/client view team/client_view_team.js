@@ -1,8 +1,15 @@
 import createNavBar from "/utilities/navbar.js";
-import { UserType } from "/global/enums.js";
+// import { UserType } from "/global/enums.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
+import { UserType } from "/global/enums.js";
+
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (!user || user.userType !== UserType.EMPLOYEE) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -91,11 +98,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       // console.log(member);
       const row = tbody.insertRow();
       const nameCell = row.insertCell(0);
-      const roleCell = row.insertCell(1);
+      const phoneCell = row.insertCell(1);
       const emailCell = row.insertCell(2);
 
       nameCell.textContent = member.fullName;
-      roleCell.textContent = "Security expert";
+      phoneCell.textContent = member.number;
       emailCell.textContent = member.email;
     });
   };

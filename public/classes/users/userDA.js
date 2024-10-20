@@ -60,55 +60,6 @@ class UserDA {
     }
   }
 
-  async getAllEmployees({ rethrowError = false }) {
-    let where = [
-      { field: MyUser.sUserType, operator: "==", value: UserType.EMPLOYEE },
-    ];
-    let querySnapshot = await this.userFs.getDocuments({
-      whereConditions: where,
-      rethrowError: rethrowError,
-    });
-
-    let employees = [];
-    querySnapshot.forEach((doc) => {
-      let employee = Employee.fromJson({ docID: doc.id, json: doc.data() });
-      employees.push(employee);
-    });
-    return employees;
-  }
-
-  async getAllClients({ rethrowError = false }) {
-    try {
-      let where = [
-        { field: MyUser.sUserType, operator: "==", value: UserType.CLIENT },
-      ];
-      let orderBy = [
-        { field: "firstName", direction: "asc" },
-        { field: "lastName", direction: "asc" },
-      ];
-      // console.log("Executing query with conditions:", where, orderBy);
-      let querySnapshot = await this.userFs.getDocuments({
-        whereConditions: where,
-        orderByFields: orderBy,
-        rethrowError: rethrowError,
-      });
-
-      let clients = [];
-      querySnapshot.forEach((doc) => {
-        let client = Client.fromJson({ docID: doc.id, json: doc.data() });
-        clients.push(client);
-      });
-      // console.log("Query executed successfully, clients:", clients);
-      return clients;
-    } catch (error) {
-      console.error("Error fetching clients:", error);
-      if (rethrowError) {
-        throw error;
-      }
-      return [];
-    }
-  }
-
   async updateUser({ user, rethrowError = false }) {
     try {
       if (!user || !user.id) {
@@ -130,11 +81,37 @@ class UserDA {
       } else {
         updateUser = Employee.fromJson({ docID: docID, json: userData });
       }
-      console.log("After User update in UserDA", updateUser);
+      // console.log("After User update in UserDA", updateUser);
       return updateUser;
     } catch (e) {
       if (rethrowError) throw e;
-      console.log("Error updating user in UserDA:", e);
+      // console.log("Error updating user in UserDA:", e);
+      return false;
+    }
+  }
+
+  async updateUserValues({ userId, data, rethrowError = false }) {
+    try {
+      // console.log("Before User update in UserDA", user);
+      const docSnap = await this.userFs.getNewUpdatedDocument({
+        docID: userId,
+        data: data,
+        rethrowError: rethrowError,
+      });
+      let updateUser;
+      const userType = user.userType;
+      const docID = docSnap.id;
+      const userData = docSnap.data();
+      if (UserType.CLIENT === userType) {
+        updateUser = Client.fromJson({ docID: docID, json: userData });
+      } else {
+        updateUser = Employee.fromJson({ docID: docID, json: userData });
+      }
+      // console.log("After User update in UserDA", updateUser);
+      return updateUser;
+    } catch (e) {
+      if (rethrowError) throw e;
+      // console.log("Error updating user in UserDA:", e);
       return false;
     }
   }

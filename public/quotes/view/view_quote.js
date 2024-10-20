@@ -1,11 +1,20 @@
 import createNavBar from "/utilities/navbar.js";
-import { UserType } from "/global/enums.js";
-import UserDA from "/classes/users/userDA.js";
-import MyUser from "/classes/users/my_user.js";
+import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import Quote from "/classes/quote/quote.js";
 import QuoteDA from "/classes/quote/quote_da.js";
+import { UserType } from "/global/enums.js";
 
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+if (
+  !user ||
+  (user.userType !== UserType.CLIENT && user.userType !== UserType.ADMIN)
+) {
+  window.location.href = "/index.html";
+  // throw new Error("Unauthorized access");
+}
 document.addEventListener("DOMContentLoaded", async () => {
+  let lc = new LoadingScreen(document);
+  lc.show();
   const user = JSON.parse(localStorage.getItem("loggedInUser"));
   let titles = [];
   let links = [];
@@ -29,7 +38,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       "/profile/Profile.html",
     ];
   } else if (user.userType === UserType.ADMIN) {
-    titles = ["Home", "Employees", "Services", "Quotes", "Generate report", "My Profile"];
+    titles = [
+      "Home",
+      "Employees",
+      "Services",
+      "Quotes",
+      "Generate report",
+      "My Profile",
+    ];
     links = [
       "/admin home/Home(Admin).html",
       "/current employees/current_employees.html",
@@ -70,22 +86,72 @@ document.addEventListener("DOMContentLoaded", async () => {
   service.textContent = quote.service.name;
 
   const amount = document.getElementById("amount");
-  amount.textContent = `R ${quote.amount.toLocaleString("en-ZA")}`;
+  if (quote.amount != null) {
+    amount.textContent = `R ${quote.amount.toLocaleString("en-ZA")}`;
+  } else {
+    amount.textContent = "N/A";
+  }
 
-  const startDateTime = document.getElementById("date");
-  startDateTime.textContent = quote.startDateTime.toLocaleDateString("en-GB", {
+  const startDate = document.getElementById("date");
+  startDate.textContent = quote.startDateTime.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 
-  const startTime = document.getElementById("time");
-  startTime.textContent = quote.startDateTime.toLocaleTimeString("en-GB", {
+  const time = document.getElementById("time");
+  const startTime = quote.startDateTime.toLocaleTimeString("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
+  const endTime = quote.endDateTime.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  time.textContent = `${startTime} - ${endTime}`;
 
   const comment = document.getElementById("comment");
-  comment.textContent = quote.comment;
+  if (quote.comment && quote.comment !== "") {
+    comment.textContent = quote.comment;
+  } else {
+    comment.textContent = "N/A";
+  }
+
+  const riskAnalysis = document.getElementById("risk-analysis");
+  riskAnalysis.innerHTML = "";
+  quote.raAnswers.forEach((answer, index) => {
+    const raQ = document.createElement("p");
+    raQ.textContent = `${index + 1}. ${answer.question}`;
+    const raA = document.createElement("p");
+    raA.textContent = `Answer: ${answer.answer === "1" ? "Yes" : "No"}`;
+    riskAnalysis.appendChild(raQ);
+    riskAnalysis.appendChild(raA);
+  });
+
+  const assignedTeam = document.getElementById("assigned-team");
+  assignedTeam.innerHTML = "";
+
+  if (quote.team && quote.team.length > 0) {
+    quote.team.forEach((employee) => {
+      const teamMember = document.createElement("li");
+      teamMember.textContent = employee.fullName;
+      assignedTeam.appendChild(teamMember);
+    });
+  } else {
+    assignedTeam.textContent = "No Assigned Team";
+  }
+
+  const reviewText = document.getElementById("review-text");
+  reviewText.textContent = quote.reviewComments ?? "N/A";
+
+  const reviewRating = document.getElementById("review-stars");
+  if (quote.reviewRating) {
+    reviewRating.textContent = quote.reviewRating;
+  } else {
+    reviewRating.remove();
+  }
+
+  lc.hide();
 });
