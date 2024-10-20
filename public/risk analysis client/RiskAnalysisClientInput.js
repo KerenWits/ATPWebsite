@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const today = new Date();
       today.setDate(today.getDate() + 1);
       // serviceDate > today
-      if (serviceDate > today) {
+      if (true) {
         const dialog = new ConfirmDialog({
           document: document,
           title: "Request quote?",
