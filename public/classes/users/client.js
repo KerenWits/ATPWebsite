@@ -69,7 +69,7 @@ class Client extends MyUser {
   }
 
   static unStringify(parsedClient) {
-    if (typeof parsedClient === UserType.CLIENT) {
+    if (typeof parsedClient === "string") {
       parsedClient = JSON.parse(parsedClient);
     }
     parsedClient[MyUser.sDateCreated] = new Date(parsedClient.dateCreated);

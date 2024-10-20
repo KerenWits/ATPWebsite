@@ -67,7 +67,7 @@ class Employee extends MyUser {
   }
 
   static unStringify(parsedEmployee) {
-    if (typeof parsedEmployee === UserType.EMPLOYEE) {
+    if (typeof parsedEmployee === "string") {
       parsedEmployee = JSON.parse(parsedClient);
     }
     parsedEmployee[MyUser.sDateCreated] = new Date(parsedEmployee.dateCreated);
