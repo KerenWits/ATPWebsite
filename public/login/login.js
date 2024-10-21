@@ -4,6 +4,7 @@ import { UserType } from "/global/enums.js";
 import UserDA from "/classes/users/userDA.js";
 import LoadingScreen from "/utilities/loading_screen/loading_screen.js";
 import ConfirmDialog from "/utilities/dialogs/confirm_dialog.js";
+import MyUser from "/classes/users/my_user.js";
 
 // Prevent spaces in email input
 const emailInput = document.querySelector("#email");
@@ -48,16 +49,21 @@ async function login() {
     await UserDA.instance.getAllUserDataGlobally({ user: user });
 
     lc.hide();
-
-    if (user.userType === UserType.ADMIN) {
-      // // console.log("admin state: ",user.toString());
-      window.location.href = "/admin home/Home(Admin).html";
-    } else if (user.userType === UserType.CLIENT) {
-      // console.log("cleint state: ", user.toString());
-      window.location.href = "/client home/client_home.html";
-    } else if (user.userType === UserType.EMPLOYEE) {
-      //console.log("employee state: ",user.toString());
-      window.location.href = "/employee home/Home(Employee).html";
+    // console.log(user.status);
+    // console.log(MyUser.sStatusActive);
+    if (user.status === MyUser.sStatusActive) {
+      if (user.userType === UserType.ADMIN) {
+        // // console.log("admin state: ",user.toString());
+        window.location.href = "/admin home/Home(Admin).html";
+      } else if (user.userType === UserType.CLIENT) {
+        // console.log("cleint state: ", user.toString());
+        window.location.href = "/client home/client_home.html";
+      } else if (user.userType === UserType.EMPLOYEE) {
+        //console.log("employee state: ",user.toString());
+        window.location.href = "/employee home/Home(Employee).html";
+      }
+    } else {
+      window.location.href = "/deactive/deactive.html";
     }
   } catch (error) {
     lc.hide();
@@ -67,7 +73,7 @@ async function login() {
       title: "Login Error",
       message: "Invalid email or password. Please try again.",
       buttons: ["OK"],
-      callBacks: [() => {}], 
+      callBacks: [() => {}],
     });
   }
 }

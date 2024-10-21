@@ -18,20 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let titles = [];
   let links = [];
   if (user.userType === UserType.ADMIN) {
-    titles = [
-      "Home",
-      "Employees",
-      "Services",
-      "Quotes",
-      "Generate report",
-      "My Profile",
-    ];
+    titles = ["Home", "Services", "My Profile"];
     links = [
       "/admin home/Home(Admin).html",
-      "/current employees/current_employees.html",
       "/services admin/ServicesAdmin.html",
-      "/quotes/admin/Quotes(Admin).html",
-      "/reports/Reports.html",
       "/profile/Profile.html",
     ];
   } else if (user.userType === UserType.CLIENT) {
@@ -41,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "About us",
       "Contact us",
       "FAQs",
-      "Quotes",
       "My Profile",
     ];
     links = [
@@ -50,16 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
       "/about us/AboutUs.html",
       "/contact us/contactUs.html",
       "/FAQ/FAQs.html",
-      "/quotes/Quotes.html",
       "/profile/Profile.html",
     ];
   } else if (user.userType === UserType.EMPLOYEE) {
-    titles = ["Home", "About us", "Contact us", "View teams", "My Profile"];
+    titles = ["Home", "About us", "Contact us", "My Profile"];
     links = [
       "/employee home/Home(Employee).html",
       "/about us/AboutUs.html",
       "/contact us/contactUs.html",
-      "/client view team/clientViewTeam.html",
       "/profile/Profile.html",
     ];
   }
@@ -89,23 +76,22 @@ document.addEventListener("DOMContentLoaded", () => {
   email.textContent = loggedInUser.email;
   phone.textContent = loggedInUser.number;
 
-  const deactivateBtn = document.getElementById("deactivate-button");
-  deactivateBtn.addEventListener("click", () => {
+  const reactivateBtn = document.getElementById("reactivate-button");
+  reactivateBtn.addEventListener("click", () => {
     const dialog = new ConfirmDialog({
       document: document,
-      title: "Deactive account?",
-      // message: `Are you sure you wish to deactivate your account?
-      // This action cannot be undone.
-      // If you wish to use our service again you will need to re-register.`,
-      message: `Are you sure you wish to deactivate your account?`,
-      buttons: ["Deactivate", "Cancel"],
+      title: "Reactivate account?",
+      message: `Would you like to reactivate your account? 
+      This action cannot be undone. 
+      If you wish to use our service again you will need to re-register.`,
+      buttons: ["Reactivate", "Cancel"],
       callBacks: [
         async () => {
           let lc = new LoadingScreen(document);
-          lc.show("Deactivating account...");
+          lc.show("Reactivating account...");
           // lc.hide();
           try {
-            loggedInUser.status = MyUser.sStatusInactive;
+            loggedInUser.status = MyUser.sStatusActive;
             console.log(loggedInUser);
             await UserDA.instance.updateUser({
               user: loggedInUser,
@@ -114,12 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const dialog = new ConfirmDialog({
               document: document,
               title: "Success",
-              message: `Account deactivated successfully.`,
+              message: `Account Reactivated successfully.`,
               buttons: ["Ok"],
               callBacks: [
                 () => {
                   localStorage.clear();
-                  window.location.replace("/index.html");
+                  window.location.replace("/login/login.html");
                 },
               ],
             });
@@ -128,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const dialog = new ConfirmDialog({
               document: document,
               title: "Failed",
-              message: `Account deactivation failed, please try again, ${e.toString()}.`,
+              message: `Account reactivation failed, please try again, ${e.toString()}.`,
               buttons: ["Ok"],
               callBacks: [() => {}],
             });
