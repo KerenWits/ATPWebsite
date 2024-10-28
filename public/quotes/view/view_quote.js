@@ -76,8 +76,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   quoteId.textContent = quote.id;
 
   const status = document.getElementById("status");
-  status.textContent =
-    quote.status.charAt(0).toUpperCase() + quote.status.slice(1);
+  if (quote.status === Quote.sStatusInProgress) {
+    status.textContent = "In Progress";
+  } else {
+    status.textContent =
+      quote.status.charAt(0).toUpperCase() + quote.status.slice(1);
+  }
 
   const clientName = document.getElementById("client-name");
   clientName.textContent = quote.client.fullName;
