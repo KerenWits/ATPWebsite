@@ -81,9 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dialog = new ConfirmDialog({
       document: document,
       title: "Reactivate account?",
-      message: `Would you like to reactivate your account? 
-      This action cannot be undone. 
-      If you wish to use our service again you will need to re-register.`,
+      message: `Would you like to reactivate your account?`,
       buttons: ["Reactivate", "Cancel"],
       callBacks: [
         async () => {
